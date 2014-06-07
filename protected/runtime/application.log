@@ -730,3 +730,12 @@ REQUEST_URI=/cart/upload
 in Z:\home\zphotos.com\protected\forms\UploadForm.php (48)
 in Z:\home\zphotos.com\protected\controllers\CartController.php (16)
 in Z:\home\zphotos.com\public\index.php (14)
+2014/06/07 19:40:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/loading.png".' in Z:\home\zphotos.com\framework\web\CWebApplication.php:286
+Stack trace:
+#0 Z:\home\zphotos.com\framework\web\CWebApplication.php(141): CWebApplication->runController('images/loading....')
+#1 Z:\home\zphotos.com\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 Z:\home\zphotos.com\public\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/loading.png
+HTTP_REFERER=http://zphotos.com/site/index
+---

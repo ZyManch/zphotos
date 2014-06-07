@@ -51,7 +51,7 @@
             }
 
 
-            var form = $('<form style="margin: 0px !important; padding: 0px !important; position: absolute; top: 0px; left: 0px;"' +
+            var form = $('<form style="margin: 0px !important; padding: 0px !important; position: absolute; top: 0px; left: 0px;bottom:0px;right:0px;"' +
                 ' method="' + settings.method + '" enctype="multipart/form-data" action="' + settings.url +'">' +
                 ' <input name="' + settings.name +(settings.multiple ? '[]' : '')+ '" id="'+settings.name+'_input" type="file" ' + (settings.multiple ? ' multiple="true"' : '') + ' /></form>');
 
@@ -67,7 +67,6 @@
 
 
             input.change(function(e){
-
                 form.find('input[type=hidden]').remove();
                 var shouldSubmit = settings.onSubmit.call(button, $(this));
                 if (shouldSubmit) {

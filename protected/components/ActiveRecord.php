@@ -7,4 +7,12 @@
  */
 class ActiveRecord extends CActiveRecord {
 
+
+    public function getErrorsAsText() {
+        $result = array();
+        foreach($this->getErrors() as $key => $errors) {
+            $result[] = $key.': '.implode(',',$errors);
+        }
+        return implode('. ', $result);
+    }
 }

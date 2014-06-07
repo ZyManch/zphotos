@@ -53,9 +53,9 @@
 
             var form = $('<form style="margin: 0px !important; padding: 0px !important; position: absolute; top: 0px; left: 0px;"' +
                 ' method="' + settings.method + '" enctype="multipart/form-data" action="' + settings.url +'">' +
-                ' <input name="' + settings.name + '" type="file" ' + (settings.multiple ? ' multiple="true"' : '') + ' /></form>');
+                ' <input name="' + settings.name +(settings.multiple ? '[]' : '')+ '" id="'+settings.name+'_input" type="file" ' + (settings.multiple ? ' multiple="true"' : '') + ' /></form>');
 
-            var input = form.find('input[name=' + settings.name + ']');
+            var input = form.find('#' + settings.name+'_input');
             input.css('display','block');
             input.css('overflow','hidden');
 

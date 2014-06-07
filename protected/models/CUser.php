@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $email
  * @property string $password
+ * @property string $temporary
  * @property string $status
  * @property string $changed
  */
@@ -28,12 +29,10 @@ class CUser extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('email, password, changed', 'required'),
 			array('email', 'length', 'max'=>64),
 			array('password', 'length', 'max'=>32),
-			array('status', 'length', 'max'=>7),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
+			array('status,changed', 'length', 'max'=>16),
+			array('temporary', 'length', 'max'=>3),
 			array('id, email, password, status, changed', 'safe', 'on'=>'search'),
 		);
 	}

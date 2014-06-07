@@ -9,7 +9,14 @@ class CartController extends Controller {
 
 
 
-    public function actionUpload() {
 
+    public function actionUpload() {
+        $form = new UploadForm();
+        $form->images = CUploadedFile::getInstancesByName('images');;
+        if ($form->validate() && $form->upload()) {
+            print 'success';
+        } else {
+            print $form->getError('images');
+        }
     }
 }

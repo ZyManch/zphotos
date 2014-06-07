@@ -32,7 +32,7 @@ return array(
 	// application components
 	'components'=>array(
 		'user'=>array(
-			// enable cookie-based authentication
+            'class'=>'WebUser',
 			'allowAutoLogin'=>true,
 		),
         'bootstrap'=>array(
@@ -85,5 +85,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+        'salt' => 'salt'
 	),
 );

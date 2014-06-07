@@ -11,19 +11,22 @@ $clientScript->registerScriptFile('js/ajaxupload-v1.2.js');
 $clientScript->registerScript(
     'upload',
     '
-    $("#UploadButton").ajaxUpload({
-        url : "/cart/upload",
+    var $button = $("#upload_button"),
+        $info = $("#info_box");
+    $button.ajaxUpload({
+        url : "'.Yii::app()->getBaseUrl(true).'/cart/upload",
         name: "images",
         multiple: true,
         onSubmit: function() {
-            $("#InfoBox").html("Uploading ... ");
+            $info.html("Uploading ... ");
+            return true;
         },
         onComplete: function(result) {
-            $("#InfoBox").html("File uploaded with result" + result);
+            $info.html("File uploaded with result" + result);
         }
     });',
     CClientScript::POS_READY
 );
 ?>
-<a class="UploadButton" id="UploadButton">UpladFile</a>
-<div id="InfoBox"></div>
+<a id="upload_button">UpladFile</a>
+<div id="info_box"></div>

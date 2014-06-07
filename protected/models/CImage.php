@@ -8,6 +8,7 @@
  * @property string $cart_id
  * @property string $name
  * @property string $filename
+ * @property string $orientation
  * @property integer $width
  * @property integer $height
  * @property integer $margin_left
@@ -36,9 +37,9 @@ class CImage extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cart_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom, changed', 'required'),
-			array('width, height, margin_left, margin_right, margin_top, margin_bottom', 'numerical', 'integerOnly'=>true),
-			array('cart_id', 'length', 'max'=>10),
+			array('cart_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom', 'required'),
+			array('cart_id, width, height, margin_left, margin_right, margin_top, margin_bottom', 'numerical', 'integerOnly'=>true),
+			array('orientation', 'length', 'max'=>10),
 			array('name', 'length', 'max'=>64),
 			array('filename', 'length', 'max'=>128),
 			array('progress', 'length', 'max'=>9),

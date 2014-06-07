@@ -19,6 +19,8 @@ class Controller extends CController
     public function init() {
         parent::init();
         Yii::app()->bootstrap->register();
+        $user = Yii::app()->user;
+        $isGuest = $user->getIsGuest();
         $this->menu = array(
             array('label'=>'Главная', 'url'=>array('/site/index')),
             array('label'=>'О нас', 'url'=>array('/site/page', 'id'=>'about')),
@@ -26,8 +28,8 @@ class Controller extends CController
                 array('label'=>'Цена', 'url'=>array('/site/index')),
                 array('label'=>'Доставка и оплата', 'url'=>array('/site/index')),
             )),
-            array('label'=>'Войти', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-            array('label'=>'Выход ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+            array('label'=>'Войти', 'url'=>array('/site/login'), 'visible'=>$isGuest),
+            array('label'=>'Выход ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!$isGuest)
         );
     }
 }

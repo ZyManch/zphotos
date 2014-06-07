@@ -29,9 +29,11 @@ class CCart extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, name, changed', 'required'),
-			array('user_id, name', 'numerical', 'integerOnly'=>true),
+			array('user_id, name', 'required'),
+			array('user_id', 'numerical', 'integerOnly'=>true),
 			array('progress', 'length', 'max'=>9),
+			array('changed', 'length', 'max'=>20),
+			array('name', 'length', 'max'=>64),
 			array('status', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

@@ -5,25 +5,23 @@
  * It contains the authentication method that checks if the provided
  * data can identity the user.
  */
-class UserIdentity extends CUserIdentity {
+class TemporaryIdentity extends CUserIdentity {
 
-    /** @var  User */
     protected $_user;
 
+    public function __construct() {
+
+    }
+
 	public function authenticate() {
-        /** @var User $user */
-        $user = User::model()->findByAttributes(array('email' => $this->username));
-		if (!$user) {
-            $this->errorCode=self::ERROR_USERNAME_INVALID;
-            return false;
+        $this->_user = new User();
+        $this->_user->temporary = User::YES;
+        if (!$this->_user->save()) {
+            throw new Exception('Ошибка создания временого юзера');
         }
-		if(!$user->checkPassword($this->password)) {
-			$this->errorCode=self::ERROR_PASSWORD_INVALID;
-            return false;
-        }
-        $this->errorCode=self::ERROR_NONE;
-		return true;
-	}
+        $this->errorCode = self::ERROR_NONE;
+        return true;
+    }
 
     /**
      * Returns the unique identifier for the identity.
@@ -46,4 +44,5 @@ class UserIdentity extends CUserIdentity {
     {
         return $this->_user->email;
     }
+
 }

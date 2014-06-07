@@ -48,4 +48,4 @@ if (!isset($htmlOptions['style'])) {
     $htmlOptions['style'] = '';
 }
 $htmlOptions['style'].= 'display:none;';
-echo CHtml::tag('div',$htmlOptions);
+echo CHtml::tag('div',$htmlOptions,'');

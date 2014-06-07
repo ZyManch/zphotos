@@ -739,3 +739,89 @@ Stack trace:
 REQUEST_URI=/images/loading.png
 HTTP_REFERER=http://zphotos.com/site/index
 ---
+2014/06/07 22:33:34 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in Z:\home\zphotos.com\framework\web\CWebApplication.php:286
+Stack trace:
+#0 Z:\home\zphotos.com\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 Z:\home\zphotos.com\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 Z:\home\zphotos.com\public\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2014/06/07 22:46:04 [error] [php] session_regenerate_id() [<a href='function.session-regenerate-id'>function.session-regenerate-id</a>]: Session object destruction failed (Z:\home\zphotos.com\framework\web\CHttpSession.php:181)
+Stack trace:
+#0 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(468): WebUser->changeIdentity()
+#1 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(201): WebUser->restoreFromCookie()
+#2 Z:\home\zphotos.com\framework\base\CModule.php(387): WebUser->init()
+#3 Z:\home\zphotos.com\framework\base\CModule.php(103): CWebApplication->getComponent()
+#4 Z:\home\zphotos.com\protected\components\Controller.php(22): CWebApplication->__get()
+#5 Z:\home\zphotos.com\framework\web\CWebApplication.php(281): SiteController->init()
+#6 Z:\home\zphotos.com\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#7 Z:\home\zphotos.com\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#8 Z:\home\zphotos.com\public\index.php(14): CWebApplication->run()
+REQUEST_URI=/site/index
+in Z:\home\zphotos.com\protected\components\Controller.php (22)
+in Z:\home\zphotos.com\public\index.php (14)
+2014/06/07 23:27:44 [error] [php] session_regenerate_id() [<a href='function.session-regenerate-id'>function.session-regenerate-id</a>]: Session object destruction failed (Z:\home\zphotos.com\framework\web\CHttpSession.php:181)
+Stack trace:
+#0 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(468): WebUser->changeIdentity()
+#1 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(201): WebUser->restoreFromCookie()
+#2 Z:\home\zphotos.com\framework\base\CModule.php(387): WebUser->init()
+#3 Z:\home\zphotos.com\framework\base\CModule.php(103): CWebApplication->getComponent()
+#4 Z:\home\zphotos.com\protected\components\Controller.php(22): CWebApplication->__get()
+#5 Z:\home\zphotos.com\framework\web\CWebApplication.php(281): SiteController->init()
+#6 Z:\home\zphotos.com\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#7 Z:\home\zphotos.com\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#8 Z:\home\zphotos.com\public\index.php(14): CWebApplication->run()
+REQUEST_URI=/site/index
+in Z:\home\zphotos.com\protected\components\Controller.php (22)
+in Z:\home\zphotos.com\public\index.php (14)
+2014/06/07 23:27:44 [error] [php] session_regenerate_id() [<a href='function.session-regenerate-id'>function.session-regenerate-id</a>]: Session object destruction failed (Z:\home\zphotos.com\framework\web\CHttpSession.php:181)
+Stack trace:
+#0 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(468): WebUser->changeIdentity()
+#1 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(201): WebUser->restoreFromCookie()
+#2 Z:\home\zphotos.com\framework\base\CModule.php(387): WebUser->init()
+#3 Z:\home\zphotos.com\framework\base\CModule.php(103): CWebApplication->getComponent()
+#4 Z:\home\zphotos.com\protected\components\Controller.php(22): CWebApplication->__get()
+#5 Z:\home\zphotos.com\framework\web\CWebApplication.php(281): SiteController->init()
+#6 Z:\home\zphotos.com\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#7 Z:\home\zphotos.com\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#8 Z:\home\zphotos.com\public\index.php(14): CWebApplication->run()
+REQUEST_URI=/site/index
+in Z:\home\zphotos.com\protected\components\Controller.php (22)
+in Z:\home\zphotos.com\public\index.php (14)
+2014/06/07 23:43:01 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "images/photo.gif".' in Z:\home\zphotos.com\framework\web\CWebApplication.php:286
+Stack trace:
+#0 Z:\home\zphotos.com\framework\web\CWebApplication.php(141): CWebApplication->runController('images/photo.gi...')
+#1 Z:\home\zphotos.com\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 Z:\home\zphotos.com\public\index.php(14): CApplication->run()
+#3 {main}
+REQUEST_URI=/images/photo.gif
+---
+2014/06/07 23:46:44 [error] [php] session_regenerate_id() [<a href='function.session-regenerate-id'>function.session-regenerate-id</a>]: Session object destruction failed (Z:\home\zphotos.com\framework\web\CHttpSession.php:181)
+Stack trace:
+#0 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(468): WebUser->changeIdentity()
+#1 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(201): WebUser->restoreFromCookie()
+#2 Z:\home\zphotos.com\framework\base\CModule.php(387): WebUser->init()
+#3 Z:\home\zphotos.com\framework\base\CModule.php(103): CWebApplication->getComponent()
+#4 Z:\home\zphotos.com\protected\components\Controller.php(22): CWebApplication->__get()
+#5 Z:\home\zphotos.com\framework\web\CWebApplication.php(281): SiteController->init()
+#6 Z:\home\zphotos.com\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#7 Z:\home\zphotos.com\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#8 Z:\home\zphotos.com\public\index.php(14): CWebApplication->run()
+REQUEST_URI=/site/index
+in Z:\home\zphotos.com\protected\components\Controller.php (22)
+in Z:\home\zphotos.com\public\index.php (14)
+2014/06/07 23:46:44 [error] [php] session_regenerate_id() [<a href='function.session-regenerate-id'>function.session-regenerate-id</a>]: Session object destruction failed (Z:\home\zphotos.com\framework\web\CHttpSession.php:181)
+Stack trace:
+#0 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(468): WebUser->changeIdentity()
+#1 Z:\home\zphotos.com\framework\web\auth\CWebUser.php(201): WebUser->restoreFromCookie()
+#2 Z:\home\zphotos.com\framework\base\CModule.php(387): WebUser->init()
+#3 Z:\home\zphotos.com\framework\base\CModule.php(103): CWebApplication->getComponent()
+#4 Z:\home\zphotos.com\protected\components\Controller.php(22): CWebApplication->__get()
+#5 Z:\home\zphotos.com\framework\web\CWebApplication.php(281): SiteController->init()
+#6 Z:\home\zphotos.com\framework\web\CWebApplication.php(141): CWebApplication->runController()
+#7 Z:\home\zphotos.com\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#8 Z:\home\zphotos.com\public\index.php(14): CWebApplication->run()
+REQUEST_URI=/site/index
+in Z:\home\zphotos.com\protected\components\Controller.php (22)
+in Z:\home\zphotos.com\public\index.php (14)

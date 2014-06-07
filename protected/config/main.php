@@ -14,13 +14,14 @@ return array(
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
+		'application.forms.*',
 		'application.components.*',
 	),
 
 	'modules'=>array(
 		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Enter Your Password Here',
+			'password'=>'080388',
             'generatorPaths'=>array(
                 'bootstrap.gii',
             ),
@@ -41,16 +42,16 @@ return array(
             'class'=>'CThemeManager',
         ),
 		// uncomment the following to enable URLs in path-format
-		/*
 		'urlManager'=>array(
 			'urlFormat'=>'path',
-			'rules'=>array(
+            'showScriptName'=>false,
+            'caseSensitive'=>false,
+            'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		*/
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=zphotos',
 			'emulatePrepare' => true,

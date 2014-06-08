@@ -39,11 +39,15 @@ class UploadForm extends CFormModel {
         $cart = $this->_getCart();
         foreach ($this->images as $picture) {
             $fileName = uniqid().'.'.strtolower($picture->getExtensionName());
-            $filePath = Yii::getPathOfAlias('photos').'/'.$fileName;
+            $image = new Image();
+            $image->name = $picture->name;
+            $image->filename = $fileName;
+            $fileDir = $image->getFileDir();
+            if (!file_exists($fileDir)) {
+                mkdir($fileDir,0777,true);
+            }
+            $filePath = $image->getFilePath();
             if ($picture->saveAs($filePath)) {
-                $image = new Image();
-                $image->name = $picture->name;
-                $image->filename = $fileName;
                 $image->cart_id = $cart->id;
                 $size = getimagesize($filePath);
                 $image->width = $size[0];
@@ -75,6 +79,7 @@ class UploadForm extends CFormModel {
             if (!$cart->save()) {
                 throw new Exception('Ошибка создания альбома:'.$cart->getErrorsAsText());
             }
+            $this->cart_id = $cart->id;
         }
         return $cart;
     }

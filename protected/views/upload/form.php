@@ -37,7 +37,13 @@ $clientScript->registerScript(
             return true;
         },
         onComplete: function(result) {
-            $info.html(result);
+            if (result.substr(0,1) == "/") {
+                location.href = result;
+            } else {
+                $("#myModalLabel").html("Ошибка");
+                $("#myModalBody").html(result);
+                $("#myModal").modal({});
+            }
         }
     });',
     CClientScript::POS_READY

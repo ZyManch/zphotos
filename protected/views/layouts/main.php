@@ -35,8 +35,26 @@
     <div id="footer-spacer"></div>
 </div>
 
+
 <div id="footer">
     Copyright &copy; <?php echo date('Y'); ?> by My Company.
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Ошибка</h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 </body>

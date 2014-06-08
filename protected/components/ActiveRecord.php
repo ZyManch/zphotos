@@ -15,4 +15,12 @@ class ActiveRecord extends CActiveRecord {
         }
         return implode('. ', $result);
     }
+
+
+    public static function model($className=null) {
+        if (is_null($className)) {
+            $className = get_called_class();
+        }
+        return parent::model($className);
+    }
 }

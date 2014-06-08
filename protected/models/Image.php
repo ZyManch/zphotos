@@ -10,6 +10,63 @@ class Image extends CImage {
     const ORIENTATION_HORIZONTAL = 'Horizontal';
     const ORIENTATION_VERTICAL = 'Vertical';
 
+    const PREVIEW_WIDTH = 200;
+
+    /**
+     * @return resource
+     * @throws Exception
+     */
+    public function getGd() {
+        return self::_getGdFromFilename($this->getFilePath());
+    }
+
+    protected static function _getGdFromFilename($filePath) {
+        $extension = pathinfo($filePath,PATHINFO_EXTENSION);
+        if (!file_exists($filePath)) {
+            throw new Exception('Фотография не найдена');
+        }
+        switch ($extension) {
+            case 'jpeg':case 'jpg':
+            return imagecreatefromjpeg($filePath);
+            break;
+            case 'png':
+                return imagecreatefrompng($filePath);
+                break;
+            case 'gif':
+                return imagecreatefromgif($filePath);
+                break;
+            default:
+                throw new Exception('Неизвестный формат изображения');
+        }
+    }
+
+    public function getPreviewGd() {
+        $previewFilename = $this->getPreviewPath();
+        if (file_exists($previewFilename)) {
+            return $this->_getGdFromFilename($previewFilename);
+        }
+        $gd = $this->getGd();
+        $newWidth = self::PREVIEW_WIDTH;
+        $resize = $newWidth / $this->width;
+        $newHeight = $resize * $this->height;
+        $newGd = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newGd, $gd, 0,0,0,0,$newWidth, $newHeight, $this->width, $this->height);
+        imagepng($newGd, $previewFilename);
+        return $newGd;
+    }
+
+    public function getFilePath() {
+        return $this->getFileDir().'/'.$this->filename;
+    }
+
+    public function getPreviewPath() {
+        return $this->getFileDir().'/'.pathinfo($this->filename, PATHINFO_BASENAME).'_preview.png';
+    }
+
+    public function getFileDir() {
+        return Yii::getPathOfAlias('photos').'/'.$this->cart->user->id.'/'.$this->cart_id;
+    }
+
     public function fillAutoMargin() {
         if ($this->width > $this->height) {
             $this->orientation = self::ORIENTATION_HORIZONTAL;

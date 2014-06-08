@@ -10,6 +10,7 @@
  * @property string $progress
  * @property string $status
  * @property string $changed
+ * @property User $user
  */
 class CCart extends ActiveRecord
 {
@@ -49,6 +50,7 @@ class CCart extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'user' => array(self::BELONGS_TO,'User','user_id')
 		);
 	}
 
@@ -95,16 +97,5 @@ class CCart extends ActiveRecord
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
-	}
-
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return CCart the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
 	}
 }

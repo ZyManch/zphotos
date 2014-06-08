@@ -38,6 +38,10 @@ class WebUser extends CWebUser {
     }
 
     public function getIsGuest() {
-        return parent::getIsGuest() || $this->getUser()->temporary == User::YES;
+        return parent::getIsGuest();
+    }
+
+    public function getIsRegistered() {
+        return $this->id && $this->getUser()->temporary == User::NO;
     }
 }

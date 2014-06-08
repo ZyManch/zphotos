@@ -10,12 +10,14 @@ return array(
 	'name'=>'My Web Application',
 	// preloading 'log' component
 	'preload'=>array('log'),
-
+    'sourceLanguage' => 'en',
+    'language' => 'ru',
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
 		'application.forms.*',
 		'application.components.*',
+		'application.controllers.*',
 	),
 
 	'modules'=>array(
@@ -86,6 +88,7 @@ return array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'salt' => 'salt',
-        'price' => 2.00
+        'price' => 2.00,
+        'min_count' => 50
 	),
 );

@@ -38,9 +38,10 @@ class UploadForm extends CFormModel {
 
         $cart = $this->_getCart();
         foreach ($this->images as $picture) {
-            $fileName = uniqid().'.'.strtolower($picture->getExtensionName());
+            $fileName = 'im'.uniqid().'.'.strtolower($picture->getExtensionName());
             $image = new Image();
             $image->name = $picture->name;
+            $image->cart_id = $cart->id;
             $image->filename = $fileName;
             $fileDir = $image->getFileDir();
             if (!file_exists($fileDir)) {
@@ -48,7 +49,6 @@ class UploadForm extends CFormModel {
             }
             $filePath = $image->getFilePath();
             if ($picture->saveAs($filePath)) {
-                $image->cart_id = $cart->id;
                 $size = getimagesize($filePath);
                 $image->width = $size[0];
                 $image->height = $size[1];

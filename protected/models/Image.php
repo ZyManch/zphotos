@@ -11,6 +11,7 @@ class Image extends CImage {
     const ORIENTATION_VERTICAL = 'Vertical';
 
     const PREVIEW_WIDTH = 200;
+    const VIEW_WIDTH = 800;
 
     /**
      * @return resource
@@ -55,16 +56,36 @@ class Image extends CImage {
         return $newGd;
     }
 
+
+    public function getViewGd() {
+        $viewFilename = $this->getViewPath();
+        if (file_exists($viewFilename)) {
+            return $this->_getGdFromFilename($viewFilename);
+        }
+        $gd = $this->getGd();
+        $newWidth = self::VIEW_WIDTH;
+        $resize = $newWidth / $this->width;
+        $newHeight = $resize * $this->height;
+        $newGd = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($newGd, $gd, 0,0,0,0,$newWidth, $newHeight, $this->width, $this->height);
+        imagepng($newGd, $viewFilename);
+        return $newGd;
+    }
+
     public function getFilePath() {
-        return $this->getFileDir().'/'.$this->filename;
+        return $this->getFileDir().$this->filename;
     }
 
     public function getPreviewPath() {
-        return $this->getFileDir().'/'.pathinfo($this->filename, PATHINFO_BASENAME).'_preview.png';
+        return $this->getFileDir().pathinfo($this->filename, PATHINFO_BASENAME).'_preview.png';
+    }
+
+    public function getViewPath() {
+        return $this->getFileDir().pathinfo($this->filename, PATHINFO_BASENAME).'_view.png';
     }
 
     public function getFileDir() {
-        return Yii::getPathOfAlias('photos').'/'.$this->cart->user->id.'/'.$this->cart_id;
+        return Yii::getPathOfAlias('photos').'/'.$this->cart->user->id.'/'.$this->cart_id.'/';
     }
 
     public function fillAutoMargin() {
@@ -77,12 +98,28 @@ class Image extends CImage {
             $this->margin_right = $margin[0];
         } else {
             $this->orientation = self::ORIENTATION_VERTICAL;
-            $margin = $this->_getMargin($this->width, $this->height);
+            $margin = $this->_getMargin($this->height, $this->width);
             $this->margin_top = $margin[0];
             $this->margin_bottom = $margin[0];
             $this->margin_left = $margin[1];
-            $this->margin_right = $margin[2];
+            $this->margin_right = $margin[1];
         }
+    }
+
+    public function getMarginLeft($width) {
+        return round($this->margin_left * $width / $this->width);
+    }
+
+    public function getMarginRight($width) {
+        return round($this->margin_right * $width / $this->width);
+    }
+
+    public function getMarginTop($width) {
+        return round($this->margin_top * $width / $this->width);
+    }
+
+    public function getMarginBottom($width) {
+        return round($this->margin_bottom * $width / $this->width);
     }
 
     /**

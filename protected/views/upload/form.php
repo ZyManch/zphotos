@@ -9,6 +9,7 @@
  * @var $text array
  * @var $uploadId string
  * @var $errorId string
+ * @var $cartId int
  */
 if (!isset($htmlOptions)) {
     $htmlOptions = array();
@@ -28,7 +29,7 @@ $clientScript->registerScript(
     var $button = $("#'.$uploadId.'"),
         $info = $("#'.$errorId.'");
     $button.ajaxUpload({
-        url : "'.Yii::app()->getBaseUrl(true).'/cart/upload",
+        url : "'.CHtml::normalizeUrl(array('cart/upload','id' => $cartId)).'",
         name: "images",
         multiple: true,
         onSubmit: function() {

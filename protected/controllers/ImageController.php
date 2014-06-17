@@ -16,6 +16,25 @@ class ImageController extends Controller {
         imagepng($gd);
     }
 
+    public function actionView($id) {
+        $image = self::loadModel($id);
+        $gd = $image->getViewGd();
+
+        header("Content-type: image/png");
+        imagepng($gd);
+    }
+
+    public function actionUpdate($id) {
+        $image = self::loadModel($id);
+        $this->render('update',array('image' => $image));
+    }
+
+    public function actionDelete($id) {
+        $image = self::loadModel($id);
+        $image->delete();
+        $this->redirect(array('cart/view','id' => $image->cart_id));
+    }
+
     public static function loadModel($imageId) {
         /** @var Image $image */
         $image = Image::model()->findByPk($imageId);

@@ -258,11 +258,32 @@ body
     text-decoration: none;
 }
 .image-preview.edit {
-    float: none;
+    float: left;
     width: 800px;
     border: 1px solid black;
     position: relative;
     z-index: 0;
+}
+.image-preview.edit .image .block.block-top {
+    cursor: n-resize;
+}
+.image-preview.edit .image .block.block-right {
+    cursor: e-resize;
+}
+.image-preview.edit .image .block.block-bottom {
+    cursor: n-resize;
+}
+.image-preview.edit .image .block.block-left {
+    cursor: e-resize;
+}
+.image-preview.edit .image img {
+    cursor: move;
+}
+.image-form {
+    margin-left: 840px;
+    margin-top: 10px;
+    padding: 10px;
+    border-left: 1px solid #eeeeee;
 }
 .clear {
     clear: both;

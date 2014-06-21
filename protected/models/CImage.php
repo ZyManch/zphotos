@@ -71,17 +71,17 @@ class CImage extends ActiveRecord
 		return array(
 			'id' => 'ID',
 			'cart_id' => 'Cart',
-			'name' => 'Name',
-			'filename' => 'Filename',
-			'width' => 'Width',
-			'height' => 'Height',
-			'margin_left' => 'Margin Left',
-			'margin_right' => 'Margin Right',
-			'margin_top' => 'Margin Top',
-			'margin_bottom' => 'Margin Bottom',
-			'progress' => 'Progress',
+			'name' => 'Имя',
+			'filename' => 'Имя файла',
+			'width' => 'Ширина',
+			'height' => 'Высота',
+			'margin_left' => 'Отступ слева',
+			'margin_right' => 'Отступ справа',
+			'margin_top' => 'Отступ сверху',
+			'margin_bottom' => 'Отступ снизу',
+			'progress' => 'Состояние',
 			'status' => 'Status',
-			'changed' => 'Changed',
+			'changed' => 'Последнее изменения',
 		);
 	}
 

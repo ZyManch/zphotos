@@ -38,15 +38,51 @@ class CImage extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cart_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom', 'required'),
-			array('cart_id, width, height, margin_left, margin_right, margin_top, margin_bottom', 'numerical', 'integerOnly'=>true),
-			array('orientation', 'length', 'max'=>10),
-			array('name', 'length', 'max'=>64),
-			array('filename', 'length', 'max'=>128),
-			array('progress', 'length', 'max'=>9),
-			array('status', 'length', 'max'=>7),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
+			array(
+                'cart_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom',
+                'required',
+                'on' => 'insert'
+            ),
+            array(
+                'margin_left, margin_right, margin_top, margin_bottom',
+                'numerical',
+                'integerOnly'=>true,
+            ),
+			array(
+                'cart_id, width, height',
+                'numerical',
+                'integerOnly'=>true,
+                'on' => 'insert'
+            ),
+			array(
+                'orientation',
+                'length',
+                'max'=>10,
+                'on' => 'insert'
+            ),
+			array(
+                'name',
+                'length',
+                'max'=>64
+            ),
+			array(
+                'filename',
+                'length',
+                'max'=>128,
+                'on' => 'insert'
+            ),
+			array(
+                'progress',
+                'length',
+                'max'=>9,
+                'on' => 'insert'
+            ),
+			array(
+                'status',
+                'length',
+                'max'=>7,
+                'on' => 'insert'
+            ),
 			array('id, cart_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom, progress, status, changed', 'safe', 'on'=>'search'),
 		);
 	}

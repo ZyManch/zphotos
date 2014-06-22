@@ -30,7 +30,7 @@ Yii::app()->clientScript->registerScriptFile('/js/resizer.js');
             <div class="block block-left"></div>
             <div class="block block-bottom"></div>
             <div class="block block-right"></div>
-            <img src="<?php echo CHtml::normalizeUrl(array('image/view','id' => $image->id));?>">
+            <img src="<?php echo CHtml::normalizeUrl(array('image/view','id' => $image->id));?>" style="height: <?php echo round(Image::VIEW_WIDTH * $image->height / $image->width);?>px">
         </div>
 
     </div>
@@ -56,11 +56,11 @@ Yii::app()->clientScript->registerScriptFile('/js/resizer.js');
 
         <hr>
         <b>Отступы</b><br>
-        <?php echo $form->numberField($image,'margin_top',array('class'=>'span1','id' => 'image-top')); ?> <i class="icon-arrow-up"></i>
-        <?php echo $form->numberField($image,'margin_bottom',array('class'=>'span1','id' => 'image-bottom')); ?> <i class="icon-arrow-down"></i><br>
+        <?php echo $form->numberField($image,'margin_top',array('class'=>'span1','id' => 'image-top','readonly' => 1)); ?> <i class="icon-arrow-up"></i>
+        <?php echo $form->numberField($image,'margin_bottom',array('class'=>'span1','id' => 'image-bottom','readonly' => 1)); ?> <i class="icon-arrow-down"></i><br>
 
-        <?php echo $form->numberField($image,'margin_right',array('class'=>'span1','id' => 'image-right')); ?> <i class="icon-arrow-right"></i>
-        <?php echo $form->numberField($image,'margin_left',array('class'=>'span1','id' => 'image-left')); ?> <i class="icon-arrow-left"></i>
+        <?php echo $form->numberField($image,'margin_right',array('class'=>'span1','id' => 'image-right','readonly' => 1)); ?> <i class="icon-arrow-right"></i>
+        <?php echo $form->numberField($image,'margin_left',array('class'=>'span1','id' => 'image-left','readonly' => 1)); ?> <i class="icon-arrow-left"></i>
 
         <hr>
         <?php $this->widget('bootstrap.widgets.TbButton', array(

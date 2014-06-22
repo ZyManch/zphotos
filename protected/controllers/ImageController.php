@@ -26,6 +26,15 @@ class ImageController extends Controller {
 
     public function actionUpdate($id) {
         $image = self::loadModel($id);
+        if (isset($_POST['Image'])) {
+            $image->attributes = $_POST['Image'];
+            if (!$image->save()) {
+                Yii::app()->user->setFlash('error','Ошибка сохранения фотографии: '.$image->getErrorsAsText());
+            } else {
+                Yii::app()->user->setFlash('success','Параметры фотографий сохранены');
+            }
+            $this->redirect(array('update','id' => $id));
+        }
         $this->render('update',array('image' => $image));
     }
 

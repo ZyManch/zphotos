@@ -31,6 +31,7 @@
 <?php endif?>
 
 <div id="content">
+    <?php $this->widget('bootstrap.widgets.TbAlert', array()); ?>
     <?php echo $content; ?>
     <div id="footer-spacer"></div>
 </div>

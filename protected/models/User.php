@@ -26,4 +26,13 @@ class User extends CUser {
         return md5($this->id.$password.Yii::app()->params['salt']);
     }
 
+
+    public function getCartProvider($progress = null) {
+        $criteria = new CDbCriteria();
+        $criteria->compare('progress',$progress);
+        $criteria->compare('user_id',$this->id);
+        return new CActiveDataProvider('Cart',array(
+            'criteria' => $criteria
+        ));
+    }
 }

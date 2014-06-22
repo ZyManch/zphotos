@@ -8,6 +8,15 @@
 class CartController extends Controller {
 
 
+    public function actionIndex() {
+        if (Yii::app()->user->isGuest) {
+            $carts = new CArrayDataProvider(array());
+        } else {
+            $carts = Yii::app()->user->getUser()->getCartProvider();
+        }
+        $this->render('index',array('carts' => $carts));
+    }
+
 
 
     public function actionUpload($id = null) {

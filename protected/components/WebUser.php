@@ -9,6 +9,8 @@ class WebUser extends CWebUser {
 
     protected $_user;
 
+    public $guestName='Гость';
+
     /**
      * @return User
      */

@@ -9,10 +9,14 @@
 ?>
 <div class="info tools">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType'=>'submit',
+        'url'=>array('cart/index'),
+        'label'=> 'Мои Альбомы',
+    )); ?>
+
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'url'=>array('purchase/create','id' => $model->id),
         'type'=>'primary',
         'label'=> 'Распечатать',
-        'disabled' => true
     )); ?>
 
     <?php

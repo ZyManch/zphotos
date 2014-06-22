@@ -51,10 +51,11 @@ $this->renderPartial('//upload/form',array(
     </div>
 </div>
 
-<div id="right-top-info" class="panel info">
+<div id="right-top1-info" class="panel info  chelny">
+
+</div>
+<div id="right-top2-info" class="panel info">
     <div  class="info-block">
-
-
     </div>
 </div>
 

@@ -41,7 +41,7 @@ class ImageController extends Controller {
     public function actionDelete($id) {
         $image = self::loadModel($id);
         $image->delete();
-        $this->redirect(array('cart/view','id' => $image->cart_id));
+        $this->redirect(array('album/view','id' => $image->album_id));
     }
 
     public static function loadModel($imageId) {
@@ -50,8 +50,8 @@ class ImageController extends Controller {
         if (!$image) {
             throw new Exception('Изображение не найдено');
         }
-        $cart = CartController::loadModel($image->cart_id);
-        if (!$cart) {
+        $album = AlbumController::loadModel($image->album_id);
+        if (!$album) {
             throw new Exception('Нет доступа к корзине');
         }
         return $image;

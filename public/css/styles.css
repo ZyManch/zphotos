@@ -342,3 +342,72 @@ body
 .clear {
     clear: both;
 }
+.category {
+    width: 400px;
+    float: left;
+    padding: 20px 0px;
+    margin: 10px;
+}
+.category:hover {
+    text-decoration: none;
+    color: #004843;
+}
+.category h2 {
+    font-size: 24px;
+}
+.category .category-image {
+    width: 150px;
+    height: 150px;
+    float: left;
+    text-align: center;
+}
+.category:hover .category-image {
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(183,183,183,0.65) 0%, rgba(255,255,255,0.26) 60%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(183,183,183,0.65)), color-stop(60%,rgba(255,255,255,0.26)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(183,183,183,0.65) 0%,rgba(255,255,255,0.26) 60%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  rgba(183,183,183,0.65) 0%,rgba(255,255,255,0.26) 60%,rgba(255,255,255,0) 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(183,183,183,0.65) 0%,rgba(255,255,255,0.26) 60%,rgba(255,255,255,0) 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(183,183,183,0.65) 0%,rgba(255,255,255,0.26) 60%,rgba(255,255,255,0) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6b7b7b7', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+
+}
+.category .category-info {
+    margin-left: 152px;
+}
+.category img {
+    border-width: 0px;
+    width: 128px;
+    height: 128px;
+}
+.category span {
+    font-size: 26px;
+    text-decoration: none;
+    line-height: 32px;
+}
+.good {
+    width: 500px;
+    float: left;
+    padding: 20px 0px;
+    margin: 10px;
+}
+.good:hover {
+    text-decoration: none;
+}
+.good h2 {
+    font-size: 18px;
+    margin: 0;
+}
+.good .good-image {
+    width: 150px;
+    height: 150px;
+    float: left;
+    text-align: center;
+}
+.good .good-info {
+    margin-left: 152px;
+}
+.good li {
+    color: #0088cc;
+}

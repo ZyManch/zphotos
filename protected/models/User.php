@@ -27,11 +27,11 @@ class User extends CUser {
     }
 
 
-    public function getCartProvider($progress = null) {
+    public function getAlbumProvider($progress = null) {
         $criteria = new CDbCriteria();
         $criteria->compare('progress',$progress);
         $criteria->compare('user_id',$this->id);
-        return new CActiveDataProvider('Cart',array(
+        return new CActiveDataProvider('Album',array(
             'criteria' => $criteria
         ));
     }

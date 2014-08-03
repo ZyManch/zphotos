@@ -9,7 +9,8 @@
  * @var $text array
  * @var $uploadId string
  * @var $errorId string
- * @var $cartId int
+ * @var $albumId int
+ * @var $goodId int
  */
 if (!isset($htmlOptions)) {
     $htmlOptions = array();
@@ -20,6 +21,9 @@ if (!isset($uploadId)) {
 if (!isset($errorId)) {
     $errorId = 'info_box';
 }
+if (!isset($goodId)) {
+    $goodId = Good::DEFAULT_UPLOAD_GOOD_ID;
+}
 $htmlOptions['id'] = $uploadId;
 $clientScript = Yii::app()->clientScript;
 $clientScript->registerScriptFile('js/ajaxupload-v1.2.js');
@@ -29,7 +33,7 @@ $clientScript->registerScript(
     var $button = $("#'.$uploadId.'"),
         $info = $("#'.$errorId.'");
     $button.ajaxUpload({
-        url : "'.CHtml::normalizeUrl(array('cart/upload','id' => $cartId)).'",
+        url : "'.CHtml::normalizeUrl(array('album/upload','id' => $albumId,'good_id' => $goodId)).'",
         name: "images",
         multiple: true,
         onSubmit: function() {

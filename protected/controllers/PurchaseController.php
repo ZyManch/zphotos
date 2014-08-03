@@ -17,14 +17,14 @@ class PurchaseController extends Controller {
 
     public function actionCreate($id = null) {
         $model = new Purchase();
-        if (isset($_POST['carts'])) {
-            var_dump($_POST['carts']);die();
+        if (isset($_POST['albums'])) {
+            var_dump($_POST['albums']);die();
         }
         if ($id) {
-            $cart = CartController::loadModel($id);
+            $album = AlbumController::loadModel($id);
         }
-        $carts = Yii::app()->user->getUser()->getCartProvider('Filling');
-        $this->render('create',array('carts' => $carts,'cart_id' => $id));
+        $albums = Yii::app()->user->getUser()->getAlbumProvider('Filling');
+        $this->render('create',array('albums' => $albums,'album_id' => $id));
     }
 }
 

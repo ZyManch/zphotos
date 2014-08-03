@@ -85,7 +85,7 @@ class Image extends CImage {
     }
 
     public function getFileDir() {
-        return Yii::getPathOfAlias('photos').'/'.$this->cart->user->id.'/'.$this->cart_id.'/';
+        return Yii::getPathOfAlias('photos').'/'.$this->album->user->id.'/'.$this->album_id.'/';
     }
 
     public function fillAutoMargin() {

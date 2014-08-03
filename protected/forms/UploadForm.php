@@ -9,12 +9,13 @@ class UploadForm extends CFormModel {
 
     /** @var CUploadedFile[] */
     public $images = array();
-    public $cart_id;
+    public $album_id;
+    public $good_id;
 
     public function rules() {
         return array(
-            array('images', 'required'),
-            array('cart_id', 'numerical', 'integerOnly'=>true),
+            array('images,good_id', 'required'),
+            array('album_id,good_id', 'numerical', 'integerOnly'=>true),
             array(
                 'images',
                 'file',
@@ -36,12 +37,12 @@ class UploadForm extends CFormModel {
 
     public function upload() {
 
-        $cart = $this->_getCart();
+        $album = $this->_getAlbum();
         foreach ($this->images as $picture) {
             $fileName = 'im'.uniqid().'.'.strtolower($picture->getExtensionName());
             $image = new Image();
             $image->name = $picture->name;
-            $image->cart_id = $cart->id;
+            $image->album_id = $album->id;
             $image->filename = $fileName;
             $fileDir = $image->getFileDir();
             if (!file_exists($fileDir)) {
@@ -62,25 +63,26 @@ class UploadForm extends CFormModel {
         return $this->validate();
     }
 
-    protected function _getCart() {
-        /** @var Cart $cart */
-        $cart = null;
+    protected function _getAlbum() {
+        /** @var Album $album */
+        $album = null;
         $user = Yii::app()->user;
-        if ($this->cart_id && $user->id) {
-            $cart = Cart::model()->findByPk($this->cart_id);
-            if (!$cart || $cart->user_id != $user->id) {
-                $cart = null;
+        if ($this->album_id && $user->id) {
+            $album = Album::model()->findByPk($this->album_id);
+            if (!$album || $album->user_id != $user->id) {
+                $album = null;
             }
         }
-        if (!$cart) {
-            $cart = new Cart();
-            $cart->user_id = $user->getUserOrRegisterTemporary()->id;
-            $cart->name = 'Фотографии '.date('Y-m-d');
-            if (!$cart->save()) {
-                throw new Exception('Ошибка создания альбома:'.$cart->getErrorsAsText());
+        if (!$album) {
+            $album = new Album();
+            $album->user_id = $user->getUserOrRegisterTemporary()->id;
+            $album->good_id = $this->good_id;
+            $album->name = 'Фотографии '.date('Y-m-d');
+            if (!$album->save()) {
+                throw new Exception('Ошибка создания альбома:'.$album->getErrorsAsText());
             }
-            $this->cart_id = $cart->id;
+            $this->album_id = $album->id;
         }
-        return $cart;
+        return $album;
     }
 }

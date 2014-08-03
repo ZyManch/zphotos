@@ -5,7 +5,7 @@
  *
  * The followings are the available columns in table 'image':
  * @property string $id
- * @property string $cart_id
+ * @property string $album_id
  * @property string $name
  * @property string $filename
  * @property string $orientation
@@ -18,7 +18,7 @@
  * @property string $progress
  * @property string $status
  * @property string $changed
- * @property Cart $cart
+ * @property Album $album
  */
 class CImage extends ActiveRecord
 {
@@ -39,7 +39,7 @@ class CImage extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array(
-                'cart_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom',
+                'album_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom',
                 'required',
                 'on' => 'insert'
             ),
@@ -49,7 +49,7 @@ class CImage extends ActiveRecord
                 'integerOnly'=>true,
             ),
 			array(
-                'cart_id, width, height',
+                'album_id, width, height',
                 'numerical',
                 'integerOnly'=>true,
                 'on' => 'insert'
@@ -83,7 +83,7 @@ class CImage extends ActiveRecord
                 'max'=>7,
                 'on' => 'insert'
             ),
-			array('id, cart_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom, progress, status, changed', 'safe', 'on'=>'search'),
+			array('id, album_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom, progress, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,7 +95,7 @@ class CImage extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'cart' => array(self::BELONGS_TO,'Cart','cart_id')
+            'album' => array(self::BELONGS_TO,'Album','album_id')
 		);
 	}
 
@@ -106,7 +106,7 @@ class CImage extends ActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'cart_id' => 'Cart',
+			'album_id' => 'Album',
 			'name' => 'Имя',
 			'filename' => 'Имя файла',
 			'width' => 'Ширина',
@@ -140,7 +140,7 @@ class CImage extends ActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('cart_id',$this->cart_id,true);
+		$criteria->compare('album_id',$this->album_id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('width',$this->width);

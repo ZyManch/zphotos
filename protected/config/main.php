@@ -14,6 +14,7 @@ return array(
     'language' => 'ru',
 	// autoloading model and component classes
 	'import'=>array(
+		'application.models.original.*',
 		'application.models.*',
 		'application.forms.*',
 		'application.components.*',

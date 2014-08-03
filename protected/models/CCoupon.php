@@ -6,13 +6,13 @@
  * The followings are the available columns in table 'coupon':
  * @property string $id
  * @property string $hash
- * @property string $cart_id
+ * @property string $album_id
  * @property string $expired
  * @property string $status
  * @property string $Active
  *
  * The followings are the available model relations:
- * @property Cart $cart
+ * @property Album $album
  * @property Purchase[] $purchases
  */
 class CCoupon extends ActiveRecord
@@ -35,12 +35,12 @@ class CCoupon extends ActiveRecord
 		return array(
 			array('hash, Active', 'required'),
 			array('hash', 'length', 'max'=>64),
-			array('cart_id', 'length', 'max'=>10),
+			array('album_id', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
 			array('expired', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hash, cart_id, expired, status, Active', 'safe', 'on'=>'search'),
+			array('id, hash, album_id, expired, status, Active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,7 +52,7 @@ class CCoupon extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'cart' => array(self::BELONGS_TO, 'Cart', 'cart_id'),
+			'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
 			'purchases' => array(self::HAS_MANY, 'Purchase', 'coupon_id'),
 		);
 	}
@@ -65,7 +65,7 @@ class CCoupon extends ActiveRecord
 		return array(
 			'id' => 'ID',
 			'hash' => 'Hash',
-			'cart_id' => 'Cart',
+			'album_id' => 'Album',
 			'expired' => 'Expired',
 			'status' => 'Status',
 			'Active' => 'Active',
@@ -92,7 +92,7 @@ class CCoupon extends ActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('hash',$this->hash,true);
-		$criteria->compare('cart_id',$this->cart_id,true);
+		$criteria->compare('album_id',$this->album_id,true);
 		$criteria->compare('expired',$this->expired,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('Active',$this->Active,true);

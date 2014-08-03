@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerScriptFile('/js/resizer.js');
 ?>
 <div class="info tools">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'url' => array('cart/view','id' => $image->cart_id),
+        'url' => array('album/view','id' => $image->album_id),
         'type'=>'primary',
         'label'=> 'Назад',
     )); ?>

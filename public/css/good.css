@@ -1,0 +1,25 @@
+.avatar {
+    width: 150px;
+    text-align: center;
+    float: left;
+    border: 0;
+}
+.description {
+    margin-left: 160px;
+}
+.tn3-gallery {
+    width: 100% !important;
+    background-color: transparent !important;
+}
+.tn3-image {
+    width: 100% !important;
+    background-color: transparent !important;
+}
+.tn3-controls-bg {
+    width: 100% !important;
+
+}
+.tn3-thumbs {
+    width: auto !important;
+    right: 98px !important;
+}

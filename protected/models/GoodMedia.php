@@ -9,4 +9,5 @@ class GoodMedia extends CGoodMedia {
 
     const DEFAULT_IMAGE = 'empty.png';
 
+    const FILE_PATH = '/images/good/';
 }

@@ -23,7 +23,10 @@ class Album extends CAlbum {
             case 'Deleted':
                 return 'Удален';
         }
-        switch ($this->progress) {
+        if (!$this->cartHasGood) {
+            return 'Заполняется';
+        }
+        switch ($this->cartHasGood->cart->status) {
             case 'Filling':
                 return 'Ожидание оплаты';
             case 'Purchased':

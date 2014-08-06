@@ -29,8 +29,13 @@ class User extends CUser {
 
     public function getAlbumProvider($progress = null) {
         $criteria = new CDbCriteria();
-        $criteria->compare('progress',$progress);
-        $criteria->compare('user_id',$this->id);
+        $criteria->with = array('cartHasGood.cart');
+        if ($progress=='Filling') {
+            $criteria->addCondition('cartHasGood.cart_id is null');
+        } else {
+            $criteria->compare('cart.progress',$progress);
+        }
+        $criteria->compare('t.user_id',$this->id);
         return new CActiveDataProvider('Album',array(
             'criteria' => $criteria
         ));

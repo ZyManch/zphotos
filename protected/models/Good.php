@@ -55,4 +55,8 @@ class Good extends CGood {
         return $result;
     }
 
+    public function getAvatarMediaPath() {
+        return GoodMedia::FILE_PATH.($this->goodMedia ? $this->goodMedia->filename : GoodMedia::DEFAULT_IMAGE);
+    }
+
 }

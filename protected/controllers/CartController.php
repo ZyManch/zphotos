@@ -5,7 +5,7 @@
  * Date: 22.06.14
  * Time: 11:23
  */
-class PurchaseController extends Controller {
+class CartController extends Controller {
 
     public function init() {
         if (Yii::app()->user->getIsGuest()) {
@@ -15,8 +15,8 @@ class PurchaseController extends Controller {
     }
 
 
-    public function actionCreate($id = null) {
-        $model = new Purchase();
+    public function actionCreate($id = null, $resource_id = null) {
+        $model = new Cart();
         if (isset($_POST['albums'])) {
             var_dump($_POST['albums']);die();
         }

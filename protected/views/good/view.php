@@ -44,7 +44,7 @@ if ($medias) {
             </div>
         <?php endif;?>
         <div class="avatar">
-            <img src="/images/good/<?php echo $model->goodMedia->preview_filename;?>">
+            <img src="<?php echo $model->getAvatarMediaPath();?>">
         </div>
         <div class="description">
             <h1><?php echo $model->title;?></h1>
@@ -65,8 +65,8 @@ if ($medias) {
         <div class="clear"></div>
     </div>
 </div>
-<div class="info">
-    <?php if ($medias):?>
+<?php if ($medias):?>
+    <div class="info">
         <div class="gallery">
             <div class="tn3 album">
                 <h4>Fixed Dimensions</h4>
@@ -92,6 +92,6 @@ if ($medias) {
                 </ol>
             </div>
         </div>
-    <?php endif;?>
     <div class="clear"></div>
 </div>
+<?php endif;?>

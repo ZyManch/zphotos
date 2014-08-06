@@ -13,7 +13,6 @@
  *
  * The followings are the available model relations:
  * @property Album $album
- * @property Purchase[] $purchases
  */
 class CCoupon extends ActiveRecord
 {
@@ -53,7 +52,6 @@ class CCoupon extends ActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
-			'purchases' => array(self::HAS_MANY, 'Purchase', 'coupon_id'),
 		);
 	}
 

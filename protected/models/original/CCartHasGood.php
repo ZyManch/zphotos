@@ -1,27 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "purchase_cart".
+ * This is the model class for table "cart_good".
  *
- * The followings are the available columns in table 'purchase_cart':
- * @property integer $id
- * @property string $purchase_id
- * @property string $album_id
+ * The followings are the available columns in table 'cart_good':
+ * @property string $id
+ * @property string $cart_id
+ * @property string $good_id
+ * @property string $resource_id
+ * @property string $count
+ * @property string $total_price
  * @property string $status
  * @property string $changed
  *
  * The followings are the available model relations:
- * @property Album $album
- * @property Purchase $purchase
+ * @property Cart $cart
+ * @property Good $good
  */
-class CPurchaseCart extends ActiveRecord
+class CCartHasGood extends ActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'purchase_cart';
+		return 'cart_has_good';
 	}
 
 	/**
@@ -32,12 +35,13 @@ class CPurchaseCart extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('purchase_id, album_id, changed', 'required'),
-			array('purchase_id, album_id', 'length', 'max'=>11),
+			array('cart_id, good_id, count, total_price, changed', 'required'),
+			array('cart_id, good_id, resource_id, count', 'length', 'max'=>10),
+			array('total_price', 'length', 'max'=>6),
 			array('status', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, purchase_id, album_id, status, changed', 'safe', 'on'=>'search'),
+			array('id, cart_id, good_id, resource_id, count, total_price, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,8 +53,8 @@ class CPurchaseCart extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
-			'purchase' => array(self::BELONGS_TO, 'Purchase', 'purchase_id'),
+			'cart' => array(self::BELONGS_TO, 'Cart', 'cart_id'),
+			'good' => array(self::BELONGS_TO, 'Good', 'good_id'),
 		);
 	}
 
@@ -61,8 +65,11 @@ class CPurchaseCart extends ActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'purchase_id' => 'Purchase',
-			'album_id' => 'Album',
+			'cart_id' => 'Cart',
+			'good_id' => 'Good',
+			'resource_id' => 'Resource',
+			'count' => 'Count',
+			'total_price' => 'Total Price',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
@@ -86,9 +93,12 @@ class CPurchaseCart extends ActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('purchase_id',$this->purchase_id,true);
-		$criteria->compare('album_id',$this->album_id,true);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('cart_id',$this->cart_id,true);
+		$criteria->compare('good_id',$this->good_id,true);
+		$criteria->compare('resource_id',$this->resource_id,true);
+		$criteria->compare('count',$this->count,true);
+		$criteria->compare('total_price',$this->total_price,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);
 
@@ -101,7 +111,7 @@ class CPurchaseCart extends ActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return CPurchaseCart the static model class
+	 * @return CCartHasGood the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

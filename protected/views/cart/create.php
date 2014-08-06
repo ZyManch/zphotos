@@ -25,7 +25,7 @@
         <h2>Печать</h2>
         <?php $this->widget('bootstrap.widgets.TbListView',array(
             'dataProvider'=>$albums,
-            'itemView'=>'_album',
+            'itemView'=>'_cart',
         )); ?>
     </div>
 </div>

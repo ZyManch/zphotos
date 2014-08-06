@@ -291,14 +291,14 @@ body
     padding: 10px;
     border-left: 1px solid #eeeeee;
 }
-.cart:first-child {
+.album:first-child {
     border-top: 1px dotted black;
 }
-.cart {
+.album {
     border-bottom: 1px dotted black;
     padding: 10px;
 }
-.cart:hover {
+.album:hover {
     background: -moz-linear-gradient(top,  rgba(229,229,229,0.65) 0%, rgba(229,229,229,0.64) 1%, rgba(0,0,0,0) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(229,229,229,0.65)), color-stop(1%,rgba(229,229,229,0.64)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top,  rgba(229,229,229,0.65) 0%,rgba(229,229,229,0.64) 1%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
@@ -308,35 +308,35 @@ body
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6e5e5e5', endColorstr='#00000000',GradientType=0 ); /* IE6-9 */
 
 }
-.cart .image-checkbox {
+.album .image-checkbox {
     width: 60px;
 }
-.cart .name {
+.album .name {
     width: 300px;
 }
-.cart .name label, .cart .name a,.cart .name a:visited {
+.album .name label, .album .name a,.album .name a:visited {
     font-weight: 700;
     color: #000000;
 
 }
-.cart .name a,.cart .name a:visited {
+.album .name a,.album .name a:visited {
     text-decoration: underline;
 }
-.cart .name a:hover {
+.album .name a:hover {
     color: #ff9400;
 }
-.cart .image-checkbox,.cart .name, .cart .image-count, .cart .image-status, .cart .image-date {
+.album .image-checkbox,.album .name, .album .image-count, .album .image-status, .album .image-date {
     display: inline-block;
     color: #a6a6a6;
     padding: 5px;
 }
-.cart .image-count {
+.album .image-count {
     width: 220px;
 }
-.cart .image-status {
+.album .image-status {
     width: 200px;
 }
-.cart .image-date {
+.album .image-date {
 
 }
 .clear {

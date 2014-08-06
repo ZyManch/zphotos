@@ -1,27 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "cart".
+ * This is the model class for table "address".
  *
- * The followings are the available columns in table 'cart':
+ * The followings are the available columns in table 'address':
  * @property string $id
- * @property integer $user_id
- * @property integer $good_id
- * @property integer $name
+ * @property string $user_id
+ * @property integer $address
+ * @property string $comment
  * @property string $status
  * @property string $changed
+ *
+ * The followings are the available model relations:
  * @property User $user
- * @property Image[] $images
- * @property CartHasGood $cartHasGood
+ * @property Cart[] $carts
  */
-class CAlbum extends ActiveRecord
+class CAddress extends ActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'album';
+		return 'address';
 	}
 
 	/**
@@ -32,14 +33,13 @@ class CAlbum extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, name', 'required'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
-			array('changed', 'length', 'max'=>20),
-			array('name', 'length', 'max'=>64),
+			array('user_id, address, comment, changed', 'required'),
+			array('address', 'numerical', 'integerOnly'=>true),
+			array('user_id', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, name, status, changed', 'safe', 'on'=>'search'),
+			array('id, user_id, address, comment, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,9 +51,8 @@ class CAlbum extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'user'   => array(self::BELONGS_TO,'User','user_id'),
-            'images' => array(self::HAS_MANY,'Image','album_id'),
-            'cartHasGood' => array(self::HAS_ONE, 'CartHasGood','resource_id','on' => 'cartHasGood.good_id=t.good_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'carts' => array(self::HAS_MANY, 'Cart', 'address_id'),
 		);
 	}
 
@@ -65,7 +64,8 @@ class CAlbum extends ActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'name' => 'Name',
+			'address' => 'Address',
+			'comment' => 'Comment',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
@@ -90,13 +90,25 @@ class CAlbum extends ActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('user_id',$this->user_id);
-		$criteria->compare('name',$this->name);
+		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('address',$this->address);
+		$criteria->compare('comment',$this->comment,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return CAddress the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 }

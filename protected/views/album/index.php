@@ -10,7 +10,7 @@
 
 <div class="info tools">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'url'=>array('purchase/create'),
+        'url'=>array('cart/create'),
         'type'=>'primary',
         'label'=> 'Распечатать',
     )); ?>

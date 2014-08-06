@@ -18,7 +18,7 @@
     )); ?>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'url'=>array('purchase/create','id' => $model->id),
+        'url'=>array('cart/create','id' => $model->good_id,'resource_id' => $model->id),
         'type'=>'primary',
         'label'=> 'Распечатать',
     )); ?>

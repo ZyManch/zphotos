@@ -9,7 +9,7 @@ if (!isset($category)) {
 ?>
     <a  class="good" href="<?php echo CHtml::normalizeUrl(array('good/view','id'=>$data->id,'category_id' => $category ? $category->id : null));?>">
         <div class="good-image">
-            <img src="/images/good/<?php echo $data->goodMedia->filename;?>">
+            <img src="<?php echo $data->getAvatarMediaPath();?>">
         </div>
         <div class="good-info">
             <h2><?php echo CHtml::encode($data->title); ?></h2>

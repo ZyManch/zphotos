@@ -42,6 +42,8 @@ class Controller extends CController
             array('label'=>'Аккаунт'.($user->name ? ' ('.Yii::app()->user->name.')':''), 'items' => array(
                 array('label'=>'Выход', 'url'=>array('site/logout'), 'visible'=>$isRegistered),
                 array('label'=>'Войти', 'url'=>array('site/login'), 'visible'=>!$isRegistered),
+                array('label' => 'Моя корзина','url'=>array('cart/view'),'visible' => Cart::getCurrent()),
+                array('label' => 'Статус заказов','url'=>array('cart/index'),'visible' => sizeof(Cart::getCarts()) > 0),
                 array('label'=>'Регистрация', 'url'=>array('site/register'), 'visible'=>!$isRegistered),
                 array('label' => 'Альбомы','visible' => $albums,'items'=>$albums),
                 array('label'=>'Очистить историю', 'url'=>array('site/logout'), 'visible'=>!$isGuest && !$isRegistered),

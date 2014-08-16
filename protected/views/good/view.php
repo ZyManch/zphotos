@@ -49,18 +49,44 @@ if ($medias) {
         <div class="description">
             <h1><?php echo $model->title;?></h1>
             <?php echo $model->description;?>
+            <hr>
+            Цена
             <ul>
-                <?php $previousCount = 0;?>
-                <?php foreach ($model->goodPrices as $price):?>
-                    <?php if ($price->count):?>
-                        <li>От <?php echo $previousCount+1;?> до <?php echo $price->count;?> штук <?php echo $price->getHumanPrice();?></li>
-                    <?php else:?>
-                        <li>От <?php echo $previousCount+1;?> штук <?php echo $price->getHumanPrice();?></li>
-                    <?php endif;?>
-                    <?php $previousCount=$price->count;?>
-                <?php endforeach;?>
+                <?php if (sizeof($model->goodPrices)==0):?>
+                    <li>Цена неизвестна</li>
+                <?php elseif (sizeof($model->goodPrices) > 1):?>
+                    <?php $previousCount = 0;?>
+                    <?php foreach ($model->goodPrices as $price):?>
+                        <?php if ($price->count):?>
+                            <li>От <?php echo $previousCount+1;?> до <?php echo $price->count;?> штук <?php echo $price->getHumanPrice();?></li>
+                        <?php else:?>
+                            <li>От <?php echo $previousCount+1;?> штук <?php echo $price->getHumanPrice();?></li>
+                        <?php endif;?>
+                        <?php $previousCount=$price->count;?>
+                    <?php endforeach;?>
+                <?php else: ?>
+                    <li><?php echo $model->goodPrices[0]->getHumanPrice();?></li>
+                <?php endif;?>
             </ul>
+            <?php $total = $model->getCount(Good::COUNT_TOTAL);?>
+            <?php $available = $model->getCount(Good::COUNT_AVAILABLE);?>
+            <?php $locked = $model->getCount(Good::COUNT_LOCKED);?>
+            <?php if ($total):?>
+                <hr>
+                Товаров на складе
+                <div class="progress">
+                    <div class="bar bar-success" style="width: <?php echo round(100*$available/$total);?>%" title="Товаров доступно">
+
+                    </div>
+                    <div class="bar bar-warning" style="width: <?php echo round(100*$locked/$total);?>%" title="Товаров забронировано">
+
+                    </div>
+                </div>
+            <?php endif;?>
+            <hr>
             <?php echo $model->getBuyButton($this); ?>
+
+
         </div>
         <div class="clear"></div>
     </div>

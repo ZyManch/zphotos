@@ -8,7 +8,6 @@
  * @property string $title
  * @property string $description
  * @property string $good_media_id
- * @property integer $count
  * @property string $status
  * @property string $changed
  *
@@ -19,6 +18,7 @@
  * @property GoodPrice[] $goodPrices
  * @property PrintFormat $print
  * @property Category[] $categories
+ * @property GoodCount[] $goodCounts
  */
 class CGood extends ActiveRecord
 {
@@ -39,14 +39,14 @@ class CGood extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, description, type', 'required'),
-			array('count,print_format_id', 'numerical', 'integerOnly'=>true),
+			array('print_format_id', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>256),
 			array('type', 'length', 'max'=>8),
 			array('good_media_id', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, good_media_id, count, status, changed', 'safe', 'on'=>'search'),
+			array('id, title, description, good_media_id, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,6 +60,7 @@ class CGood extends ActiveRecord
 		return array(
 			'categoryHasGoods' => array(self::HAS_MANY, 'CategoryHasGood', 'good_id'),
 			'categories' => array(self::MANY_MANY, 'Category', 'category_has_good(good_id,category_id)'),
+			'goodCounts' => array(self::HAS_MANY, 'GoodCount', 'good_id','order' => 'goodCounts.id ASC'),
 			'goodMedia' => array(self::BELONGS_TO, 'GoodMedia', 'good_media_id'),
 			'goodMedias' => array(self::HAS_MANY, 'GoodMedia', 'good_id'),
 			'goodPrices' => array(self::HAS_MANY, 'GoodPrice', 'good_id','order' => 'goodPrices.price DESC'),
@@ -77,7 +78,6 @@ class CGood extends ActiveRecord
 			'title' => 'Title',
 			'description' => 'Description',
 			'good_media_id' => 'Good Avatar',
-			'count' => 'Count',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
@@ -105,7 +105,6 @@ class CGood extends ActiveRecord
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('good_media_id',$this->good_media_id,true);
-		$criteria->compare('count',$this->count);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);
 

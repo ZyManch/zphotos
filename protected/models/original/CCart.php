@@ -35,10 +35,11 @@ class CCart extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, title, changed', 'required'),
+			array('user_id, title', 'required'),
 			array('user_id, address_id', 'length', 'max'=>10),
 			array('title', 'length', 'max'=>128),
 			array('progress', 'length', 'max'=>9),
+			array('changed', 'length', 'max'=>20),
 			array('status', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -107,14 +108,4 @@ class CCart extends ActiveRecord
 		));
 	}
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return CCart the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
 }

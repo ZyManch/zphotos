@@ -1,27 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "coupon".
+ * This is the model class for table "good_count".
  *
- * The followings are the available columns in table 'coupon':
+ * The followings are the available columns in table 'good_count':
  * @property string $id
- * @property string $hash
- * @property string $album_id
- * @property string $expired
+ * @property string $good_id
+ * @property integer $count_total
+ * @property integer $count_locked
+ * @property integer $count_available
+ * @property string $cost
  * @property string $status
- * @property string $Active
+ * @property string $changed
  *
  * The followings are the available model relations:
- * @property Album $album
+ * @property Good $good
  */
-class CCoupon extends ActiveRecord
+class CGoodCount extends ActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'coupon';
+		return 'good_count';
 	}
 
 	/**
@@ -32,14 +34,14 @@ class CCoupon extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('hash, Active', 'required'),
-			array('hash', 'length', 'max'=>64),
-			array('album_id', 'length', 'max'=>10),
+			array('good_id, changed', 'required'),
+			array('count_total, count_locked, count_available', 'numerical', 'integerOnly'=>true),
+			array('good_id', 'length', 'max'=>10),
+			array('cost', 'length', 'max'=>8),
 			array('status', 'length', 'max'=>7),
-			array('expired', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hash, album_id, expired, status, Active', 'safe', 'on'=>'search'),
+			array('id, good_id, count_total, count_locked, count_available, cost, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,7 +53,7 @@ class CCoupon extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
+			'good' => array(self::BELONGS_TO, 'Good', 'good_id'),
 		);
 	}
 
@@ -62,11 +64,13 @@ class CCoupon extends ActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'hash' => 'Hash',
-			'album_id' => 'Album',
-			'expired' => 'Expired',
+			'good_id' => 'Good',
+			'count_total' => 'Count Total',
+			'count_locked' => 'Count Locked',
+			'count_available' => 'Count Available',
+			'cost' => 'Cost',
 			'status' => 'Status',
-			'Active' => 'Active',
+			'changed' => 'Changed',
 		);
 	}
 
@@ -89,15 +93,16 @@ class CCoupon extends ActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('hash',$this->hash,true);
-		$criteria->compare('album_id',$this->album_id,true);
-		$criteria->compare('expired',$this->expired,true);
+		$criteria->compare('good_id',$this->good_id,true);
+        $criteria->compare('count_total',$this->count_total);
+        $criteria->compare('count_locked',$this->count_locked);
+		$criteria->compare('count_available',$this->count_available);
+		$criteria->compare('cost',$this->cost,true);
 		$criteria->compare('status',$this->status,true);
-		$criteria->compare('Active',$this->Active,true);
+		$criteria->compare('changed',$this->changed,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
 }

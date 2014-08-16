@@ -7,6 +7,10 @@
  */
 class Good extends CGood {
 
+    const COUNT_TOTAL = 'count_total';
+    const COUNT_AVAILABLE = 'count_available';
+    const COUNT_LOCKED = 'count_locked';
+
     const DEFAULT_UPLOAD_GOOD_ID = 1;
     const TYPE_SIMPLE = 'simple';
     const TYPE_PRINT = 'print';
@@ -57,6 +61,24 @@ class Good extends CGood {
 
     public function getAvatarMediaPath() {
         return GoodMedia::FILE_PATH.($this->goodMedia ? $this->goodMedia->filename : GoodMedia::DEFAULT_IMAGE);
+    }
+
+    public function getCount($countType = self::COUNT_TOTAL) {
+        $count = 0;
+        foreach ($this->goodCounts as $goodCount) {
+            $count+=$goodCount->$countType;
+        }
+        return $count;
+    }
+
+    public function getTotalPriceForCount($count) {
+        $totalPrice = 0;
+        foreach ($this->goodPrices as $goodPrice) {
+            if ($goodPrice->count >= $count || is_null($goodPrice->count)) {
+                $totalPrice = $count * $goodPrice->price;
+            }
+        }
+        return $totalPrice;
     }
 
 }

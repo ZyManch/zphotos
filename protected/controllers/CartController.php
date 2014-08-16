@@ -15,16 +15,38 @@ class CartController extends Controller {
     }
 
 
-    public function actionCreate($id = null, $resource_id = null) {
-        $model = new Cart();
-        if (isset($_POST['albums'])) {
-            var_dump($_POST['albums']);die();
+    public function actionAdd($id = null, $resource_id = null, $count = 1, $redirect = '') {
+        $cart = Cart::getCurrent(true);
+        if (!$cart) {
+            throw new Exception('Корзина не найдена');
         }
-        if ($id) {
-            $album = AlbumController::loadModel($id);
+        $good = GoodController::loadModel($id);
+        if ($cart->addGood($good,$count, $resource_id)) {
+            Yii::app()->user->setFlash('success','Товар добавлен в '.CHtml::link('корзину',array('cart/view')));
+        } else {
+            Yii::app()->user->setFlash('error','Ошибка добавления товара в корзину');
         }
-        $albums = Yii::app()->user->getUser()->getAlbumProvider('Filling');
-        $this->render('create',array('albums' => $albums,'album_id' => $id));
+        if (!$redirect) {
+            $redirect = CHtml::normalizeUrl(array('cart/view'));
+        }
+        $this->redirect($redirect);
+
+    }
+
+    public function actionView() {
+        $cart = Cart::getCurrent(true);
+        if (!$cart) {
+            $this->redirect(array('cart/index'));
+        }
+        $this->render('view',array('model' => $cart));
+    }
+
+
+    public static function loadModel($id, $with = array()) {
+        $model = Cart::model()->with($with)->findByPk($id);
+        if($model===null)
+            throw new CHttpException(404,'The requested page does not exist.');
+        return $model;
     }
 }
 

@@ -1,27 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "coupon".
+ * This is the model class for table "cart_has_good_count".
  *
- * The followings are the available columns in table 'coupon':
+ * The followings are the available columns in table 'cart_has_good_count':
  * @property string $id
- * @property string $hash
- * @property string $album_id
- * @property string $expired
+ * @property string $cart_has_good_id
+ * @property string $good_count_id
+ * @property string $count
  * @property string $status
- * @property string $Active
+ * @property string $changed
  *
  * The followings are the available model relations:
- * @property Album $album
+ * @property CartHasGood $cartHasGood
+ * @property GoodCount $goodCount
  */
-class CCoupon extends ActiveRecord
+class CCartHasGoodCount extends ActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'coupon';
+		return 'cart_has_good_count';
 	}
 
 	/**
@@ -32,14 +33,12 @@ class CCoupon extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('hash, Active', 'required'),
-			array('hash', 'length', 'max'=>64),
-			array('album_id', 'length', 'max'=>10),
+			array('cart_has_good_id, good_count_id, count, changed', 'required'),
+			array('cart_has_good_id, good_count_id, count', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
-			array('expired', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hash, album_id, expired, status, Active', 'safe', 'on'=>'search'),
+			array('id, cart_has_good_id, good_count_id, count, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,7 +50,8 @@ class CCoupon extends ActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
+			'cartHasGood' => array(self::BELONGS_TO, 'CartHasGood', 'cart_has_good_id'),
+			'goodCount' => array(self::BELONGS_TO, 'GoodCount', 'good_count_id'),
 		);
 	}
 
@@ -62,11 +62,11 @@ class CCoupon extends ActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'hash' => 'Hash',
-			'album_id' => 'Album',
-			'expired' => 'Expired',
+			'cart_has_good_id' => 'Cart Has Good',
+			'good_count_id' => 'Good Count',
+			'count' => 'Count',
 			'status' => 'Status',
-			'Active' => 'Active',
+			'changed' => 'Changed',
 		);
 	}
 
@@ -89,15 +89,25 @@ class CCoupon extends ActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('hash',$this->hash,true);
-		$criteria->compare('album_id',$this->album_id,true);
-		$criteria->compare('expired',$this->expired,true);
+		$criteria->compare('cart_has_good_id',$this->cart_has_good_id,true);
+		$criteria->compare('good_count_id',$this->good_count_id,true);
+		$criteria->compare('count',$this->count,true);
 		$criteria->compare('status',$this->status,true);
-		$criteria->compare('Active',$this->Active,true);
+		$criteria->compare('changed',$this->changed,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
 
+	/**
+	 * Returns the static model of the specified AR class.
+	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 * @param string $className active record class name.
+	 * @return CCartHasGoodCount the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 }

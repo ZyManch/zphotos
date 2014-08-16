@@ -16,6 +16,7 @@
  * The followings are the available model relations:
  * @property Cart $cart
  * @property Good $good
+ * @property CartHasGoodCount[] $cartHasGoodCounts
  */
 class CCartHasGood extends ActiveRecord
 {
@@ -35,9 +36,10 @@ class CCartHasGood extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cart_id, good_id, count, total_price, changed', 'required'),
+			array('cart_id, good_id, count, total_price', 'required'),
 			array('cart_id, good_id, resource_id, count', 'length', 'max'=>10),
 			array('total_price', 'length', 'max'=>6),
+			array('changed', 'length', 'max'=>20),
 			array('status', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -55,6 +57,7 @@ class CCartHasGood extends ActiveRecord
 		return array(
 			'cart' => array(self::BELONGS_TO, 'Cart', 'cart_id'),
 			'good' => array(self::BELONGS_TO, 'Good', 'good_id'),
+			'cartHasGoodCounts' => array(self::BELONGS_TO, 'CartHasGoodCount', 'cart_has_good_id'),
 		);
 	}
 
@@ -107,14 +110,4 @@ class CCartHasGood extends ActiveRecord
 		));
 	}
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * @param string $className active record class name.
-	 * @return CCartHasGood the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
 }

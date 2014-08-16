@@ -6,7 +6,7 @@ class GoodController extends Controller {
     public $defaultAction = 'view';
 
 	public function actionView($id, $category_id = null)	{
-        $model = $this->loadModel($id);
+        $model = self::loadModel($id);
 		$this->render('view',array(
 			'model'=>$model,
             'category' => $model->getCategory($category_id)
@@ -38,7 +38,7 @@ class GoodController extends Controller {
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model=self::loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -65,7 +65,7 @@ class GoodController extends Controller {
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel($id)->delete();
+			self::loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))
@@ -95,8 +95,7 @@ class GoodController extends Controller {
      * @return Good
      * @throws CHttpException
      */
-    public function loadModel($id, $with = array())
-	{
+    public static function loadModel($id, $with = array()){
 		$model=Good::model()->with($with)->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');

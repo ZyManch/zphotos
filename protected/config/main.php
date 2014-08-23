@@ -15,10 +15,13 @@ return array(
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.original.*',
+		'application.models.good.*',
+		'application.models.cart_has_good.*',
 		'application.models.*',
 		'application.forms.*',
 		'application.components.*',
 		'application.controllers.*',
+        'editable.*'
 	),
 
 	'modules'=>array(
@@ -41,6 +44,14 @@ return array(
         'bootstrap'=>array(
             'class'=>'bootstrap.components.Bootstrap',
         ),
+        'editable' => array(
+            'class'     => 'editable.EditableConfig',
+            'form'      => 'bootstrap',        //form style: 'bootstrap', 'jqueryui', 'plain'
+            'mode'      => 'popup',            //mode: 'popup' or 'inline'
+            'defaults'  => array(              //default settings for all editable elements
+                'emptytext' => 'Click to edit'
+            )
+        ),
         'themeManager'=>array(
             'class'=>'CThemeManager',
         ),
@@ -62,6 +73,17 @@ return array(
 			'password' => '',
 			'charset' => 'utf8',
 		),
+        'robokassa' => array(
+            'class' => 'ext.robokassa.Robokassa',
+            'sMerchantLogin' => 'login',
+            'sMerchantPass1' => 'pass1',
+            'sMerchantPass2' => 'pass2',
+            'sCulture' => 'ru',
+            'sIncCurrLabel' => '',
+            'orderModel' => 'Invoice', // ваша модель для выставления счетов
+            'priceField' => 'amount', // атрибут модели, где хранится сумма
+            'server' => 'our', // тестовый либо боевой режим работы
+        ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',

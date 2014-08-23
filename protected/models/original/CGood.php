@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'good':
  * @property string $id
  * @property string $title
+ * @property string $type
  * @property string $description
  * @property string $good_media_id
  * @property string $status
@@ -19,6 +20,7 @@
  * @property PrintFormat $print
  * @property Category[] $categories
  * @property GoodCount[] $goodCounts
+ * @property Album $album
  */
 class CGood extends ActiveRecord
 {
@@ -39,10 +41,9 @@ class CGood extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title, description, type', 'required'),
-			array('print_format_id', 'numerical', 'integerOnly'=>true),
+			array('print_format_id,good_media_id', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>256),
 			array('type', 'length', 'max'=>8),
-			array('good_media_id', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -65,6 +66,7 @@ class CGood extends ActiveRecord
 			'goodMedias' => array(self::HAS_MANY, 'GoodMedia', 'good_id'),
 			'goodPrices' => array(self::HAS_MANY, 'GoodPrice', 'good_id','order' => 'goodPrices.price DESC'),
 			'print' => array(self::BELONGS_TO, 'PrintFormat', 'print_format_id'),
+			'album' => array(self::BELONGS_TO, 'Album', 'resource_id'),
 		);
 	}
 

@@ -36,7 +36,7 @@ class CCart extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, title', 'required'),
-			array('user_id, address_id', 'length', 'max'=>10),
+			array('user_id, address_id', 'numerical', 'min'=>1),
 			array('title', 'length', 'max'=>128),
 			array('progress', 'length', 'max'=>9),
 			array('changed', 'length', 'max'=>20),
@@ -69,11 +69,11 @@ class CCart extends ActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'title' => 'Title',
-			'progress' => 'Progress',
-			'address_id' => 'Address',
-			'status' => 'Status',
-			'changed' => 'Changed',
+			'title' => 'Название',
+			'progress' => 'Статус',
+			'address_id' => 'Адрес',
+			'status' => 'Статус',
+			'changed' => 'Дата',
 		);
 	}
 

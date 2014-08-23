@@ -17,6 +17,7 @@
  * @property Cart $cart
  * @property Good $good
  * @property CartHasGoodCount[] $cartHasGoodCounts
+ * @property Album $album
  */
 class CCartHasGood extends ActiveRecord
 {
@@ -37,8 +38,8 @@ class CCartHasGood extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('cart_id, good_id, count, total_price', 'required'),
-			array('cart_id, good_id, resource_id, count', 'length', 'max'=>10),
-			array('total_price', 'length', 'max'=>6),
+			array('cart_id, good_id, resource_id, count', 'numerical', 'min'=>1,'integerOnly' => true),
+			array('total_price', 'numerical', 'min'=>0.1),
 			array('changed', 'length', 'max'=>20),
 			array('status', 'length', 'max'=>7),
 			// The following rule is used by search().
@@ -57,7 +58,8 @@ class CCartHasGood extends ActiveRecord
 		return array(
 			'cart' => array(self::BELONGS_TO, 'Cart', 'cart_id'),
 			'good' => array(self::BELONGS_TO, 'Good', 'good_id'),
-			'cartHasGoodCounts' => array(self::BELONGS_TO, 'CartHasGoodCount', 'cart_has_good_id'),
+			'album' => array(self::BELONGS_TO, 'Album', 'resource_id'),
+			'cartHasGoodCounts' => array(self::HAS_MANY, 'CartHasGoodCount', 'cart_has_good_id'),
 		);
 	}
 

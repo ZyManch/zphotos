@@ -25,7 +25,7 @@ class CPrintFormat extends ActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'print';
+		return 'print_format';
 	}
 
 	/**

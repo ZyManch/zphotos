@@ -14,6 +14,9 @@ class CartController extends Controller {
         parent::init();
     }
 
+    public function actionIndex() {
+        $this->render('index',array('items' => Cart::getCarts(array(Cart::FILLING))));
+    }
 
     public function actionAdd($id = null, $resource_id = null, $count = 1, $redirect = '') {
         $cart = Cart::getCurrent(true);
@@ -31,6 +34,37 @@ class CartController extends Controller {
         }
         $this->redirect($redirect);
 
+    }
+
+    public function actionChangeField() {
+        $request = Yii::app()->request;
+        $pk = $request->getParam('pk');
+        $name = $request->getParam('name');
+        $value = $request->getParam('value');
+        if (!$pk || !$name || !$value) {
+            throw new Exception('Некорректный запрос.');
+        }
+        /** @var CartHasGood $cartHasGood */
+        $cartHasGood = CartHasGood::model()->findByPk($pk);
+        if (!$cartHasGood) {
+            throw new Exception('Корзина не найдена');
+        }
+        $cart = $cartHasGood->cart;
+        if ($cart->progress != Cart::FILLING || $cart->user_id != Yii::app()->user->id) {
+            throw new Exception('Нет доступа редактировать корзину');
+        }
+        switch ($name) {
+            case 'count':
+                $delta = $value-$cartHasGood->count;
+                if ($delta > 0) {
+                    $cart->addGood($cartHasGood->good,$delta,$cartHasGood->resource_id);
+                } else {
+                    $cart->removeGood($cartHasGood->good,-$delta,$cartHasGood->resource_id);
+                }
+                break;
+            default:
+                throw new Exception('Корзина не найдена');
+        }
     }
 
     public function actionView() {

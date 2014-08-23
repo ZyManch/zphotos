@@ -8,6 +8,7 @@
  * @var TbActiveForm $form
  */
 Yii::app()->clientScript->registerScriptFile('/js/resizer.js');
+$format = $image->album->good->print;
 ?>
 <div class="info tools">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
@@ -44,12 +45,12 @@ Yii::app()->clientScript->registerScriptFile('/js/resizer.js');
         <?php echo $form->textFieldRow($image,'name',array('class'=>'span3','maxlength'=>11)); ?>
 
         <div>
-            Фотография
+            <?php echo $format->title;?> (
             <?php if ($image->width > $image->height) :?>
-                <b id="image-ratio" ratio="<?php echo 15/10;?>">15x10</b>
+                <b id="image-ratio" ratio="<?php echo $format->getRatio(PrintFormat::ORIENTATION_HORIZONTAL);?>"><?php echo $format->getWideSide();?>x<?php echo $format->getNarrowSide();?></b> мм
             <?php else:?>
-                <b id="image-ratio" ratio="<?php echo 10/15;?>">10x15</b>
-            <?php endif;?><br>
+                <b id="image-ratio" ratio="<?php echo $format->getRatio(PrintFormat::ORIENTATION_VERTICAL);?>"><?php echo $format->getNarrowSide();?>x<?php echo $format->getWideSide();?></b> мм
+            <?php endif;?>)<br>
             Ширина <b id="image-width"><?php echo number_format($image->width);?>px</b><br>
             Высота <b id="image-height"><?php echo number_format($image->height);?>px</b>
         </div>

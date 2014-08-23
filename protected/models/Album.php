@@ -16,6 +16,47 @@ class Album extends CAlbum {
         ));
     }
 
+    public function inCurrentCart() {
+        $cart = Cart::getCurrent(false);
+        if (!$cart) {
+            return false;
+        }
+        return $cart->hasGood($this->good, $this->id);
+    }
+
+    public function inAnyCart() {
+        return sizeof($this->getCartHasGoods()) > 0;
+    }
+
+    /**
+     * @return CartHasGood[]
+     */
+    public function getCartHasGoods() {
+        $criteria = new CDbCriteria();
+        $criteria->with = array('good');
+        $criteria->compare('good.type','print');
+        $criteria->compare('t.resource_id',$this->id);
+        return CartHasGood::model()->findAll($criteria);
+    }
+
+    public function changeGood(GoodPrint $good) {
+        $previousFormat = $this->good->print;
+        $newFormat = $good->print;
+        $this->good_id = $good->id;
+        if (!$this->save()) {
+            return false;
+        }
+        if ($newFormat->weight / $newFormat->height != $previousFormat->width / $previousFormat->height) {
+            foreach ($this->images as $image) {
+                $image->fillAutoMargin();
+                if (!$image->save()) {
+                    throw new Exception('Ошибка изменения отступов изображения');
+                }
+            }
+        }
+        return true;
+    }
+
     public function getProgressText() {
         switch ($this->status) {
             case 'Blocked':
@@ -26,17 +67,6 @@ class Album extends CAlbum {
         if (!$this->cartHasGood) {
             return 'Заполняется';
         }
-        switch ($this->cartHasGood->cart->status) {
-            case 'Filling':
-                return 'Ожидание оплаты';
-            case 'Purchased':
-                return 'Ожидание печати';
-            case 'Printing':
-                return 'Печать';
-            case 'Printed':
-                return 'Доставка';
-            case 'Finished':
-                return 'Завершен';
-        }
+        return $this->cartHasGood->cart->getProgressText();
     }
 }

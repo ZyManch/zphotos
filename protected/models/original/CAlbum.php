@@ -10,9 +10,11 @@
  * @property integer $name
  * @property string $status
  * @property string $changed
+ * @property int $imageCount
  * @property User $user
  * @property Image[] $images
  * @property CartHasGood $cartHasGood
+ * @property GoodPrint $good
  */
 class CAlbum extends ActiveRecord
 {
@@ -33,7 +35,7 @@ class CAlbum extends ActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, name', 'required'),
-			array('user_id', 'numerical', 'integerOnly'=>true),
+			array('user_id,good_id', 'numerical', 'integerOnly'=>true),
 			array('changed', 'length', 'max'=>20),
 			array('name', 'length', 'max'=>64),
 			array('status', 'length', 'max'=>7),
@@ -52,7 +54,9 @@ class CAlbum extends ActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'user'   => array(self::BELONGS_TO,'User','user_id'),
+            'good'   => array(self::BELONGS_TO,'Good','good_id'),
             'images' => array(self::HAS_MANY,'Image','album_id'),
+            'imageCount' => array(self::STAT,'Image','album_id'),
             'cartHasGood' => array(self::HAS_ONE, 'CartHasGood','resource_id','on' => 'cartHasGood.good_id=t.good_id'),
 		);
 	}

@@ -38,6 +38,52 @@ class Cart extends CCart {
         return $cart;
     }
 
+    public function getProgressText() {
+        if ($this->status == 'Deleted') {
+            return 'Удален';
+        }
+        switch ($this->progress) {
+            case self::FILLING:
+                return 'Ожидание оплаты';
+            case self::PURCHASED:
+                return 'Оплачено';
+            case self::PRINTING:
+                return 'Распечатка';
+            case self::PRINTED:
+                return 'Распечатано';
+            case self::POSTAGE:
+                return 'Доставка';
+            case self::FINISHED:
+                return 'Завершено';
+        }
+    }
+
+    public function getProgressPercent() {
+        switch ($this->progress) {
+            case self::FILLING:
+                return 0;
+            case self::PURCHASED:
+                return 20;
+            case self::PRINTING:
+                return 40;
+            case self::PRINTED:
+                return 60;
+            case self::POSTAGE:
+                return 80;
+            case self::FINISHED:
+                return 100;
+        }
+    }
+
+    public function hasGood(Good $good, $resourceId = null) {
+        foreach ($this->cartGoods as $cartHasGood) {
+            if ($cartHasGood->good_id == $good->id && $cartHasGood->resource_id == $resourceId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static function getCarts($excludeProgress = array(self::FILLING)) {
         $criteria = new CDbCriteria();
         $criteria->compare('t.user_id', Yii::app()->user->id);
@@ -48,7 +94,15 @@ class Cart extends CCart {
         return Cart::model()->findAll($criteria);
     }
 
-    public function addGood(Good $good, $count = 1, $resourceId = null) {
+    public function getTotalPrice() {
+        $total = 0;
+        foreach ($this->cartGoods as $cartGood) {
+            $total+=$cartGood->total_price;
+        }
+        return $total;
+    }
+
+    public function addGood(GoodModel $good, $count = 1, $resourceId = null) {
         if ($this->progress != self::FILLING) {
             throw new Exception('You cant add to cart after filling is completed');
         }
@@ -58,6 +112,7 @@ class Cart extends CCart {
         if ($good->getCount(Good::COUNT_AVAILABLE) < $count) {
             throw new Exception('All items is already purchased');
         }
+
         $attributes = array(
             'cart_id' => $this->id,
             'good_id' => $good->id,
@@ -68,11 +123,10 @@ class Cart extends CCart {
         if ($cartHasGood) {
             $cartHasGood->count+=$count;
         } else {
-            $cartHasGood = new CartHasGood();
+            $cartHasGood = $good->createCartHasGood('insert');
             $cartHasGood->attributes = $attributes;
             $cartHasGood->count = $count;
         }
-        $cartHasGood->total_price = $good->getTotalPriceForCount($cartHasGood->count);
         if (!$cartHasGood->save()) {
             throw new Exception('Ошибка сохранения cartHasGood:'.$cartHasGood->getErrorsAsText());
         }
@@ -98,6 +152,59 @@ class Cart extends CCart {
         return true;
     }
 
+    public function removeGood(Good $good, $remove = 1, $resourceId = null) {
+        if ($this->progress != self::FILLING) {
+            throw new Exception('Вы не можете удаляить товар из корзины после того как корзина уже закрыта');
+        }
+
+        $attributes = array(
+            'cart_id' => $this->id,
+            'good_id' => $good->id,
+            'resource_id' => $resourceId
+        );
+        /** @var CartHasGood $cartHasGood */
+        $cartHasGood = CartHasGood::model()->findByAttributes($attributes);
+        if (!$cartHasGood) {
+            throw new Exception('Не найдено из какого склада товар был забронирован');
+        }
+        $cartHasGood->count-=$remove;
+        if ($cartHasGood->count < 0) {
+            throw new Exception('Нельзя убрать товара больше чем есть в корзине');
+        }
+        if (!$cartHasGood->save()) {
+            throw new Exception('Ошибка сохранения cartHasGood:'.$cartHasGood->getErrorsAsText());
+        }
+
+        $needCount = $remove;
+        foreach ($cartHasGood->cartHasGoodCounts as $cartHasGoodCount) {
+            if ($cartHasGoodCount) {
+                if ($cartHasGoodCount->count > $needCount) {
+                    $cartHasGoodCount->count-=$needCount;
+                    if (!$cartHasGoodCount->save()) {
+                        throw new Exception($cartHasGoodCount->getErrorsAsText());
+                    }
+                    $needCount = 0;
+                    break;
+                } else if ($cartHasGoodCount->count == $needCount) {
+                    if (!$cartHasGoodCount->delete()) {
+                        throw new Exception($cartHasGoodCount->getErrorsAsText());
+                    }
+                    $needCount = 0;
+                    break;
+                } else {
+                    $needCount-=$cartHasGoodCount->count;
+                    if (!$cartHasGoodCount->delete()) {
+                        throw new Exception($cartHasGoodCount->getErrorsAsText());
+                    }
+                }
+            }
+        }
+        if ($needCount) {
+            throw new Exception('Ошибка удаления товара');
+        }
+        return true;
+    }
+
     protected function _linkGoodCountWithGood(CartHasGood $cartHasGood, GoodCount $goodCount, $count) {
         $link = new CartHasGoodCount();
         $link->attributes = array(
@@ -105,7 +212,9 @@ class Cart extends CCart {
             'good_count_id' => $goodCount->id,
             'count' => $count
         );
-        return $link->save();
+        if (!$link->save()) {
+            throw new Exception($link->getErrorsAsText());
+        }
     }
 
     public function getCartHasGoodSearch() {

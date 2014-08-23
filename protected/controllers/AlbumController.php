@@ -20,6 +20,7 @@ class AlbumController extends Controller {
 
 
     public function actionUpload($id = null, $good_id = null) {
+        Yii::app()->log->enabled = false;
         $form = new UploadForm();
         $form->images = CUploadedFile::getInstancesByName('images');
         $form->good_id = $good_id ? $good_id : Good::DEFAULT_UPLOAD_GOOD_ID;
@@ -49,6 +50,40 @@ class AlbumController extends Controller {
         }
         else
             throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+    }
+
+    public function actionReset($id) {
+        $album = $this->loadModel($id);
+        foreach ($album->images as $image) {
+            $image->fillAutoMargin();
+            if (!$image->save()) {
+                throw new Exception('Ошибка сброса отступов');
+            }
+        }
+        $this->redirect(array('album/view','id' => $album->id));
+    }
+
+    public function actionChangeField() {
+        $request = Yii::app()->request;
+        $pk = $request->getParam('pk');
+        $name = $request->getParam('name');
+        $value = $request->getParam('value');
+        if (!$pk || !$name || !$value) {
+            throw new Exception('Некорректный запрос.');
+        }
+        $album = self::loadModel($pk);
+        switch ($name) {
+            case 'good_id':
+                /** @var Good $good */
+                $good = GoodController::loadModel($value);
+                if (!$good || $good->type != Good::TYPE_PRINT) {
+                    throw new Exception('Товар не найден');
+                }
+                if (!$album->changeGood($good)) {
+                    throw new Exception('Ошибка сохранения альбома: '.$album->getErrorsAsText());
+                }
+                break;
+        }
     }
 
     /**

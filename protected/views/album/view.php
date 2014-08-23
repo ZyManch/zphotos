@@ -5,23 +5,46 @@
  * Date: 08.06.14
  * Time: 17:48
  * @var Album $model
+ * @var Controller $this
  */
 ?>
 <div class="info tools">
     Всего <?php echo sizeof($model->images);?> изображений.
     Формат печати
-    <?php echo CHtml::activeDropDownList($model,'good_id',GoodPrint::getVariants(),array('onchange' => 'js:alert(this.value);'));?>
+    <?php $this->widget('editable.EditableField', array(
+        'type'      => 'select',
+        'model'     => $model,
+        'attribute' => 'good_id',
+        'source'    => Editable::source(GoodPrint::getVariants()),
+        'url'       => $this->createUrl('album/changeField'),
+        'placement' => 'right',
+        'success'    => 'function() {location.reload();}',
+    ));
+    ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'url'=>array('album/reset','id'=>$model->id),
+        'type'=>'warning',
+        'label'=> 'Сбросить отступы',
+    )); ?>
 
     <?php $this->widget('bootstrap.widgets.TbButton', array(
         'url'=>array('album/index'),
         'label'=> 'Мои Альбомы',
     )); ?>
 
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'url'=>array('cart/create','id' => $model->good_id,'resource_id' => $model->id),
-        'type'=>'primary',
-        'label'=> 'Распечатать',
-    )); ?>
+    <?php if ($model->inCurrentCart()):?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'url'=>array('cart/view'),
+            'type'=>'primary',
+            'label'=> 'Распечатать',
+        )); ?>
+    <?php elseif(!$model->inAnyCart()):?>
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'url'=>array('cart/add','id' => $model->good_id,'resource_id' => $model->id),
+            'type'=>'primary',
+            'label'=> 'Распечатать',
+        )); ?>
+    <?php endif;?>
 
     <?php
     $this->renderPartial('//upload/form',array(

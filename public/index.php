@@ -11,4 +11,5 @@ defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL',3);
 require_once($yii);
 Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../protected/extensions/bootstrap');
 Yii::setPathOfAlias('photos', dirname(__FILE__).'/../photos');
+Yii::setPathOfAlias('editable', dirname(__FILE__).'/../protected/extensions/editable');
 Yii::createWebApplication($config)->run();

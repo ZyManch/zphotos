@@ -15,6 +15,22 @@ class Good extends CGood {
     const TYPE_SIMPLE = 'simple';
     const TYPE_PRINT = 'print';
 
+    const UNLIMITED = 999999;
+
+    protected static $_cache = array();
+
+    /**
+     * @param $id
+     * @return GoodModel
+     */
+    public static function getFromCache($id) {
+        if (isset(self::$_cache[$id])) {
+            return self::$_cache[$id];
+        }
+        self::$_cache[$id] = self::model()->findByPk($id);
+        return self::$_cache[$id];
+    }
+
     protected function instantiate($attributes) {
         /** @var CGood $model */
         switch ($attributes['type']) {
@@ -66,6 +82,9 @@ class Good extends CGood {
     public function getCount($countType = self::COUNT_TOTAL) {
         $count = 0;
         foreach ($this->goodCounts as $goodCount) {
+            if (is_null($goodCount->count_total)) {
+                return self::UNLIMITED;
+            }
             $count+=$goodCount->$countType;
         }
         return $count;

@@ -60,6 +60,8 @@ class arrayDumper
 	private static $_output;
 	private static $_depth;
 
+    public $enabled = true;
+
 	/**
 	 * Displays a variable.
 	 * This method achieves the similar functionality as var_dump and print_r
@@ -517,7 +519,7 @@ class XWebDebugRouter extends CLogRoute
 		}
 
 		//Checking for an AJAX Requests
-		if(!($app instanceof CWebApplication) || $app->getRequest()->getIsAjaxRequest()) return;
+		if(!$this->enabled || !($app instanceof CWebApplication) || $app->getRequest()->getIsAjaxRequest()) return;
 
 		//Checking for an DEBUG mode of running app
 		if (isset($config['runInDebug']) && (!DEFINED('YII_DEBUG') || YII_DEBUG == false)) return;
@@ -529,9 +531,6 @@ class XWebDebugRouter extends CLogRoute
 		$items[] = yiiDebugTime::getInfo($logs);
 		$items[] = yiiDebugDB::getInfo($logs);
 		$items[] = yiiDebugTrace::getInfo($logs);
-        if (class_exists('Core_Module_Client_Client', false)) {
-            $items[] = yiiDebugRest::getInfo();
-        }
 
 		$panel = new yiiDebugPanel();
 		$panel->render($items, $config);

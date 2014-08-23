@@ -13,6 +13,29 @@ class Image extends CImage {
     const PREVIEW_WIDTH = 200;
     const VIEW_WIDTH = 800;
 
+
+    public function save($runValidation=true,$attributes=null) {
+        $isNew = $this->isNewRecord;
+        if (!parent::save($runValidation, $attributes)) {
+            return false;
+        }
+        if ($isNew) {
+            foreach ($this->album->getCartHasGoods() as $cartHasGood) {
+                $cartHasGood->save();
+            }
+        }
+        return true;
+    }
+
+    public function delete() {
+        if (!parent::delete()) {
+            return false;
+        }
+        foreach ($this->album->getCartHasGoods() as $cartHasGood) {
+            $cartHasGood->save();
+        }
+        return true;
+    }
     /**
      * @return resource
      * @throws Exception
@@ -128,14 +151,21 @@ class Image extends CImage {
      * @return array [margin for wide, margin for narrow]
      */
     protected function _getMargin($wide, $narrow) {
-        if ($wide / 15 < $narrow / 10) {
+        $format = $this->album->good->print;
+        if (!$format) {
+            throw new Exception('Формат изображения не найден');
+        }
+        $wideOriginal =  $format->getWideSide();
+        $narrowOriginal =  $format->getNarrowSide();
+
+        if ($wide / $wideOriginal < $narrow / $narrowOriginal) {
             return array(
                 0, // margin_for_wide
-                ceil(($narrow - $wide * 10 / 15)/2)
+                ceil(($narrow - $wide * $narrowOriginal / $wideOriginal)/2)
             );
         } else {
             return array(
-                ceil(($wide - $narrow * 15 / 10)/2),
+                ceil(($wide - $narrow * $wideOriginal / $narrowOriginal)/2),
                 0
             );
         }

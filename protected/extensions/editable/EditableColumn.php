@@ -1,116 +1,149 @@
 <?php
 /**
  * EditableColumn class file.
- * 
- * This widget makes editable column in GridView
- * 
+ *
  * @author Vitaliy Potapov <noginsk@rambler.ru>
- * @link https://github.com/vitalets/yii-bootstrap-editable
+ * @link https://github.com/vitalets/x-editable-yii
  * @copyright Copyright &copy; Vitaliy Potapov 2012
- * @license http://www.opensource.org/licenses/bsd-license.php New BSD License
- * @version 1.0.0
+ * @version 1.3.1
  */
 
-Yii::import('ext.editable.EditableField');
+Yii::import('editable.EditableField');
 Yii::import('zii.widgets.grid.CDataColumn');
 
+/**
+ * EditableColumn widget makes editable one column in CGridView.
+ *
+ * @package widgets
+ */
 class EditableColumn extends CDataColumn
 {
-    //editable params
+    /**
+    * @var array editable config options.
+    * @see EditableField config
+    */
     public $editable = array();
-
-    //flag to render client script only once
-    protected $isScriptRendered = false;
 
     public function init()
     {
-        if (!$this->grid->dataProvider instanceOf CActiveDataProvider) {
-            throw new CException('EditableColumn can be applied only to grid based on CActiveDataProvider');
-        }
         if (!$this->name) {
             throw new CException('You should provide name for EditableColumn');
         }
 
         parent::init();
-        
-        if($this->isEditable($this->grid->dataProvider->model)) {
-            $this->attachAjaxUpdateEvent();
-        }
-    }
 
-    protected function renderDataCellContent($row, $data)
+        //need to attach ajaxUpdate handler to refresh editables on pagination and sort
+        Editable::attachAjaxUpdateEvent($this->grid);
+    }
+   
+    //protected was removed due to https://github.com/vitalets/x-editable-yii/issues/63
+    public function renderDataCellContent($row, $data)
     {
-        if(!$this->isEditable($data)) {
-            parent::renderDataCellContent($row, $data);
-            return; 
+        $isModel = $data instanceOf CModel;
+        
+        if($isModel) {
+            $widgetClass = 'EditableField';
+            $options = array(
+                'model'        => $data,
+                'attribute'    => empty($this->editable['attribute']) ? $this->name : $this->editable['attribute'],
+            );
+            
+            //if value defined in column config --> we should evaluate it 
+            //and pass to widget via `text` option: set flag `passText` = true 
+            $passText = !empty($this->value);     
+        } else {
+            $widgetClass = 'Editable';
+            $options = array(
+                'pk'           => $data[$this->grid->dataProvider->keyField],
+                'name'         => empty($this->editable['name']) ? $this->name : $this->editable['name'],
+            );
+            
+            $passText = true;
+            //if autotext will be applied, do not pass `text` option (pass `value` instead)
+            if(empty($this->value) && Editable::isAutotext($this->editable, isset($this->editable['type']) ? $this->editable['type'] : '')) {
+               $options['value'] = $data[$this->name]; 
+               $passText = false;
+            } 
         }
         
-        $options = CMap::mergeArray($this->editable, array(
-            'model'     => $data,
-            'attribute' => $this->name,
-        ));
+        //for live update
+        $options['liveTarget'] = $this->grid->id;
         
+        $options = CMap::mergeArray($this->editable, $options);
+
         //if value defined for column --> use it as element text
-        if(strlen($this->value)) {
+        if($passText) {
             ob_start();
             parent::renderDataCellContent($row, $data);
             $text = ob_get_clean();
             $options['text'] = $text;
             $options['encode'] = false;
         }
-       
-        $editable = $this->grid->controller->createWidget('EditableField', $options);
-
-        //manually make selector non unique to match all cells in column
-        $selector = get_class($editable->model) . '_' . $editable->attribute;
-        $editable->htmlOptions['rel'] = $selector;
-
-        $editable->renderLink();
-
-        //manually render client script (one for all cells in column)
-        if (!$this->isScriptRendered) {
-            $script = $editable->registerClientScript();
-            Yii::app()->getClientScript()->registerScript(__CLASS__ . '#' . $selector.'-event', '
-                $("#'.$this->grid->id.'").parent().on("ajaxUpdate.yiiGridView", "#'.$this->grid->id.'", function() {'.$script.'});
-            ');
-            $this->isScriptRendered = true;
+        
+        //apply may be a string expression, see https://github.com/vitalets/x-editable-yii/issues/33
+        if (isset($options['apply']) && is_string($options['apply'])) {
+            $options['apply'] = $this->evaluateExpression($options['apply'], array('data'=>$data, 'row'=>$row));
         }
+
+        //evaluate htmlOptions inside editable config as they can depend on $data
+        //see https://github.com/vitalets/x-editable-yii/issues/40
+        if (isset($options['htmlOptions']) && is_array($options['htmlOptions'])) {
+            foreach($options['htmlOptions'] as $k => $v) {
+                if(is_string($v) && (strpos($v, '$data') !== false || strpos($v, '$row') !== false)) {
+                    $options['htmlOptions'][$k] = $this->evaluateExpression($v, array('data'=>$data, 'row'=>$row));
+                }
+            }
+        }           
+        
+        $this->grid->controller->widget($widgetClass, $options);
     }
     
-   /**
-   * Unfortunatly Yii yet does not support custom js events in it's widgets. 
-   * So we need to invoke it manually to ensure update of editables on grid ajax update.
-   * 
-   * issue in Yii github: https://github.com/yiisoft/yii/issues/1313
-   * 
-   */
-    protected function attachAjaxUpdateEvent()
-    {
-        $trigger = '$("#"+id).trigger("ajaxUpdate");';
-        
-        //check if trigger already inserted by another column
-        if(strpos($this->grid->afterAjaxUpdate, $trigger) !== false) return;
-        
-        //inserting trigger
-        if(strlen($this->grid->afterAjaxUpdate)) {
-            $orig = $this->grid->afterAjaxUpdate;
-            if(strpos($orig, 'js:')===0) $orig = substr($orig,3);
-            $orig = "\n($orig).apply(this, arguments);";
-        } else {
-            $orig = '';
-        }
-        $this->grid->afterAjaxUpdate = "js: function(id, data) {
-            $trigger $orig
-        }";
-    }
-    
-    /**
-    * determines wether column currently editable or not
-    * 
-    * @param mixed $model
+    /*
+    Require this overwrite to show bootstrap sort icons
     */
-    protected function isEditable($model)
+    protected function renderHeaderCellContent()
     {
-         return $model->isAttributeSafe($this->name) && (!array_key_exists('enabled', $this->editable) || $this->editable['enabled'] === true);
-    }
+        if(yii::app()->editable->form != EditableConfig::FORM_BOOTSTRAP) {
+            parent::renderHeaderCellContent();
+            return;
+        }
+        
+        if ($this->grid->enableSorting && $this->sortable && $this->name !== null)
+        {
+            $sort = $this->grid->dataProvider->getSort();
+            $label = isset($this->header) ? $this->header : $sort->resolveLabel($this->name);
+
+            if ($sort->resolveAttribute($this->name) !== false)
+                $label .= '<span class="caret"></span>';
+
+            echo $sort->link($this->name, $label, array('class'=>'sort-link'));
+        }
+        else
+        {
+            if ($this->name !== null && $this->header === null)
+            {
+                if ($this->grid->dataProvider instanceof CActiveDataProvider)
+                    echo CHtml::encode($this->grid->dataProvider->model->getAttributeLabel($this->name));
+                else
+                    echo CHtml::encode($this->name);
+            }
+            else
+                parent::renderHeaderCellContent();
+        }
+    } 
+    
+    /*
+    Require this overwrite to show bootstrap filter field
+    */    
+    public function renderFilterCell()
+    {
+        if(yii::app()->editable->form != EditableConfig::FORM_BOOTSTRAP) {
+            parent::renderFilterCell();
+            return;
+        }
+                
+        echo '<td><div class="filter-container">';
+        $this->renderFilterCellContent();
+        echo '</div></td>';
+    }       
 }

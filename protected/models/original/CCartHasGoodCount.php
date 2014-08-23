@@ -33,9 +33,10 @@ class CCartHasGoodCount extends ActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('cart_has_good_id, good_count_id, count, changed', 'required'),
+			array('cart_has_good_id, good_count_id, count', 'required'),
 			array('cart_has_good_id, good_count_id, count', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
+			array('changed', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, cart_has_good_id, good_count_id, count, status, changed', 'safe', 'on'=>'search'),

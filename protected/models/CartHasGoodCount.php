@@ -7,6 +7,13 @@
  */
 class CartHasGoodCount extends CCartHasGoodCount {
 
+    protected $_oldCount = 0;
+
+    protected function afterFind() {
+        $this->_oldCount = $this->count;
+        return parent::afterFind();
+    }
+
     public function save($runValidation=true,$attributes=null) {
         if($runValidation && !$this->validate($attributes)) {
             return false;
@@ -14,8 +21,8 @@ class CartHasGoodCount extends CCartHasGoodCount {
         if ($this->cartHasGood->cart->progress == Cart::FILLING) {
             $goodCount = $this->goodCount;
             if (!is_null($goodCount->count_total)) {
-                $goodCount->count_locked+=$this->count;
-                $goodCount->count_available-=$this->count;
+                $goodCount->count_locked+=$this->count - $this->_oldCount;
+                $goodCount->count_available-=$this->count - $this->_oldCount;
                 $goodCount->save(false);
             }
         } else {

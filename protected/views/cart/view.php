@@ -7,6 +7,7 @@
  * @var $model Cart
  */
 $search = $model->getCartHasGoodSearch();
+$provider = $search->search();
 ?>
 <div class="info tools">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
@@ -18,7 +19,7 @@ $search = $model->getCartHasGoodSearch();
 
 <div class="info">
 <?php $this->widget('bootstrap.widgets.TbGridView',array(
-    'dataProvider'=>$search->search(),
+    'dataProvider'=>$provider,
     'type'=>'striped bordered condensed hover',
     'columns'=>array(
         array(
@@ -27,7 +28,7 @@ $search = $model->getCartHasGoodSearch();
             'type' => 'raw',
             'value' => function(CartHasGood $cartHasGood) {
                 return CHtml::link(
-                    $cartHasGood->good->title,
+                    $cartHasGood->getTitle(),
                     array('good/view','id' => $cartHasGood->good_id)
                 );
             }
@@ -40,6 +41,7 @@ $search = $model->getCartHasGoodSearch();
                 'url'        => $this->createUrl('cart/changeField'),
                 'placement'  => 'right',
                 'inputclass' => 'span3',
+                'success'    => 'function() {location.reload();}',
             ),
             'htmlOptions' => array('width' => '100px')
         ),
@@ -59,4 +61,13 @@ $search = $model->getCartHasGoodSearch();
         ),
     ),
 )); ?>
+    <?php if ($provider->totalItemCount):?>
+    <div class="text-right">
+        <?php $this->widget('bootstrap.widgets.TbButton', array(
+            'url' => array('payment/index'),
+            'type'=>'success',
+            'label'=>'Оплатить',
+        )); ?>
+    </div>
+    <?php endif;?>
 </div>

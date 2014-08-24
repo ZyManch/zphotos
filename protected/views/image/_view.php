@@ -17,7 +17,7 @@ $marginBottom = $data->getMarginBottom(200);
         <div class="block block-left" style="width: <?php echo $marginLeft;?>px"></div>
         <div class="block block-bottom" style="left: <?php echo $marginLeft;?>px;right: <?php echo $marginRight;?>px;height: <?php echo $marginBottom;?>px"></div>
         <div class="block block-right" style="width: <?php echo $marginRight;?>px"></div>
-        <img src="image/preview/<?php echo $data->id;?>" width="200px"/>
+        <img src="image/preview/<?php echo $data->id;?>" height="200px"/>
     </div>
     <div class="filename"><?php echo $data->filename;?></div>
 </a>

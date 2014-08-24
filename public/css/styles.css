@@ -216,7 +216,7 @@ body
 }
 .image-preview {
     float: left;
-    height: 230px;
+    height: 224px;
     border-radius: 5px;
     margin: 5px;
     display: block;
@@ -228,7 +228,7 @@ body
 
 }
 .image-preview img{
-    height: 206px;
+    height: 200px;
 }
 .pagination {
     clear: left;

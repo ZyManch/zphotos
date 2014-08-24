@@ -10,7 +10,7 @@ class Image extends CImage {
     const ORIENTATION_HORIZONTAL = 'Horizontal';
     const ORIENTATION_VERTICAL = 'Vertical';
 
-    const PREVIEW_WIDTH = 200;
+    const PREVIEW_HEIGHT = 200;
     const VIEW_WIDTH = 800;
 
 
@@ -70,9 +70,9 @@ class Image extends CImage {
             return $this->_getGdFromFilename($previewFilename);
         }
         $gd = $this->getGd();
-        $newWidth = self::PREVIEW_WIDTH;
-        $resize = $newWidth / $this->width;
-        $newHeight = $resize * $this->height;
+        $newHeight = self::PREVIEW_HEIGHT;
+        $resize = $newHeight / $this->height;
+        $newWidth = $resize * $this->width;
         $newGd = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($newGd, $gd, 0,0,0,0,$newWidth, $newHeight, $this->width, $this->height);
         imagepng($newGd, $previewFilename);
@@ -129,20 +129,20 @@ class Image extends CImage {
         }
     }
 
-    public function getMarginLeft($width) {
-        return round($this->margin_left * $width / $this->width);
+    public function getMarginLeft($height) {
+        return round($this->margin_left * $height / $this->height);
     }
 
-    public function getMarginRight($width) {
-        return round($this->margin_right * $width / $this->width);
+    public function getMarginRight($height) {
+        return round($this->margin_right * $height / $this->height);
     }
 
-    public function getMarginTop($width) {
-        return round($this->margin_top * $width / $this->width);
+    public function getMarginTop($height) {
+        return round($this->margin_top * $height / $this->height);
     }
 
-    public function getMarginBottom($width) {
-        return round($this->margin_bottom * $width / $this->width);
+    public function getMarginBottom($height) {
+        return round($this->margin_bottom * $height / $this->height);
     }
 
     /**

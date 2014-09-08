@@ -20,7 +20,9 @@ class AlbumController extends Controller {
 
 
     public function actionUpload($id = null, $good_id = null) {
-        Yii::app()->log->enabled = false;
+        foreach (Yii::app()->log->getRoutes() as $route) {
+            $route->enabled = false;
+        }
         $form = new UploadForm();
         $form->images = CUploadedFile::getInstancesByName('images');
         $form->good_id = $good_id ? $good_id : Good::DEFAULT_UPLOAD_GOOD_ID;
@@ -52,15 +54,21 @@ class AlbumController extends Controller {
             throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
     }
 
-    public function actionReset($id) {
+    public function actionReset($id, $image_id = null) {
         $album = $this->loadModel($id);
         foreach ($album->images as $image) {
-            $image->fillAutoMargin();
-            if (!$image->save()) {
-                throw new Exception('Ошибка сброса отступов');
+            if (!$image_id || $image_id == $image->id) {
+                $image->fillAutoMargin();
+                if (!$image->save()) {
+                    throw new Exception('Ошибка сброса отступов');
+                }
             }
         }
-        $this->redirect(array('album/view','id' => $album->id));
+        if ($image_id) {
+            $this->redirect(array('image/update','id' => $image_id));
+        } else {
+            $this->redirect(array('album/view','id' => $album->id));
+        }
     }
 
     public function actionChangeField() {

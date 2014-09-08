@@ -19,8 +19,8 @@ class WebUser extends CWebUser {
         if (!$user) {
             $identity=new TemporaryIdentity();
             $identity->authenticate();
-            $this->login($identity, 3600*24*30);
-            return true;
+            $this->login($identity, 3600*24*365);
+            return $this->getUser();
         }
         return $user;
     }

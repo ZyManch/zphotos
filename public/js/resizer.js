@@ -78,49 +78,69 @@ $(document).ready(function() {
             }
         } else {
             position = $(e.srcElement).position();
-            if ((e.offsetX + position.left) / width < (e.offsetY + position.top) / height) {
-                // left + bottom
-                if ((e.offsetX + position.left) / width <  (height - (e.offsetY + position.top))/height) {
-                    // left
-                    moving = function(e) {
-                        $inputMarginLeft.val(Math.round(startMarginLeft + (e.screenX - startX)/zoom));
-                        $inputMarginBottom.val(Math.round(
-                            (height-$inputMarginTop.val()*zoom-(width - $inputMarginLeft.val()*zoom - $inputMarginRight.val()*zoom)/ratio)/zoom
+
+            if ((e.offsetX + position.left)/zoom <= startMarginLeft) {
+                // left
+                moving = function(e) {
+                    $inputMarginLeft.val(Math.between(Math.round(startMarginLeft + (e.screenX - startX)/zoom),0,width/zoom - startMarginRight));
+                    $inputMarginBottom.val(Math.round(
+                        (height-$inputMarginTop.val()*zoom-(width - $inputMarginLeft.val()*zoom - $inputMarginRight.val()*zoom)/ratio)/zoom
+                    ));
+                    if ($inputMarginBottom.val() < 0) {
+                        $inputMarginBottom.val(0);
+                        $inputMarginLeft.val(Math.round(
+                            width/zoom - $inputMarginRight.val()-height*ratio/zoom+$inputMarginTop.val()*ratio
                         ));
-                        updateImageByInputs();
                     }
-                } else {
-                    // bottom
-                    moving = function(e) {
-                        $inputMarginBottom.val(Math.round(startMarginBottom - (e.screenY - startY)/zoom));
-                        $inputMarginRight.val(Math.round(
-                            (width-$inputMarginLeft.val()*zoom-(height - $inputMarginTop.val()*zoom - $inputMarginBottom.val()*zoom)*ratio)/zoom
-                        ));
-                        updateImageByInputs();
-                    }
+                    updateImageByInputs();
                 }
-            } else {
-                // right + top
-                if ((width - (e.offsetX + position.left)) / width <  (e.offsetY + position.top)/height) {
-                    // right
-                    moving = function(e) {
-                        $inputMarginRight.val(Math.round(startMarginRight - (e.screenX - startX)/zoom));
-                        $inputMarginBottom.val(Math.round(
-                            (height-$inputMarginTop.val()*zoom-(width - $inputMarginLeft.val()*zoom - $inputMarginRight.val()*zoom)/ratio)/zoom
-                        ));
-                        updateImageByInputs();
-                    }
-                } else {
-                    // top
-                    moving = function(e) {
-                        $inputMarginTop.val(Math.round(startMarginTop + (e.screenY - startY)/zoom));
+            } else if (e.offsetX + position.left >= width - startMarginRight*zoom) {
+                // right
+                moving = function(e) {
+                    $inputMarginRight.val(Math.between(Math.round(startMarginRight - (e.screenX - startX)/zoom), 0, width/zoom - startMarginLeft));
+                    $inputMarginBottom.val(Math.round(
+                        (height-$inputMarginTop.val()*zoom-(width - $inputMarginLeft.val()*zoom - $inputMarginRight.val()*zoom)/ratio)/zoom
+                    ));
+                    if ($inputMarginBottom.val() < 0) {
+                        $inputMarginBottom.val(0);
                         $inputMarginRight.val(Math.round(
-                            (width-$inputMarginLeft.val()*zoom-(height - $inputMarginTop.val()*zoom - $inputMarginBottom.val()*zoom)*ratio)/zoom
+                            width/zoom-$inputMarginLeft.val()-ratio*height/zoom+ratio*$inputMarginTop.val()
                         ));
-                        updateImageByInputs();
                     }
+                    updateImageByInputs();
+                }
+            } else if (e.offsetY + position.top <= startMarginTop*zoom) {
+                // top
+                moving = function(e) {
+                    $inputMarginTop.val(Math.between(Math.round(startMarginTop + (e.screenY - startY)/zoom),0,height/zoom - startMarginBottom));
+                    $inputMarginRight.val(Math.round(
+                        (width-$inputMarginLeft.val()*zoom-(height - $inputMarginTop.val()*zoom - $inputMarginBottom.val()*zoom)*ratio)/zoom
+                    ));
+                    if ($inputMarginRight.val() < 0) {
+                        $inputMarginRight.val(0);
+                        $inputMarginTop.val(Math.round(
+                            height/zoom - $inputMarginBottom.val()-width/zoom/ratio + $inputMarginLeft.val()/ratio
+                        ));
+                    }
+                    updateImageByInputs();
+                }
+            } else if (e.offsetY + position.top >= height - startMarginBottom*zoom) {
+                // bottom
+                moving = function(e) {
+                    $inputMarginBottom.val(Math.between(Math.round(startMarginBottom - (e.screenY - startY)/zoom),0,height/zoom-startMarginTop));
+                    $inputMarginRight.val(Math.round(
+                        (width-$inputMarginLeft.val()*zoom-(height - $inputMarginTop.val()*zoom - $inputMarginBottom.val()*zoom)*ratio)/zoom
+                    ));
+                    if ($inputMarginRight.val() < 0) {
+                        $inputMarginRight.val(0);
+                        $inputMarginBottom.val(Math.round(
+                            height/zoom - $inputMarginTop.val() - width/ratio/zoom+$inputMarginLeft.val()/ratio
+                        ));
+                    }
+                    updateImageByInputs();
                 }
             }
+
         }
         $document.mousemove(moving);
         $document.mouseup(function() {

@@ -12,6 +12,11 @@ $format = $image->album->good->print;
 ?>
 <div class="info tools">
     <?php $this->widget('bootstrap.widgets.TbButton', array(
+        'url'=>array('album/reset','id' => $image->album_id,'image_id'=>$image->id),
+        'type'=>'warning',
+        'label'=> 'Сбросить отступы',
+    )); ?>
+    <?php $this->widget('bootstrap.widgets.TbButton', array(
         'url' => array('album/view','id' => $image->album_id),
         'type'=>'primary',
         'label'=> 'Назад',
@@ -25,12 +30,12 @@ $format = $image->album->good->print;
 </div>
 
 <div class="info">
-    <div class="image-preview edit">
+    <div class="image-edit">
         <div class="image">
-            <div class="block block-top"></div>
-            <div class="block block-left"></div>
-            <div class="block block-bottom"></div>
-            <div class="block block-right"></div>
+            <div class="gray-block block-top"></div>
+            <div class="gray-block block-left"></div>
+            <div class="gray-block block-bottom"></div>
+            <div class="gray-block block-right"></div>
             <img src="<?php echo CHtml::normalizeUrl(array('image/view','id' => $image->id));?>" style="height: <?php echo round(Image::VIEW_WIDTH * $image->height / $image->width);?>px">
         </div>
 

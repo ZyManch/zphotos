@@ -45,6 +45,7 @@
  * @property IWidgetFactory $widgetFactory The widget factory.
  * @property CThemeManager $themeManager The theme manager.
  * @property Robokassa $robokassa
+ * @property CLogRouter $log
  * @property CTheme $theme The theme used currently. Null if no theme is being used.
  * @property CController $controller The currently active controller.
  * @property string $controllerPath The directory that contains the controller classes. Defaults to 'protected/controllers'.

@@ -236,23 +236,23 @@ body
 .image-preview .image {
     position: relative;
 }
-.image-preview .image .block.block-top {
+.gray-block.block-top {
     top: 0px;
 }
-.image-preview .image .block.block-right {
+.gray-block.block-right {
     top: 0px;
     bottom: 0px;
     right: 0px;
 }
-.image-preview .image .block.block-bottom {
+.gray-block.block-bottom {
     bottom: 0px;
 }
-.image-preview .image .block.block-left {
+.gray-block.block-left {
     top: 0px;
     bottom: 0px;
     left: 0px;
 }
-.image-preview .image .block {
+.gray-block {
     position: absolute;
     z-index: 1;
     background-color: black;
@@ -278,26 +278,26 @@ body
     text-decoration: none;
     border-radius: 0px 0px 3px 3px;
 }
-.image-preview.edit {
+.image-edit {
     float: left;
     width: 800px;
     border: 1px solid black;
     position: relative;
     z-index: 0;
 }
-.image-preview.edit .image .block.block-top {
+.image-edit .image .gray-block.block-top {
     cursor: n-resize;
 }
-.image-preview.edit .image .block.block-right {
+.image-edit .image .gray-block.block-right {
     cursor: e-resize;
 }
-.image-preview.edit .image .block.block-bottom {
+.image-edit .image .gray-block.block-bottom {
     cursor: n-resize;
 }
-.image-preview.edit .image .block.block-left {
+.image-edit .image .gray-block.block-left {
     cursor: e-resize;
 }
-.image-preview.edit .image img {
+.image-edit .image img {
     cursor: move;
 }
 .image-form {

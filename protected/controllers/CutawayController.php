@@ -48,7 +48,7 @@ class CutawayController extends Controller {
     public function actionPreviewText($cutaway_width, $id, $attr = null, $value = null) {
         /** @var CutawayText $model */
         if ($attr) {
-            $this->actionChangeField($id, array($attr => $value));
+            $this->actionChangeFields($id, array($attr => $value));
         }
         $model = self::loadTextModel($id);
         $gd = $model->getGd($cutaway_width);

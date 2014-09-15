@@ -18,6 +18,7 @@ class Controller extends CController
 
     public function init() {
         parent::init();
+        Yii::setPathOfAlias('photos', dirname(__FILE__).'/../../photos');
         Yii::app()->bootstrap->register();
         $user = Yii::app()->user;
         $isGuest = $user->getIsGuest();

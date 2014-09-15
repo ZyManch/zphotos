@@ -7,104 +7,81 @@
  * @property string $id
  * @property string $title
  * @property string $type
+ * @property string $source_id
  * @property string $description
  * @property string $good_media_id
  * @property string $status
  * @property string $changed
  *
  * The followings are the available model relations:
+ * @property Album[] $albums
+ * @property CartHasGood[] $cartHasGoods
  * @property CategoryHasGood[] $categoryHasGoods
+ * @property Cutaway[] $cutaways
  * @property GoodMedia $goodMedia
+ * @property GoodCount[] $goodCounts
  * @property GoodMedia[] $goodMedias
  * @property GoodPrice[] $goodPrices
- * @property PrintFormat $print
- * @property Category[] $categories
- * @property GoodCount[] $goodCounts
- * @property Album $album
  */
-class CGood extends ActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
+class CGood extends ActiveRecord {
+
+	public function tableName()	{
 		return 'good';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+	public function rules()	{
 		return array(
-			array('title, description, type', 'required'),
-			array('print_format_id,good_media_id', 'numerical', 'integerOnly'=>true),
+			array('title, description', 'required'),
 			array('title', 'length', 'max'=>256),
-			array('type', 'length', 'max'=>8),
-			array('status', 'length', 'max'=>7),
+			array('type, status', 'length', 'max'=>7),
+			array('source_id, good_media_id', 'length', 'max'=>10),
+			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, good_media_id, status, changed', 'safe', 'on'=>'search'),
+			array('id, title, type, source_id, description, good_media_id, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	protected function _baseRelations()	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'albums' => array(self::HAS_MANY, 'Album', 'good_id'),
+			'cartHasGoods' => array(self::HAS_MANY, 'CartHasGood', 'good_id'),
 			'categoryHasGoods' => array(self::HAS_MANY, 'CategoryHasGood', 'good_id'),
-			'categories' => array(self::MANY_MANY, 'Category', 'category_has_good(good_id,category_id)'),
-			'goodCounts' => array(self::HAS_MANY, 'GoodCount', 'good_id','order' => 'goodCounts.id ASC'),
+			'cutaways' => array(self::HAS_MANY, 'Cutaway', 'good_id'),
 			'goodMedia' => array(self::BELONGS_TO, 'GoodMedia', 'good_media_id'),
+			'goodCounts' => array(self::HAS_MANY, 'GoodCount', 'good_id'),
 			'goodMedias' => array(self::HAS_MANY, 'GoodMedia', 'good_id'),
-			'goodPrices' => array(self::HAS_MANY, 'GoodPrice', 'good_id','order' => 'goodPrices.price DESC'),
-			'print' => array(self::BELONGS_TO, 'PrintFormat', 'print_format_id'),
-			'album' => array(self::BELONGS_TO, 'Album', 'resource_id'),
+			'goodPrices' => array(self::HAS_MANY, 'GoodPrice', 'good_id'),
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
+			'type' => 'Type',
+			'source_id' => 'Source',
 			'description' => 'Description',
-			'good_media_id' => 'Good Avatar',
+			'good_media_id' => 'Good Media',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
+	public function search() {
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
+		$criteria->compare('type',$this->type,true);
+		$criteria->compare('source_id',$this->source_id,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('good_media_id',$this->good_media_id,true);
 		$criteria->compare('status',$this->status,true);
@@ -114,5 +91,6 @@ class CGood extends ActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
 
 }

@@ -6,21 +6,8 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'My Web Application',
-	// preloading 'log' component
-	'preload'=>array('log'),
-    'sourceLanguage' => 'en',
-    'language' => 'ru',
-	// autoloading model and component classes
+    'preload'=>array('log'),
 	'import'=>array(
-		'application.models.original.*',
-		'application.models.good.*',
-		'application.models.cart_has_good.*',
-		'application.models.*',
-		'application.forms.*',
-		'application.components.*',
-		'application.controllers.*',
         'editable.*'
 	),
 
@@ -66,13 +53,6 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=zphotos',
-			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
-			'charset' => 'utf8',
-		),
         'robokassa' => array(
             'class' => 'ext.robokassa.Robokassa',
             'sMerchantLogin' => 'login',
@@ -99,15 +79,5 @@ return array(
                 ),
             ),
         ),
-	),
-
-	// application-level parameters that can be accessed
-	// using Yii::app()->params['paramName']
-	'params'=>array(
-		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
-        'salt' => 'salt',
-        'price' => 2.00,
-        'min_count' => 50
-	),
+	)
 );

@@ -1,0 +1,16 @@
+.cutaway {
+    width: 600px;
+    position: relative;
+}
+.cutaway img {
+    position: relative;
+    z-index: 0;
+}
+.cutaway .cutaway-text {
+    position: absolute;
+    z-index: 1;
+    left: 4px;
+    top:4px;
+    border: 1px dashed black;
+    cursor: move;
+}

@@ -1,14 +1,14 @@
 <?php
 
 /**
- * This is the model class for table "good_avatar".
+ * This is the model class for table "good_media".
  *
- * The followings are the available columns in table 'good_avatar':
+ * The followings are the available columns in table 'good_media':
  * @property string $id
  * @property string $good_id
+ * @property string $title
  * @property string $filename
  * @property string $preview_filename
- * @property string $title
  * @property integer $width
  * @property integer $height
  * @property string $status
@@ -18,40 +18,30 @@
  * @property Good[] $goods
  * @property Good $good
  */
-class CGoodMedia extends ActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
+class CGoodMedia extends ActiveRecord {
+
+	public function tableName()	{
 		return 'good_media';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+	public function rules()	{
 		return array(
-			array('good_id, filename, width, height, changed', 'required'),
+			array('good_id, filename, width, height', 'required'),
 			array('width, height', 'numerical', 'integerOnly'=>true),
 			array('good_id', 'length', 'max'=>11),
-			array('filename,preview_filename,title', 'length', 'max'=>128),
+			array('title, filename, preview_filename', 'length', 'max'=>128),
 			array('status', 'length', 'max'=>7),
+			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, good_id, filename, width, height, status, changed', 'safe', 'on'=>'search'),
+			array('id, good_id, title, filename, preview_filename, width, height, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	protected function _baseRelations()	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
@@ -60,15 +50,13 @@ class CGoodMedia extends ActiveRecord
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
 			'good_id' => 'Good',
+			'title' => 'Title',
 			'filename' => 'Filename',
+			'preview_filename' => 'Preview Filename',
 			'width' => 'Width',
 			'height' => 'Height',
 			'status' => 'Status',
@@ -76,27 +64,16 @@ class CGoodMedia extends ActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
+	public function search() {
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('good_id',$this->good_id,true);
-		$criteria->compare('filename',$this->filename);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('filename',$this->filename,true);
+		$criteria->compare('preview_filename',$this->preview_filename,true);
 		$criteria->compare('width',$this->width);
 		$criteria->compare('height',$this->height);
 		$criteria->compare('status',$this->status,true);

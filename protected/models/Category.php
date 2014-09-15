@@ -26,4 +26,10 @@ class Category extends CCategory {
     public function __toString() {
         return CHtml::link($this->title,array('category/view','id' => $this->id));
     }
+
+    protected function _extendedRelations() {
+        return array(
+            'goods' => array(self::MANY_MANY, 'Good', 'category_has_good(category_id,good_id)'),
+        );
+    }
 }

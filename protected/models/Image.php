@@ -151,7 +151,7 @@ class Image extends CImage {
      * @return array [margin for wide, margin for narrow]
      */
     protected function _getMargin($wide, $narrow) {
-        $format = $this->album->good->print;
+        $format = $this->album->good->printFormat;
         if (!$format) {
             throw new Exception('Формат изображения не найден');
         }

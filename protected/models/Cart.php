@@ -14,6 +14,12 @@ class Cart extends CCart {
     const POSTAGE   = 'Postage';
     const FINISHED  = 'Finished';
 
+
+    protected function _extendedRelations() {
+        return array(
+
+        );
+    }
     /**
      * @param bool $createNew
      * @return Cart
@@ -76,7 +82,7 @@ class Cart extends CCart {
     }
 
     public function hasGood(Good $good, $resourceId = null) {
-        foreach ($this->cartGoods as $cartHasGood) {
+        foreach ($this->cartHasGoods as $cartHasGood) {
             if ($cartHasGood->good_id == $good->id && $cartHasGood->resource_id == $resourceId) {
                 return true;
             }
@@ -96,7 +102,7 @@ class Cart extends CCart {
 
     public function getTotalPrice() {
         $total = 0;
-        foreach ($this->cartGoods as $cartGood) {
+        foreach ($this->cartHasGoods as $cartGood) {
             $total+=$cartGood->total_price;
         }
         return $total;

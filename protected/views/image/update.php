@@ -8,7 +8,7 @@
  * @var TbActiveForm $form
  */
 Yii::app()->clientScript->registerScriptFile('/js/resizer.js');
-$format = $image->album->good->print;
+$format = $image->album->good->printFormat;
 ?>
 <div class="info tools">
     <?php $this->widget('bootstrap.widgets.TbButton', array(

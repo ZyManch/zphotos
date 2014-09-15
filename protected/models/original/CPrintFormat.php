@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "print".
+ * This is the model class for table "print_format".
  *
- * The followings are the available columns in table 'print':
+ * The followings are the available columns in table 'print_format':
  * @property string $id
  * @property string $title
  * @property string $type
@@ -14,34 +14,22 @@
  * @property string $color
  * @property string $status
  * @property string $changed
- *
- * The followings are the available model relations:
- * @property Good[] $goods
  */
-class CPrintFormat extends ActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
+class CPrintFormat extends ActiveRecord {
+
+	public function tableName()	{
 		return 'print_format';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+	public function rules()	{
 		return array(
-			array('title, type, width, height, weight, color, changed', 'required'),
+			array('title, type, width, height, weight, color', 'required'),
 			array('width, height, weight', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>128),
 			array('type, color', 'length', 'max'=>5),
 			array('paper_type', 'length', 'max'=>6),
 			array('status', 'length', 'max'=>7),
+			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title, type, width, height, weight, paper_type, color, status, changed', 'safe', 'on'=>'search'),
@@ -51,20 +39,14 @@ class CPrintFormat extends ActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	protected function _baseRelations()	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'goods' => array(self::HAS_MANY, 'Good', 'print_id'),
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
 			'title' => 'Title',
@@ -79,20 +61,7 @@ class CPrintFormat extends ActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
+	public function search() {
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;

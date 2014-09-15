@@ -1,36 +1,34 @@
 <?php
 
 /**
- * This is the model class for table "good_price".
+ * This is the model class for table "font".
  *
- * The followings are the available columns in table 'good_price':
+ * The followings are the available columns in table 'font':
  * @property string $id
- * @property string $good_id
- * @property integer $count
- * @property string $price
+ * @property string $title
+ * @property string $filename
  * @property string $status
  * @property string $changed
  *
  * The followings are the available model relations:
- * @property Good $good
+ * @property CutawayTemplateText[] $cutawayTemplateTexts
+ * @property CutawayText[] $cutawayTexts
  */
-class CGoodPrice extends ActiveRecord {
+class CFont extends ActiveRecord {
 
 	public function tableName()	{
-		return 'good_price';
+		return 'font';
 	}
 
 	public function rules()	{
 		return array(
-			array('good_id', 'required'),
-			array('count', 'numerical', 'integerOnly'=>true),
-			array('good_id', 'length', 'max'=>11),
-			array('price', 'length', 'max'=>6),
+			array('title, filename', 'required'),
+			array('title, filename', 'length', 'max'=>64),
 			array('status', 'length', 'max'=>7),
 			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, good_id, count, price, status, changed', 'safe', 'on'=>'search'),
+			array('id, title, filename, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -41,16 +39,16 @@ class CGoodPrice extends ActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'good' => array(self::BELONGS_TO, 'Good', 'good_id'),
+			'cutawayTemplateTexts' => array(self::HAS_MANY, 'CutawayTemplateText', 'font_id'),
+			'cutawayTexts' => array(self::HAS_MANY, 'CutawayText', 'font_id'),
 		);
 	}
 
 	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
-			'good_id' => 'Good',
-			'count' => 'Count',
-			'price' => 'Price',
+			'title' => 'Title',
+			'filename' => 'Filename',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
@@ -62,9 +60,8 @@ class CGoodPrice extends ActiveRecord {
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('good_id',$this->good_id,true);
-		$criteria->compare('count',$this->count);
-		$criteria->compare('price',$this->price,true);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('filename',$this->filename,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);
 

@@ -6,8 +6,12 @@
 if (!isset($category)) {
     $category = null;
 }
+$urlParams = array('good/view','id'=>$data->id);
+if ($category) {
+    $urlParams['category_id'] = $category->id;
+}
 ?>
-    <a  class="good" href="<?php echo CHtml::normalizeUrl(array('good/view','id'=>$data->id,'category_id' => $category ? $category->id : null));?>">
+    <a  class="good" href="<?php echo CHtml::normalizeUrl($urlParams);?>">
         <div class="good-image">
             <img src="<?php echo $data->getAvatarMediaPath();?>">
         </div>

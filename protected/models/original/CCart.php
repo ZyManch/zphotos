@@ -13,34 +13,25 @@
  * @property string $changed
  *
  * The followings are the available model relations:
- * @property User $user
  * @property Address $address
- * @property CartHasGood[] $cartGoods
+ * @property User $user
+ * @property CartHasGood[] $cartHasGoods
+ * @property Invoice[] $invoices
  */
-class CCart extends ActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
+class CCart extends ActiveRecord {
+
+	public function tableName()	{
 		return 'cart';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+	public function rules()	{
 		return array(
 			array('user_id, title', 'required'),
-			array('user_id, address_id', 'numerical', 'min'=>1),
+			array('user_id, address_id', 'length', 'max'=>10),
 			array('title', 'length', 'max'=>128),
 			array('progress', 'length', 'max'=>9),
-			array('changed', 'length', 'max'=>20),
 			array('status', 'length', 'max'=>7),
+			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, title, progress, address_id, status, changed', 'safe', 'on'=>'search'),
@@ -50,47 +41,30 @@ class CCart extends ActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	protected function _baseRelations()	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
-			'cartGoods' => array(self::HAS_MANY, 'CartHasGood', 'cart_id'),
+			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'cartHasGoods' => array(self::HAS_MANY, 'CartHasGood', 'cart_id'),
+			'invoices' => array(self::HAS_MANY, 'Invoice', 'cart_id'),
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'title' => 'Название',
-			'progress' => 'Статус',
-			'address_id' => 'Адрес',
-			'status' => 'Статус',
-			'changed' => 'Дата',
+			'title' => 'Title',
+			'progress' => 'Progress',
+			'address_id' => 'Address',
+			'status' => 'Status',
+			'changed' => 'Changed',
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
+	public function search() {
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
@@ -107,5 +81,6 @@ class CCart extends ActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
 
 }

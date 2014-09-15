@@ -11,30 +11,21 @@
  * @property string $changed
  *
  * The followings are the available model relations:
- * @property Good $good
  * @property Category $category
+ * @property Good $good
  */
-class CCategoryHasGood extends ActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
+class CCategoryHasGood extends ActiveRecord {
+
+	public function tableName()	{
 		return 'category_has_good';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+	public function rules()	{
 		return array(
-			array('id, category_id, good_id, changed', 'required'),
-			array('id, category_id, good_id', 'length', 'max'=>10),
+			array('category_id, good_id', 'required'),
+			array('category_id, good_id', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
+			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, category_id, good_id, status, changed', 'safe', 'on'=>'search'),
@@ -44,21 +35,16 @@ class CCategoryHasGood extends ActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	protected function _baseRelations()	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'good' => array(self::BELONGS_TO, 'Good', 'good_id'),
 			'category' => array(self::BELONGS_TO, 'Category', 'category_id'),
+			'good' => array(self::BELONGS_TO, 'Good', 'good_id'),
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
 			'category_id' => 'Category',
@@ -68,20 +54,7 @@ class CCategoryHasGood extends ActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
+	public function search() {
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
@@ -96,5 +69,6 @@ class CCategoryHasGood extends ActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
 
 }

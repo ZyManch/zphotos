@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "cart_good".
+ * This is the model class for table "cart_has_good".
  *
- * The followings are the available columns in table 'cart_good':
+ * The followings are the available columns in table 'cart_has_good':
  * @property string $id
  * @property string $cart_id
  * @property string $good_id
@@ -17,31 +17,20 @@
  * @property Cart $cart
  * @property Good $good
  * @property CartHasGoodCount[] $cartHasGoodCounts
- * @property Album $album
  */
-class CCartHasGood extends ActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
+class CCartHasGood extends ActiveRecord {
+
+	public function tableName()	{
 		return 'cart_has_good';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+	public function rules()	{
 		return array(
 			array('cart_id, good_id, count, total_price', 'required'),
-			array('cart_id, good_id, resource_id, count', 'numerical', 'min'=>1,'integerOnly' => true),
-			array('total_price', 'numerical', 'min'=>0.1),
-			array('changed', 'length', 'max'=>20),
+			array('cart_id, good_id, resource_id, count', 'length', 'max'=>10),
+			array('total_price', 'length', 'max'=>6),
 			array('status', 'length', 'max'=>7),
+			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, cart_id, good_id, resource_id, count, total_price, status, changed', 'safe', 'on'=>'search'),
@@ -51,23 +40,17 @@ class CCartHasGood extends ActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	protected function _baseRelations()	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
 			'cart' => array(self::BELONGS_TO, 'Cart', 'cart_id'),
 			'good' => array(self::BELONGS_TO, 'Good', 'good_id'),
-			'album' => array(self::BELONGS_TO, 'Album', 'resource_id'),
 			'cartHasGoodCounts' => array(self::HAS_MANY, 'CartHasGoodCount', 'cart_has_good_id'),
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
 			'cart_id' => 'Cart',
@@ -80,20 +63,7 @@ class CCartHasGood extends ActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
+	public function search() {
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
@@ -111,5 +81,6 @@ class CCartHasGood extends ActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
 
 }

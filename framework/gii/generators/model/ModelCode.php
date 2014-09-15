@@ -229,7 +229,7 @@ class ModelCode extends CCodeModel
 		{
 			if($column->autoIncrement)
 				continue;
-			$r=!$column->allowNull && $column->defaultValue===null;
+			$r=!$column->allowNull && $column->defaultValue===null && $column->name != 'changed';
 			if($r)
 				$required[]=$column->name;
 			if($column->type==='integer')
@@ -333,26 +333,28 @@ class ModelCode extends CCodeModel
 			}
 			else
 			{
-				$className=$this->generateClassName($tableName);
+				$className=$this->generateClassName($tableName, true);
+				$originClassName=$this->generateClassName($tableName);
 				foreach ($table->foreignKeys as $fkName => $fkEntry)
 				{
 					// Put table and key name in variables for easier reading
 					$refTable=$fkEntry[0]; // Table name that current fk references to
 					$refKey=$fkEntry[1];   // Key in that table being referenced
-					$refClassName=$this->generateClassName($refTable);
+					$refClassName=$this->generateClassName($refTable, true);
+					$originRefClassName=$this->generateClassName($refTable);
 
 					// Add relation for this table
 					$relationName=$this->generateRelationName($tableName, $fkName, false);
-					$relations[$className][$relationName]="array(self::BELONGS_TO, '$refClassName', '$fkName')";
+					$relations[$originClassName][$relationName]="array(self::BELONGS_TO, '$refClassName', '$fkName')";
 
 					// Add relation for the referenced table
 					$relationType=$table->primaryKey === $fkName ? 'HAS_ONE' : 'HAS_MANY';
 					$relationName=$this->generateRelationName($refTable, $this->removePrefix($tableName,false), $relationType==='HAS_MANY');
 					$i=1;
 					$rawName=$relationName;
-					while(isset($relations[$refClassName][$relationName]))
+					while(isset($relations[$originRefClassName][$relationName]))
 						$relationName=$rawName.($i++);
-					$relations[$refClassName][$relationName]="array(self::$relationType, '$className', '$fkName')";
+					$relations[$originRefClassName][$relationName]="array(self::$relationType, '$className', '$fkName')";
 				}
 			}
 		}
@@ -374,10 +376,10 @@ class ModelCode extends CCodeModel
 			&& $table->foreignKeys[$pk[0]][0] !== $table->foreignKeys[$pk[1]][0]); // and the foreign keys point different tables
 	}
 
-	protected function generateClassName($tableName)
+	protected function generateClassName($tableName, $fromRelations = false)
 	{
 		if($this->tableName===$tableName || ($pos=strrpos($this->tableName,'.'))!==false && substr($this->tableName,$pos+1)===$tableName)
-			return $this->modelClass;
+			return $fromRelations ? substr($this->modelClass,1): $this->modelClass;
 
 		$tableName=$this->removePrefix($tableName,false);
 		if(($pos=strpos($tableName,'.'))!==false) // remove schema part (e.g. remove 'public2.' from 'public2.post')
@@ -388,7 +390,7 @@ class ModelCode extends CCodeModel
 			if($name!=='')
 				$className.=ucfirst($name);
 		}
-		return $className;
+		return ($fromRelations ? '' : 'C').$className;
 	}
 
 	/**

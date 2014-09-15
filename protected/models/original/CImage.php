@@ -18,123 +18,63 @@
  * @property string $progress
  * @property string $status
  * @property string $changed
+ *
+ * The followings are the available model relations:
  * @property Album $album
  */
-class CImage extends ActiveRecord
-{
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
+class CImage extends ActiveRecord {
+
+	public function tableName()	{
 		return 'image';
 	}
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
+	public function rules()	{
 		return array(
-			array(
-                'album_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom',
-                'required',
-                'on' => 'insert'
-            ),
-            array(
-                'margin_left, margin_right, margin_top, margin_bottom',
-                'numerical',
-                'integerOnly'=>true,
-            ),
-			array(
-                'album_id, width, height',
-                'numerical',
-                'integerOnly'=>true,
-                'on' => 'insert'
-            ),
-			array(
-                'orientation',
-                'length',
-                'max'=>10,
-                'on' => 'insert'
-            ),
-			array(
-                'name',
-                'length',
-                'max'=>64
-            ),
-			array(
-                'filename',
-                'length',
-                'max'=>128,
-                'on' => 'insert'
-            ),
-			array(
-                'progress',
-                'length',
-                'max'=>9,
-                'on' => 'insert'
-            ),
-			array(
-                'status',
-                'length',
-                'max'=>7,
-                'on' => 'insert'
-            ),
-			array('id, album_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom, progress, status, changed', 'safe', 'on'=>'search'),
+			array('album_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom', 'required'),
+			array('width, height, margin_left, margin_right, margin_top, margin_bottom', 'numerical', 'integerOnly'=>true),
+			array('album_id, orientation', 'length', 'max'=>10),
+			array('name', 'length', 'max'=>64),
+			array('filename', 'length', 'max'=>128),
+			array('progress', 'length', 'max'=>9),
+			array('status', 'length', 'max'=>7),
+			array('changed', 'safe'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, album_id, name, filename, orientation, width, height, margin_left, margin_right, margin_top, margin_bottom, progress, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	protected function _baseRelations()	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'album' => array(self::BELONGS_TO,'Album','album_id')
+			'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
 			'album_id' => 'Album',
-			'name' => 'Имя',
-			'filename' => 'Имя файла',
-			'width' => 'Ширина',
-			'height' => 'Высота',
-			'margin_left' => 'Отступ слева',
-			'margin_right' => 'Отступ справа',
-			'margin_top' => 'Отступ сверху',
-			'margin_bottom' => 'Отступ снизу',
-			'progress' => 'Состояние',
+			'name' => 'Name',
+			'filename' => 'Filename',
+			'orientation' => 'Orientation',
+			'width' => 'Width',
+			'height' => 'Height',
+			'margin_left' => 'Margin Left',
+			'margin_right' => 'Margin Right',
+			'margin_top' => 'Margin Top',
+			'margin_bottom' => 'Margin Bottom',
+			'progress' => 'Progress',
 			'status' => 'Status',
-			'changed' => 'Последнее изменения',
+			'changed' => 'Changed',
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
+	public function search() {
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
@@ -143,6 +83,7 @@ class CImage extends ActiveRecord
 		$criteria->compare('album_id',$this->album_id,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('filename',$this->filename,true);
+		$criteria->compare('orientation',$this->orientation,true);
 		$criteria->compare('width',$this->width);
 		$criteria->compare('height',$this->height);
 		$criteria->compare('margin_left',$this->margin_left);
@@ -157,4 +98,6 @@ class CImage extends ActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+
 }

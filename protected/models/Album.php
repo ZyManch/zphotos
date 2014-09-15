@@ -4,10 +4,16 @@
  * User: ZyManch
  * Date: 07.06.14
  * Time: 12:12
+ * @var int $imageCount
  */
 class Album extends CAlbum {
 
 
+    protected function _extendedRelations() {
+        return array(
+            'imageCount' => array(self::STAT,'Image','album_id'),
+        );
+    }
     public function getImageProvider() {
         $criteria = new CDbCriteria();
         $criteria->compare('album_id',$this->id);
@@ -40,8 +46,8 @@ class Album extends CAlbum {
     }
 
     public function changeGood(GoodPrint $good) {
-        $previousFormat = $this->good->print;
-        $newFormat = $good->print;
+        $previousFormat = $this->good->printFormat;
+        $newFormat = $good->printFormat;
         $this->good_id = $good->id;
         if (!$this->save()) {
             return false;

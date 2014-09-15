@@ -4,6 +4,7 @@
  * User: ZyManch
  * Date: 06.08.14
  * Time: 9:33
+ * @var Album $album
  */
 class CartHasGood extends CCartHasGood {
 
@@ -11,6 +12,12 @@ class CartHasGood extends CCartHasGood {
         /** @var Good $model */
         $good = Good::getFromCache($attributes['good_id']);
         return $good->createCartHasGood();
+    }
+
+    protected function _extendedRelations() {
+        return array(
+            'album' => array(self::BELONGS_TO, 'Album', 'resource_id'),
+        );
     }
 
     public function save($runValidation=true,$attributes=null) {

@@ -3,7 +3,11 @@
  * Created by PhpStorm.
  * User: ZyManch
  * Date: 02.08.14
- * Time: 10:59
+ * Time: 10:59]
+ * @property Category[] $categories
+ * @property GoodMedia $goodMedia
+ * @property CutawayTemplate $cutawayTemplate
+ * @property PrintFormat $printFormat
  */
 class Good extends CGood {
 
@@ -14,6 +18,7 @@ class Good extends CGood {
     const DEFAULT_UPLOAD_GOOD_ID = 1;
     const TYPE_SIMPLE = 'simple';
     const TYPE_PRINT = 'print';
+    const TYPE_CUTAWAY = 'cutaway';
 
     const UNLIMITED = 999999;
 
@@ -40,10 +45,22 @@ class Good extends CGood {
             case self::TYPE_PRINT:
                 $model = new GoodPrint(null);
                 break;
+            case self::TYPE_CUTAWAY:
+                $model = new GoodCutaway(null);
+                break;
             default:
                 throw new Exception('Wrong type');
         }
         return $model;
+    }
+
+    protected function _extendedRelations() {
+        return array(
+            'printFormat' => array(self::BELONGS_TO, 'PrintFormat', 'source_id'),
+            'cutawayTemplate' => array(self::BELONGS_TO, 'CutawayTemplate', 'source_id'),
+            'goodMedia' => array(self::BELONGS_TO, 'GoodMedia', 'good_media_id'),
+            'categories' => array(self::MANY_MANY, 'Category', 'category_has_good(good_id,category_id)'),
+        );
     }
 
     /**

@@ -16,4 +16,17 @@ class Font extends CFont {
         self::$_variants = CHtml::listData($list,'id','title');
         return self::$_variants;
     }
+
+    public function getGd($fontSize, $text) {
+        $box = imagettfbbox($fontSize,0,$this->getFontPath(),$text);
+        $width = $box[2] - $box[6];
+        $height = $box[3] - $box[7];
+        $gd = imagecreatetruecolor($width, $height);
+        $textColor = imagecolorallocate($gd,0,0,0);
+        $bgColor = imagecolorallocate($gd,255,255,255);
+        imagecolortransparent($gd, $bgColor);
+        imagefill($gd,1,1,$bgColor);
+        imagettftext($gd,$fontSize,0,-$box[6],-$box[7],$textColor,$this->getFontPath(),$text);
+        return $gd;
+    }
 }

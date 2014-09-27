@@ -56,6 +56,40 @@ class CutawayController extends Controller {
         imagepng($gd);
     }
 
+    public function actionAddText($id, $side) {
+        $model = self::loadModel($id);
+        $cutawayText = new CutawayText();
+        $cutawayText->cutaway_id = $model->id;
+        $cutawayText->label = 'Текст';
+        $cutawayText->side = $side;
+        $lastCutawayText = null;
+        foreach ($model->cutawayTexts as $previousCutawayText) {
+            if ($previousCutawayText->side == $side) {
+                $lastCutawayText = $previousCutawayText;
+            }
+        }
+        if (!$lastCutawayText) {
+            foreach ($model->cutawayTemplate->cutawayTemplateTexts as $templateText) {
+                $lastCutawayText = $templateText;
+                $cutawayText->cutaway_template_text_id = $templateText->id;
+            }
+
+        }
+        $cutawayText->fontsize = $lastCutawayText->fontsize;
+        $cutawayText->color = $lastCutawayText->color;
+        $cutawayText->font_id = $lastCutawayText->font_id;
+        $cutawayText->orientation = $lastCutawayText->orientation;
+        $cutawayText->x = $lastCutawayText->x;
+        $cutawayText->y = $lastCutawayText->y + $lastCutawayText->fontsize;
+        if ($cutawayText->y + $cutawayText->fontsize > $model->cutawayTemplate->height) {
+            $cutawayText->y = $model->cutawayTemplate->height - $cutawayText->fontsize;
+        }
+        if (!$cutawayText->save()) {
+            throw new Exception($cutawayText->getErrorsAsText());
+        }
+        $this->redirect(array('cutaway/update','id' => $id,'side' => $side));
+    }
+
     public function actionChangeFields($id, $attrs = array()) {
         $model = self::loadTextModel($id);
         if (!$attrs) {
@@ -64,6 +98,9 @@ class CutawayController extends Controller {
         foreach ($attrs as $attr => $value) {
             if (!in_array($attr,array('x','y','fontsize','color','font_id','label'),true)) {
                 throw new Exception('Неизвестный аттрибут '.$attr);
+            }
+            if ($attr == 'color') {
+                $value = ltrim($value,'#');
             }
             $model->$attr = $value;
         }

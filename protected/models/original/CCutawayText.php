@@ -31,7 +31,7 @@ class CCutawayText extends ActiveRecord {
 
 	public function rules()	{
 		return array(
-			array('cutaway_id, cutaway_template_text_id, label, fontsize, color, font_id, x, y', 'required'),
+			array('cutaway_id, label, fontsize, color, font_id, x, y', 'required'),
 			array('side, fontsize, x, y', 'numerical', 'integerOnly'=>true),
 			array('cutaway_id, cutaway_template_text_id, font_id', 'length', 'max'=>10),
 			array('color, orientation', 'length', 'max'=>6),

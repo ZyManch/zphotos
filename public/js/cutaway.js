@@ -6,6 +6,7 @@
  */
 $(document).ready(function() {
     var $cutaway = $('.cutaway'),
+        $cutawayImage = $cutaway.find('.cutaway-side'),
         margin = parseInt($cutaway.css('paddingLeft'),10),
         cutawayData = {},
         cutawayIndex,
@@ -52,23 +53,31 @@ $(document).ready(function() {
                         startX = parseInt(cutawayElement.x.val(),10),
                         startY = parseInt(cutawayElement.y.val(),10),
                         newX,
-                        newY;
+                        newY,
+                        maxX = ($cutawayImage.width()-cutawayElement.image.width())/zoom,
+                        maxY = ($cutawayImage.height()-cutawayElement.image.height())/zoom;
                     var mouseMove = function (event) {
                         newX = Math.round(startX + (event.pageX - startPageX)/zoom);
                         newY = Math.round(startY + (event.pageY - startPageY)/zoom);
                         if (newX < 0) {
                             newX = 0;
                         }
+                        if (newX > maxX) {
+                            newX = maxX;
+                        }
                         if (newY < 0) {
                             newY = 0;
+                        }
+                        if (newY > maxY) {
+                            newY = maxY;
                         }
                         cutawayElement.x.val(newX);
                         cutawayElement.y.val(newY);
                         moveImages();
                     };
-                    $(document).mousemove(mouseMove);
-                    $(document).mouseup(function() {
+                    var mouseUp = function() {
                         $(document).unbind('mousemove',mouseMove);
+                        $(document).unbind('mouseup',mouseUp);
                         $.ajax({
                             url: "/cutaway/changeFields?id="+cutawayTextId,
                             type: "post",
@@ -77,7 +86,9 @@ $(document).ready(function() {
                                 alert(json.responseText);
                             }
                         });
-                    });
+                    }
+                    $(document).mousemove(mouseMove);
+                    $(document).mouseup(mouseUp);
                     return false;
                 });
             } else {
@@ -88,7 +99,7 @@ $(document).ready(function() {
                         value = $this.val();
                     cutawayData[cutawayTextId].image.attr(
                         'src',
-                        '/cutaway/previewText?cutaway_width='+width+'&id='+modelId+'&attr='+attr+'&value='+value
+                        '/cutaway/previewText?cutaway_width='+width+'&id='+cutawayTextId+'&attr='+attr+'&value='+encodeURIComponent(value)
                     );
                 };
                 if (cutawayElementIndex == 'label') {
@@ -99,5 +110,10 @@ $(document).ready(function() {
             }
         }
 
-    };
+    }
+    $('.font-index').change(function() {
+        var cutawayTextId = $(this).data('cutaway-text');
+        cutawayData[cutawayTextId].font_id.val($(this).val());
+        cutawayData[cutawayTextId].font_id.trigger('change');
+    });
 });

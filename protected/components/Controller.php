@@ -25,11 +25,18 @@ class Controller extends CController
         $isRegistered = $user->getIsRegistered();
         $userInfo = $user->getUser();
         $albums = array();
+        $cutaways = array();
         if ($userInfo) {
             foreach ($userInfo->albums as $album) {
                 $albums[] = array(
                     'label' => $album->name,
                     'url' => array('album/view','id' => $album->id)
+                );
+            }
+            foreach ($userInfo->cutaways as $cutaway) {
+                $cutaways[] = array(
+                    'label' => $cutaway->good->title,
+                    'url' => array('cutaway/update','id' => $cutaway->id)
                 );
             }
         }
@@ -47,6 +54,7 @@ class Controller extends CController
                 array('label' => 'Статус заказов','url'=>array('cart/index'),'visible' => sizeof(Cart::getCarts()) > 0),
                 array('label'=>'Регистрация', 'url'=>array('site/register'), 'visible'=>!$isRegistered),
                 array('label' => 'Альбомы','visible' => $albums,'items'=>$albums),
+                array('label' => 'Визитки','visible' => $cutaways,'items'=>$cutaways),
                 array('label'=>'Очистить историю', 'url'=>array('site/logout'), 'visible'=>!$isGuest && !$isRegistered),
             ))
         );

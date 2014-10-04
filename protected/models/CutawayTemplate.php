@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Class CutawayTemplate
+ * @property GoodCutaway $good
+ */
 class CutawayTemplate extends CCutawayTemplate {
 
     public function createCutaway(GoodCutaway $good) {
@@ -25,6 +30,29 @@ class CutawayTemplate extends CCutawayTemplate {
             }
         }
         return $cutaway;
+    }
+
+    public function getGd($width, $withText = true) {
+        switch (strtolower(substr($this->filename,-4))) {
+            case '.jpg': case 'jpeg':
+                $gd = imagecreatefromjpeg(Cutaway::getFileDir().$this->filename);
+                break;
+            case '.png';
+                $gd = imagecreatefrompng(Cutaway::getFileDir().$this->filename);
+                break;
+            default:
+                throw new Exception('Undefined extension for file '.$this->filename);
+        }
+        $height = round($width * $this->height / $this->width);
+        $newGd = imagecreatetruecolor($width, $height);
+        imagecopyresampled($newGd,$gd,0,0,0,0,$width,$height,$this->width,$this->height);
+        return $newGd;
+    }
+
+    public function _extendedRelations() {
+        return array(
+            'good' => array(self::HAS_ONE,'GoodCutaway','source_id','on' => 'good.type="cutaway"')
+        );
     }
 
     public function sideLabel($side) {

@@ -1,12 +1,16 @@
 <?php
 class Cutaway extends CCutaway {
 
-    public function getFileDir() {
+    public static function getFileDir() {
         return 'images/cutaway/';
     }
 
     public function getFilePath($side) {
-        return $this->getFileDir().$this->cutawayTemplate->filename;
+        return self::getFileDir().
+            ($side==0?
+                $this->cutawayTemplate->filename:
+                $this->cutawayTemplate->second_filename
+            );
     }
 
     protected function _getGd($side) {

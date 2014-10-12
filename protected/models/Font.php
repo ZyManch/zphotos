@@ -4,7 +4,7 @@ class Font extends CFont {
     protected static $_variants;
 
     public function getFontPath() {
-        $path = Yii::getPathOfAlias('root').'/fonts/'.$this->filename;
+        $path = HOME.'fonts/'.$this->filename;
         return $path;
     }
 
@@ -23,7 +23,7 @@ class Font extends CFont {
         $height = $box[3] - $box[7];
         $gd = imagecreatetruecolor($width, $height);
         $textColor = imagecolorallocate($gd,0,0,0);
-        $bgColor = imagecolorallocate($gd,255,255,255);
+        $bgColor = imagecolorallocate($gd,253,255,254);
         imagecolortransparent($gd, $bgColor);
         imagefill($gd,1,1,$bgColor);
         imagettftext($gd,$fontSize,0,-$box[6],-$box[7],$textColor,$this->getFontPath(),$text);

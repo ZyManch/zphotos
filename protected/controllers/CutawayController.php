@@ -73,14 +73,16 @@ class CutawayController extends Controller {
                 $lastCutawayText = $templateText;
                 $cutawayText->cutaway_template_text_id = $templateText->id;
             }
-
         }
-        $cutawayText->fontsize = $lastCutawayText->fontsize;
-        $cutawayText->color = $lastCutawayText->color;
-        $cutawayText->font_id = $lastCutawayText->font_id;
-        $cutawayText->orientation = $lastCutawayText->orientation;
-        $cutawayText->x = $lastCutawayText->x;
-        $cutawayText->y = $lastCutawayText->y + $lastCutawayText->fontsize;
+        if (!$lastCutawayText) {
+            $lastCutawayText = new CutawayTemplateText();
+            $lastCutawayText->attributes = CutawayTemplateText::getDefaultValues();
+        }
+        foreach (CutawayTemplateText::getFieldsForCopy() as $field) {
+            $cutawayText->$field = $lastCutawayText->$field;
+        }
+
+        $cutawayText->y += $lastCutawayText->fontsize;
         if ($cutawayText->y + $cutawayText->fontsize > $model->cutawayTemplate->height) {
             $cutawayText->y = $model->cutawayTemplate->height - $cutawayText->fontsize;
         }
@@ -88,6 +90,46 @@ class CutawayController extends Controller {
             throw new Exception($cutawayText->getErrorsAsText());
         }
         $this->redirect(array('cutaway/update','id' => $id,'side' => $side));
+    }
+
+    public function actionDeleteText($id) {
+        $model = self::loadTextModel($id);
+        $side = $model->side;
+        $cutawayId = $model->cutaway_id;
+        if (!$model->delete()) {
+            throw new Exception('Error delete text #'.$id);
+        }
+        $this->redirect(array('cutaway/update','id' => $cutawayId,'side' => $side));
+    }
+
+    public function actionSaveAsTemplate($id, $side = 0) {
+        $model = self::loadModel($id);
+        $templates = $model->cutawayTemplate->cutawayTemplateTexts;
+        foreach ($model->cutawayTexts as $text) {
+            if ($text->cutaway_template_text_id) {
+                $template = $templates[$text->cutaway_template_text_id];
+                unset($templates[$text->cutaway_template_text_id]);
+            } else {
+                $template = new CutawayTemplateText();
+                $template->cutaway_template_id = $model->cutaway_template_id;
+            }
+            foreach (CutawayTemplateText::getFieldsForCopy() as $field) {
+                $template->$field = $text->$field;
+            }
+            if (!$template->save()) {
+                throw new Exception('Error save template:'.$template->getErrorsAsText());
+            }
+            if (!$text->cutaway_template_text_id) {
+                $text->cutaway_template_text_id = $template->id;
+                if (!$text->save()) {
+                    throw new Exception('Error save text:'.$text->getErrorsAsText());
+                }
+            }
+        }
+        foreach ($templates as $template) {
+            $template->delete();
+        }
+        $this->redirect(array('cutaway/update','id' => $model->id,'side' => $side));
     }
 
     public function actionChangeFields($id, $attrs = array()) {

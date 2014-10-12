@@ -66,6 +66,11 @@ $width = 600;
                     'size' => 'small',
                     'label'=> 'Добавить текст',
                 )); ?>
+                <?php $this->widget('bootstrap.widgets.TbButton', array(
+                    'url' => array('cutaway/saveAsTemplate','id' => $model->id,'side'=>$side),
+                    'size' => 'small',
+                    'label'=> 'Сохранить как шаблон',
+                )); ?>
             </div>
             <div class="span8">
                 <div class="control-group">

@@ -18,13 +18,9 @@ class CutawayTemplate extends CCutawayTemplate {
             $cutawayText  = new CutawayText();
             $cutawayText->cutaway_id = $cutaway->id;
             $cutawayText->cutaway_template_text_id = $cutawayTemplateText->id;
-            $cutawayText->label = $cutawayTemplateText->label;
-            $cutawayText->fontsize = $cutawayTemplateText->fontsize;
-            $cutawayText->color = $cutawayTemplateText->color;
-            $cutawayText->font_id = $cutawayTemplateText->font_id;
-            $cutawayText->x = $cutawayTemplateText->x;
-            $cutawayText->y = $cutawayTemplateText->y;
-            $cutawayText->orientation = $cutawayTemplateText->orientation;
+            foreach (CutawayTemplateText::getFieldsForCopy() as $field) {
+                $cutawayText->$field = $cutawayTemplateText->$field;
+            }
             if (!$cutawayText->save()) {
                 throw new Exception('Ошибка сохранения текста для визитки');
             }
@@ -32,7 +28,7 @@ class CutawayTemplate extends CCutawayTemplate {
         return $cutaway;
     }
 
-    public function getGd($width, $withText = true) {
+    public function getGd($maxSideLength, $withText = true) {
         switch (strtolower(substr($this->filename,-4))) {
             case '.jpg': case 'jpeg':
                 $gd = imagecreatefromjpeg(Cutaway::getFileDir().$this->filename);
@@ -43,9 +39,29 @@ class CutawayTemplate extends CCutawayTemplate {
             default:
                 throw new Exception('Undefined extension for file '.$this->filename);
         }
-        $height = round($width * $this->height / $this->width);
+        if (imagesx($gd) > imagesy($gd)) {
+            $width = $maxSideLength;
+            $zoom = $width / $this->width;
+            $height = round($this->height * $zoom);
+        } else {
+            $height = $maxSideLength;
+            $zoom = $height / $this->height;
+            $width = round($this->width * $zoom);
+        }
         $newGd = imagecreatetruecolor($width, $height);
         imagecopyresampled($newGd,$gd,0,0,0,0,$width,$height,$this->width,$this->height);
+        if ($withText) {
+            foreach ($this->cutawayTemplateTexts as $text) {
+                $fontsize = round($text->fontsize * $zoom);
+                $x = round($text->x * $zoom);
+                $y = round($text->y * $zoom);
+                $box = imagettfbbox($fontsize, 0, $text->font->getFontPath(), $text->label);
+                $topLeftX = $box[6];
+                $topLeftY = $box[7];
+                $textColor = $text->getColorText($newGd);
+                imagettftext($newGd,$fontsize,0, $x-$topLeftX,$y-$topLeftY,$textColor,$text->font->getFontPath(),$text->label);
+            }
+        }
         return $newGd;
     }
 

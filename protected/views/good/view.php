@@ -110,8 +110,8 @@ if ($medias) {
                                 <?php endif;?>
                             </h4>
 
-                            <a href="/images/good/<?php echo $media->filename;?>">
-                                <img src="/images/good/<?php echo $media->preview_filename;?>" />
+                            <a href="/images/good/<?php echo $media->preview_filename;?>">
+                                <img src="/images/good/<?php echo $media->filename;?>" />
                             </a>
                         </li>
                     <?php endforeach;?>

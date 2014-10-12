@@ -1,5 +1,5 @@
 <?php
-
+define('HOME',dirname(dirname(__FILE__)).'/');
 $yii=dirname(__FILE__).'/../framework/yii.php';
 $config=dirname(__FILE__).'/../protected/config/main.php';
 $staticConfig=dirname(__FILE__).'/../protected/config/static_config.php';

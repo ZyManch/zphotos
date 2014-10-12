@@ -13,7 +13,7 @@ class CutawayText extends CCutawayText {
         $width = $bottomRightX-$topLeftX;
         $height = $bottomRightY - $topLeftY;
         $gd = imagecreatetruecolor($width, $height);
-        $bgColor = imagecolorallocate($gd,255,255,255);
+        $bgColor = imagecolorallocate($gd,253,255,254);
         imagecolortransparent($gd, $bgColor);
         imagefill($gd,0,0,$bgColor);
         $textColor = $this->getColorText($gd);

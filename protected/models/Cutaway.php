@@ -2,7 +2,7 @@
 class Cutaway extends CCutaway {
 
     public static function getFileDir() {
-        return 'images/cutaway/';
+        return HOME.'public/images/cutaway/';
     }
 
     public function getFilePath($side) {
@@ -18,7 +18,15 @@ class Cutaway extends CCutaway {
         if  (!file_exists($filePath)) {
             throw new Exception('Не найдена '.($side?'передняя':'задняя').' сторона визитки');
         }
-        return imagecreatefromjpeg($filePath);
+        switch (strtolower(substr($filePath,-4))) {
+            case '.jpg':case 'jpeg':
+                return imagecreatefromjpeg($filePath);
+            case '.png':
+                return imagecreatefrompng($filePath);
+            default:
+                throw new Exception('Undefined extension for cutaway: '.$filePath);
+        }
+
     }
 
     public function getPreviewGd($side, $sourceWidth, $withText) {

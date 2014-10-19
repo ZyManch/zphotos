@@ -45,8 +45,8 @@ class Controller extends CController
                 );
             }
         }
-        //$carts = Cart::getCarts();
-        $carts = array();
+        $carts = Cart::getCarts();
+        //$carts = array();
         $this->menu = array(
             array('label'=>'Главная', 'url'=>array('site/index')),
             array('label'=>'Каталог', 'url'=>array('category/view'), 'items' => $this->_getCatalogSubMenu()),
@@ -68,7 +68,7 @@ class Controller extends CController
     }
 
     protected function _getCatalogSubMenu() {
-        return array();
+        //return array();
         $catalogs = Category::model()->findAll(array(
             'condition' => 'parent_id is null',
             'order'     => 'title asc'

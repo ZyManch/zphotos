@@ -19,7 +19,12 @@ class Controller extends CController
     public function init() {
         parent::init();
         Yii::setPathOfAlias('photos', dirname(__FILE__).'/../../photos');
-        Yii::app()->bootstrap->register();
+        $client = Yii::app()->clientScript;
+        $client->registerCssFile('/bootstrap/css/bootstrap.css');
+        $client->registerCoreScript('jquery', CClientScript::POS_END);
+        $client->registerCoreScript('jquery.ui', CClientScript::POS_END);
+        $client->registerScriptFile('/bootstrap/js/bootstrap.min.js', CClientScript::POS_END);
+        $client->registerScript('tooltip', "$('[data-toggle=\"tooltip\"]').tooltip();$('[data-toggle=\"popover\"]').tooltip()", CClientScript::POS_READY);
         $user = Yii::app()->user;
         $isGuest = $user->getIsGuest();
         $isRegistered = $user->getIsRegistered();
@@ -40,6 +45,8 @@ class Controller extends CController
                 );
             }
         }
+        //$carts = Cart::getCarts();
+        $carts = array();
         $this->menu = array(
             array('label'=>'Главная', 'url'=>array('site/index')),
             array('label'=>'Каталог', 'url'=>array('category/view'), 'items' => $this->_getCatalogSubMenu()),
@@ -51,7 +58,7 @@ class Controller extends CController
                 array('label'=>'Выход', 'url'=>array('site/logout'), 'visible'=>$isRegistered),
                 array('label'=>'Войти', 'url'=>array('site/login'), 'visible'=>!$isRegistered),
                 array('label' => 'Моя корзина','url'=>array('cart/view'),'visible' => Cart::getCurrent()),
-                array('label' => 'Статус заказов','url'=>array('cart/index'),'visible' => sizeof(Cart::getCarts()) > 0),
+                array('label' => 'Статус заказов','url'=>array('cart/index'),'visible' => sizeof($carts) > 0),
                 array('label'=>'Регистрация', 'url'=>array('site/register'), 'visible'=>!$isRegistered),
                 array('label' => 'Альбомы','visible' => $albums,'items'=>$albums),
                 array('label' => 'Визитки','visible' => $cutaways,'items'=>$cutaways),
@@ -61,6 +68,7 @@ class Controller extends CController
     }
 
     protected function _getCatalogSubMenu() {
+        return array();
         $catalogs = Category::model()->findAll(array(
             'condition' => 'parent_id is null',
             'order'     => 'title asc'

@@ -7,31 +7,42 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
+    <!--[if lt IE 9]>
+    <script src="<?php echo '/assets/js/html5shiv.js'; ?>"></script>
+    <script src="<?php echo '/assets/js/respond.min.js'; ?>"></script>
+    <![endif]-->
 </head>
 
 <body>
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation" id="logo">
+    <div class="container-fluid">
+        <div class="navbar-header brand">
+            <?php $this->renderPartial('//layouts/_logo');?>
+        </div>
+        <div class="collapse navbar-collapse">
+            <div class="nav navbar-nav">
+                <?php foreach ($this->menu as $menu):?>
+                    <?php $this->renderPartial('//layouts/_menuItem',array('menu' => $menu,'sub' => false));?>
+                <?php endforeach;?>
+            </div>
+        </div>
+    </div>
+</nav>
 
-<?php $this->widget('bootstrap.widgets.TbNavbar',array(
-    'items'=>array(
-        array(
-            'class'=>'bootstrap.widgets.TbMenu',
-            'items'=>$this->menu,
-
-        ),
-    ),
-    'brand' => $this->renderPartial('//layouts/logo',null,true),
-    'htmlOptions' => array('id' => 'logo')
-)); ?>
-
-
-<?php if(isset($this->breadcrumbs)):?>
+<?php /* if(isset($this->breadcrumbs)):?>
     <?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
         'links'=>$this->breadcrumbs,
     )); ?><!-- breadcrumbs -->
-<?php endif?>
+<?php endif */ ?>
 
 <div id="content">
-    <?php $this->widget('bootstrap.widgets.TbAlert', array()); ?>
+    <?php foreach (array('success','info','warning','danger') as $alert):?>
+        <?php if (Yii::app()->user->hasFlash($alert)):?>
+            <div class="alert alert-success">
+                <?php echo Yii::app()->user->getFlash($alert);?>
+            </div>
+        <?php endif;?>
+    <?php endforeach;?>
     <?php echo $content; ?>
     <div id="footer-spacer"></div>
 </div>

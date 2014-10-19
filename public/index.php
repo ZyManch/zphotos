@@ -14,6 +14,5 @@ $staticConfig = require_once $staticConfig;
 require_once dirname(__FILE__).'/../protected/merge.php';
 $mergedConfig = array_merge_config($staticConfig, $config);
 Yii::setPathOfAlias('root', dirname(__FILE__).'/..');
-Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../protected/extensions/bootstrap');
 Yii::setPathOfAlias('editable', dirname(__FILE__).'/../protected/extensions/editable');
 Yii::createWebApplication($mergedConfig)->run();

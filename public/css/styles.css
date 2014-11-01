@@ -560,3 +560,7 @@ body
 .cutaway-block .block-button {
 
 }
+.center-dialog {
+    margin: 0px auto;
+    width: 400px;
+}

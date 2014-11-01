@@ -10,7 +10,7 @@ $this->breadcrumbs=array(
 ?>
 <div class="col-xs-12">
     <div class="center-dialog">
-        <h3 class="text-center">Войти</h3>
+        <h3 class="text-center">Регистрация</h3>
 
 
         <?php $form=$this->beginWidget('CActiveForm', array(
@@ -23,24 +23,32 @@ $this->breadcrumbs=array(
         )); ?>
 
             <div class="form-group">
-                <?php echo $form->label($model,'username',array('class'=>'col-sm-3 control-label')); ?>
-                <div class="col-sm-9">
+                <?php echo $form->label($model,'username',array('class'=>'col-sm-5 control-label')); ?>
+                <div class="col-sm-7">
                     <?php echo $form->textField($model,'username',array('class'=>'form-control')); ?>
                 </div>
             </div>
             <div class="form-group">
-                <?php echo $form->label($model,'password',array('class'=>'col-sm-3 control-label'));?>
-                <div class="col-sm-9">
+                <?php echo $form->label($model,'password',array('class'=>'col-sm-5 control-label'));?>
+                <div class="col-sm-7">
                     <?php echo $form->passwordField($model,'password',array(
                         'class'=>'form-control',
                     )); ?>
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
+                <?php echo $form->label($model,'password_repeat',array('class'=>'col-sm-5 control-label'));?>
+                <div class="col-sm-7">
+                    <?php echo $form->passwordField($model,'password_repeat',array(
+                        'class'=>'form-control',
+                    )); ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-5 col-sm-7">
                     <div class="checkbox">
                         <label>
-                            <?php echo $form->checkBox($model,'rememberMe'); ?> Запомнить меня
+                            <?php echo $form->checkBox($model,'accept'); ?> Согласен с условиями
                         </label>
                     </div>
                 </div>

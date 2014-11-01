@@ -65,7 +65,7 @@ $(document).ready(function() {
             maxMarginY = startMarginBottom + startMarginTop,
             position;
 
-        if (e.srcElement.tagName.toLowerCase() == 'img' ) {
+        if (e.target.tagName.toLowerCase() == 'img' ) {
             // moving
             moving = function(e) {
                 dx = (e.screenX - startX)/zoom;
@@ -77,7 +77,7 @@ $(document).ready(function() {
                 updateImageByInputs();
             }
         } else {
-            position = $(e.srcElement).position();
+            position = $(e.target).position();
 
             if ((e.offsetX + position.left)/zoom <= startMarginLeft) {
                 // left

@@ -7,29 +7,25 @@
  * @var IDataProvider $albums
  */
 ?>
-
-<div class="info tools">
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'url'=>array('cart/create'),
-        'type'=>'primary',
-        'label'=> 'Распечатать',
-    )); ?>
-
-    <?php
-    $this->renderPartial('//upload/form',array(
-        'htmlOptions' => array(
-            'class' => 'btn btn-warning',
-        ),
-        'uploadId' => 'upload_button',
-        'errorId'  => 'info_box',
-        'text' => 'Загрузить'
-    ));?>
+<div class="row">
+    <div class="col-xs-12 tools">
+        <?php echo CHtml::link('Распечатать',array('cart/create'),array('class' => 'btn btn-primary'));?>
+        <?php
+        $this->renderPartial('//upload/form',array(
+            'htmlOptions' => array(
+                'class' => 'btn btn-warning',
+            ),
+            'uploadId' => 'upload_button',
+            'errorId'  => 'info_box',
+            'text' => 'Загрузить'
+        ));?>
+    </div>
 </div>
 
-<div class="info">
-    <div class="info-block">
+<div class="row">
+    <div class="col-xs-12">
         <h2>Мои альбомы</h2>
-        <?php $this->widget('bootstrap.widgets.TbListView',array(
+        <?php $this->widget('zii.widgets.CListView',array(
             'dataProvider'=>$albums,
             'itemView'=>'_view',
         )); ?>

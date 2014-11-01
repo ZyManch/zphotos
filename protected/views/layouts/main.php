@@ -7,17 +7,13 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
-    <!--[if lt IE 9]>
-    <script src="<?php echo '/assets/js/html5shiv.js'; ?>"></script>
-    <script src="<?php echo '/assets/js/respond.min.js'; ?>"></script>
-    <![endif]-->
 </head>
 
 <body>
-<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation" id="logo">
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation" id="black-menu">
     <div class="container-fluid">
         <div class="navbar-header brand">
-            <?php $this->renderPartial('//layouts/_logo');?>
+            links
         </div>
         <div class="collapse navbar-collapse">
             <div class="nav navbar-nav">
@@ -35,7 +31,25 @@
     )); ?><!-- breadcrumbs -->
 <?php endif */ ?>
 
-<div id="content">
+<div id="container">
+    <div id="logo">
+        <?php $this->renderPartial('//layouts/_logo');?>
+    </div>
+    <div id="menu">
+        <div class="nav navbar-nav">
+            <?php foreach ($this->userMenu as $menu):?>
+                <?php $this->renderPartial('//layouts/_menuItem',array('menu' => $menu,'sub' => false));?>
+            <?php endforeach;?>
+        </div>
+    </div>
+    <div id="logo-space"></div>
+    <div id="catalog">
+        <div class="nav navbar-nav">
+            <?php foreach ($this->catalogs as $menu):?>
+                <?php $this->renderPartial('//layouts/_menuItem',array('menu' => $menu,'sub' => false));?>
+            <?php endforeach;?>
+        </div>
+    </div>
     <?php foreach (array('success','info','warning','danger') as $alert):?>
         <?php if (Yii::app()->user->hasFlash($alert)):?>
             <div class="alert alert-success">
@@ -43,14 +57,16 @@
             </div>
         <?php endif;?>
     <?php endforeach;?>
-    <?php echo $content; ?>
-    <div id="footer-spacer"></div>
+    <div id="content" class="container-fluid">
+        <?php echo $content; ?>
+    </div>
+    <div id="footer">
+        <a href="/">zPhotos</a> - печать для вашего дома и для вашего бизнеса
+    </div>
 </div>
 
 
-<div id="footer">
-    Copyright &copy; <?php echo date('Y'); ?> by My Company.
-</div>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -64,6 +80,41 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+    <!-- The container for the modal slides -->
+    <div class="slides"></div>
+    <!-- Controls for the borderless lightbox -->
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+    <!-- The modal dialog, which will be used to wrap the lightbox content -->
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body next"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left prev">
+                        <i class="glyphicon glyphicon-chevron-left"></i>
+                        Previous
+                    </button>
+                    <button type="button" class="btn btn-primary next">
+                        Next
+                        <i class="glyphicon glyphicon-chevron-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

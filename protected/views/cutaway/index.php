@@ -10,7 +10,7 @@
 <div class="info">
     <div class="info-block">
         <h1>Визитки</h1>
-        <?php $this->widget('bootstrap.widgets.TbListView',array(
+        <?php $this->widget('zii.widgets.CListView',array(
             'dataProvider'=>$model->search(),
             'itemView'=>'//good/_view',
         )); ?>

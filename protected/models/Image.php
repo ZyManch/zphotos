@@ -11,7 +11,7 @@ class Image extends CImage {
     const ORIENTATION_VERTICAL = 'Vertical';
 
     const PREVIEW_HEIGHT = 200;
-    const VIEW_WIDTH = 800;
+    const VIEW_WIDTH = 720;
 
 
     public function save($runValidation=true,$attributes=null) {

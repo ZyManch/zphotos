@@ -9,7 +9,7 @@ class FontController extends Controller {
 
     public function actionPreview($id) {
         $font = self::loadModel($id);
-        $gd = $font->getGd(16,$font->title);
+        $gd = $font->getGd(12,$font->title);
         header("Content-type: image/png");
         imagepng($gd);
     }

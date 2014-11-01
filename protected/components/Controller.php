@@ -3,12 +3,10 @@
  * Controller is the customized base controller class.
  * All controller classes for this application should extend from this base class.
  */
-class Controller extends CController
-{
-	/**
-	 * @var array context menu items. This property will be assigned to {@link CMenu::items}.
-	 */
+class Controller extends CController {
 	public $menu=array();
+	public $catalogs=array();
+	public $userMenu=array();
 	/**
 	 * @var array the breadcrumbs of the current page. The value of this property will
 	 * be assigned to {@link CBreadcrumbs::links}. Please refer to {@link CBreadcrumbs::links}
@@ -20,10 +18,10 @@ class Controller extends CController
         parent::init();
         Yii::setPathOfAlias('photos', dirname(__FILE__).'/../../photos');
         $client = Yii::app()->clientScript;
-        $client->registerCssFile('/bootstrap/css/bootstrap.css');
+        $client->registerCssFile('/css/bootstrap.css');
         $client->registerCoreScript('jquery', CClientScript::POS_END);
         $client->registerCoreScript('jquery.ui', CClientScript::POS_END);
-        $client->registerScriptFile('/bootstrap/js/bootstrap.min.js', CClientScript::POS_END);
+        $client->registerScriptFile('/js/bootstrap.min.js', CClientScript::POS_END);
         $client->registerScript('tooltip', "$('[data-toggle=\"tooltip\"]').tooltip();$('[data-toggle=\"popover\"]').tooltip()", CClientScript::POS_READY);
         $user = Yii::app()->user;
         $isGuest = $user->getIsGuest();
@@ -46,34 +44,33 @@ class Controller extends CController
             }
         }
         $carts = Cart::getCarts();
-        //$carts = array();
+        $this->catalogs = $this->_getCatalogMenu();
+        $this->userMenu = array(
+            array('label'=>'Выход ('.$user->name.')', 'url'=>array('site/logout'), 'visible'=>$isRegistered),
+            array('label'=>'Войти', 'url'=>array('site/login'), 'visible'=>!$isRegistered),
+            array('label'=>'Регистрация', 'url'=>array('site/register'), 'visible'=>!$isRegistered),
+            array('label' => 'Моя корзина','url'=>array('cart/view'),'visible' => Cart::getCurrent()),
+            array('label' => 'Статус заказов','url'=>array('cart/index'),'visible' => sizeof($carts) > 0),
+            array('label' => 'Альбомы','visible' => $albums,'items'=>$albums),
+            array('label' => 'Визитки','visible' => $cutaways,'items'=>$cutaways),
+            array('label'=>'Очистить историю', 'url'=>array('site/logout'), 'visible'=>!$isGuest && !$isRegistered),
+        );
         $this->menu = array(
             array('label'=>'Главная', 'url'=>array('site/index')),
-            array('label'=>'Каталог', 'url'=>array('category/view'), 'items' => $this->_getCatalogSubMenu()),
-            array('label'=>'Магазин', 'url'=>array('site/page'),'items' => array(
-                array('label'=>'О нас', 'url'=>array('site/page', 'id'=>'about')),
-                array('label'=>'Доставка и оплата', 'url'=>array('site/index')),
-            )),
-            array('label'=>'Аккаунт'.($user->name ? ' ('.Yii::app()->user->name.')':''), 'items' => array(
-                array('label'=>'Выход', 'url'=>array('site/logout'), 'visible'=>$isRegistered),
-                array('label'=>'Войти', 'url'=>array('site/login'), 'visible'=>!$isRegistered),
-                array('label' => 'Моя корзина','url'=>array('cart/view'),'visible' => Cart::getCurrent()),
-                array('label' => 'Статус заказов','url'=>array('cart/index'),'visible' => sizeof($carts) > 0),
-                array('label'=>'Регистрация', 'url'=>array('site/register'), 'visible'=>!$isRegistered),
-                array('label' => 'Альбомы','visible' => $albums,'items'=>$albums),
-                array('label' => 'Визитки','visible' => $cutaways,'items'=>$cutaways),
-                array('label'=>'Очистить историю', 'url'=>array('site/logout'), 'visible'=>!$isGuest && !$isRegistered),
-            ))
+            array('label'=>'О нас', 'url'=>array('site/page', 'id'=>'about')),
+            array('label'=>'Доставка и оплата', 'url'=>array('site/index')),
         );
     }
 
-    protected function _getCatalogSubMenu() {
+    protected function _getCatalogMenu() {
         //return array();
         $catalogs = Category::model()->findAll(array(
             'condition' => 'parent_id is null',
             'order'     => 'title asc'
         ));
-        $result = array();
+        $result = array(
+            array('label' => 'Каталог','url' => array('category/view'))
+        );
         /** @var Category[] $catalogs */
         foreach ($catalogs as $catalog) {
             $menuItem = array(
@@ -81,10 +78,9 @@ class Controller extends CController
                 'url'=>array('category/view','id' =>$catalog->id),
                 //'items' => array()
             );
-            /*
             foreach ($catalog->categories as $category) {
                 $menuItem['items'][] = array('label'=>$category->title, 'url'=>array('category/view','id' =>$category->id));
-            }*/
+            }
             $result[] = $menuItem;
         }
         return $result;

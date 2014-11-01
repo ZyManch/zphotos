@@ -8,28 +8,90 @@ body,html {
 body
 {
     color: #555;
-	background: #ffffff;
+    background: #EFEFEF;
+    background-image: url(../images/background.gif);
+    background-repeat: repeat;
     height:auto !important;
     height:100%;
     min-height:100%;
     position: relative;
 }
-#logo {
+#black-menu {
     min-height: 35px;
 }
-#logo .brand{
-    padding:  2px 20px 0px 0px;
+#black-menu a,#black-menu a:visited{
+    padding-top:0;
+    padding-bottom:0;
+    color: white;
+    line-height: 36px;
+    font-weight: 700;
 }
-#logo .brand img.logo{
-    float: left;
+#black-menu li.active a, #black-menu li.active a:visited{
+    background-color: #a8ff29;
+    color: #000000;
+    font-weight: bold;
 }
-#logo .brand .title{
-    float: left;
-    padding-top: 2px;
-    padding-left: 5px;
+#black-menu li.open a, #black-menu li.open a:visited{
+    background-color: #d2ff8a;
+    color: black;
+}
+#black-menu ul.dropdown-menu {
+    left: -1px;
+    border-top-width: 0px;
+    background-color: #d2ff8a;
+}
+#black-menu ul.dropdown-menu a, #black-menu ul.dropdown-menu a:visited {
+    color: black;
+    background-image:none;
+    background-color: #d2ff8a;
+    font-weight: bold;
+}
+#black-menu ul.dropdown-menu a:hover {
+    background-color: #a8ff29;
+}
+#black-menu .caret{
+    float: right;
+    margin-top: 16px;
+    margin-left: 4px;
+}
+#black-menu li li{
+    position: relative;
+}
+#black-menu li li:hover .dropdown-menu {
+    display: block;
+    left: 100%;
+    top:0px;
+}
+#black-menu ul.dropdown-menu .caret{
+    float: right;
+    border-left: 4px solid;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+
+#logo {
+    width: 200px;
+    height: 50px;
+    background-color: black;
+    border-radius: 40px 40px 0px 0px;
+    text-align: center;
+    position: absolute;
+    top:0px;
+    left: 0px;
+    z-index: 4;
+    padding-top: 8px;
+    box-shadow: 0px -2px 5px black;
+}
+#logo img.logo{
+    vertical-align: bottom;
+    display: inline-block;
+}
+#logo .title{
+    display: inline-block;
     color: white;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 30px;
+    line-height: 36px;
 }
 .title{
     color: black;
@@ -38,71 +100,156 @@ body
 .title span {
     color: #ff9400;
 }
-#logo a,#logo a:visited{
+
+#menu {
+    position: absolute;
+    top:14px;
+    left: 180px;
+    right: 0px;
+    background-color: #d2ff8a;
+    border-radius: 0px 20px 0px 0px;
+    z-index: 3;
+    line-height: 35px;
+    padding-left: 40px;
+    box-shadow: 0px -2px 5px #74e100;
+}
+#menu li:first-child a{
+    border-left-width: 0px;
+}
+#menu a,#menu a:visited{
+    padding:0 10px 0 10px;
+    color: black;
+    line-height: 36px;
+    border-left: 1px dotted #74e100;
+}
+#menu a:hover, #menu a:focus {
+    background-color: #eefff2;
+    color: #000000;
+}
+#menu li.active a, #menu li.active a:visited{
+    background-color: #ffffff;
+    color: #000000;
+}
+#menu li.open a, #menu li.open a:visited{
+    background-color: #ffffff;
+    color: black;
+}
+#menu ul.dropdown-menu {
+    left: -1px;
+    border-top-width: 0px;
+    background-color: #ffffff;
+}
+#menu ul.dropdown-menu a, #menu ul.dropdown-menu a:visited {
+    color: black;
+    background-image:none;
+    background-color: #ffffff;
+}
+#menu ul.dropdown-menu a:hover {
+    background-color: #a8ff29;
+}
+#menu .caret{
+    float: right;
+    margin-top: 16px;
+    margin-left: 4px;
+}
+#menu li li{
+    position: relative;
+}
+#menu li li:hover .dropdown-menu {
+    display: block;
+    left: 100%;
+    top:0px;
+}
+#menu ul.dropdown-menu .caret{
+    float: right;
+    border-left: 4px solid;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}
+#logo-space {
+    height: 50px;
+}
+#catalog {
+    background-color: black;
+    min-height: 36px;
+    box-shadow: 0px 0px 5px #000000;
+    position: relative;
+    z-index: 2;
+}
+#catalog a,#catalog a:visited{
     padding-top:0;
     padding-bottom:0;
     color: white;
     line-height: 36px;
     font-weight: 700;
 }
-#logo li.active a, #logo li.active a:visited{
-    background-color: #a8ff29;
+#catalog a:hover, #catalog a:focus {
+    background-color: #eefff2;
+    color: #000000;
+}
+#catalog li.active a, #catalog li.active a:visited{
+    background-color: #ffffff;
     color: #000000;
     font-weight: bold;
 }
-#logo li.open a, #logo li.open a:visited{
-    background-color: #d2ff8a;
+#catalog li.open a, #catalog li.open a:visited{
+    background-color: #ffffff;
     color: black;
 }
-#logo ul.dropdown-menu {
+#catalog ul.dropdown-menu {
     left: -1px;
     border-top-width: 0px;
-    background-color: #d2ff8a;
+    background-color: #ffffff;
 }
-#logo ul.dropdown-menu a, #logo ul.dropdown-menu a:visited {
+#catalog ul.dropdown-menu a, #catalog ul.dropdown-menu a:visited {
     color: black;
     background-image:none;
-    background-color: #d2ff8a;
+    background-color: #ffffff;
     font-weight: bold;
 }
-#logo ul.dropdown-menu a:hover {
+#catalog ul.dropdown-menu a:hover {
     background-color: #a8ff29;
 }
-#logo .caret{
+#catalog .caret{
     float: right;
     margin-top: 16px;
     margin-left: 4px;
 }
-#logo li li{
+#catalog li li{
     position: relative;
 }
-#logo li li:hover .dropdown-menu {
+#catalog li li:hover .dropdown-menu {
     display: block;
     left: 100%;
     top:0px;
 }
-#logo ul.dropdown-menu .caret{
+#catalog ul.dropdown-menu .caret{
     float: right;
     border-left: 4px solid;
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
 }
-#content {
-    padding: 60px 20px 0px 20px;
+#container {
+    margin: 0 auto;
+    margin-top: 50px;
+    max-width: 1000px;
+    position: relative;
 }
-#footer-spacer {
-    height: 22px;
-    clear: both;
+#content {
+    position: relative;
+    z-index: 0;
+    background-color: white;
+    box-shadow: 0px 0px 5px #000000;
+    padding-top: 20px;
+    padding-bottom: 10px;
 }
 #footer {
     background-color: #000000;
-    height: 22px;
-    position: absolute;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
     color: white;
     padding: 5px 40px;
+    border-radius: 0px 0px 20px 20px;
+    line-height: 30px;
+    box-shadow: 0px 0px 5px #000000;
 }
 .green_circle {
     display: block;
@@ -110,12 +257,6 @@ body
     height: 200px;
     border-radius: 100px;
     border: 1px dashed black;
-    position: absolute;
-    left: -100px;
-    margin-left: 50%;
-    margin-top: 275px;
-    top:-100px;
-    z-index: 10;
     box-shadow: 1px 1px 10px #79c52a;
     cursor: pointer;
     text-align: center;
@@ -159,63 +300,11 @@ body
 }
 .tools {
     text-align: right;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dotted gray;
 }
-#left-info {
-    position: absolute;
-    z-index: 1;
-    left: 12px;
-    top: 70px;
-    right: 51%;
-}
-#right-top1-info {
-    position: absolute;
-    z-index: 1;
-    left: 51%;
-    top: 70px;
-    width: 293px;
-    height: 209px;
-}
-#right-top2-info {
-    position: absolute;
-    z-index: 1;
-    left: 51%;
-    top: 70px;
-    right: 12px;
-    margin-left: 353px;
-    height: 210px;
-}
-#right-bottom-info {
-    position: absolute;
-    z-index: 1;
-    left: 51%;
-    top: 340px;
-    right: 12px;
-}
-.info {
-    padding: 20px;
-}
-.info-block {
 
-    text-align: justify;
-
-}
-.info-block p{
-    text-indent: 1.5em;
-}
-.info-block ul {
-    list-style-type: circle;
-}
-.info-block li {
-    color: #ff5ef7;
-}
-.info-block li span{
-    color: black;
-}
-.info-block h1 {
-    font-size: 24px;
-    margin: 0;
-    padding: 0;
-}
 .chelny {
     background-image: url(../images/chelny.jpg);
     background-repeat: no-repeat;
@@ -224,7 +313,7 @@ body
     color: #ff9400;
     font-weight: bold;
 }
-.image-preview {
+.thumbnail.image-preview {
     float: left;
     height: 224px;
     border-radius: 5px;
@@ -235,10 +324,11 @@ body
     -o-transition: all 2s ease;
     -ms-transition: all 2s ease;
     transition: all 2s ease;
+    padding: 0;
 
 }
 .image-preview img{
-    height: 200px;
+    height: 201px;
 }
 .pagination {
     clear: left;
@@ -288,10 +378,7 @@ body
     text-decoration: none;
     border-radius: 0px 0px 3px 3px;
 }
-.image-edit {
-    float: left;
-    width: 800px;
-    border: 1px solid black;
+.image-edit .image{
     position: relative;
     z-index: 0;
 }
@@ -311,9 +398,6 @@ body
     cursor: move;
 }
 .image-form {
-    margin-left: 840px;
-    margin-top: 10px;
-    padding: 10px;
     border-left: 1px solid #eeeeee;
 }
 .album:first-child {
@@ -435,4 +519,44 @@ body
 }
 .good li {
     color: #0088cc;
+}
+
+#container .alert {
+    position: relative;
+    margin-bottom: 0 !important;
+    z-index: 2;
+    box-shadow: 0px -2px 5px black;
+    border-radius: 0;
+}
+
+.cutaway-block {
+
+}
+
+.cutaway-block .block-color {
+    float: left;
+    width: 100px;
+}
+
+.cutaway-block .block-fontsize {
+    float: left;
+    width: 50px;
+}
+
+.cutaway-block .block-font {
+    float: left;
+    width: 150px;
+    position: relative;
+}
+.cutaway-block .block-font div{
+    white-space: nowrap;
+    word-wrap: normal;
+    padding-left: 5px;
+}
+.cutaway-block .block-label {
+    clear: left;
+}
+
+.cutaway-block .block-button {
+
 }

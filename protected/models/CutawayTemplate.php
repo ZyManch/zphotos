@@ -9,10 +9,10 @@ class CutawayTemplate extends CCutawayTemplate {
     public function createCutaway(GoodCutaway $good) {
         $cutaway = new Cutaway();
         $cutaway->cutaway_template_id = $this->id;
-        $cutaway->user_id = Yii::app()->user->id;
+        $cutaway->user_id = Yii::app()->user->getUserOrRegisterTemporary()->id;
         $cutaway->good_id = $good->id;
         if (!$cutaway->save()) {
-            throw new Exception('Ошибка создания новой визитки');
+            throw new Exception('Ошибка создания новой визитки:'.$cutaway->getErrorsAsText());
         }
         foreach ($this->cutawayTemplateTexts as $cutawayTemplateText) {
             $cutawayText  = new CutawayText();

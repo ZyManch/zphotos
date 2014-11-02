@@ -47,7 +47,6 @@ class Controller extends CController {
         $carts = Cart::getCarts();
         $this->catalogs = $this->_getCatalogMenu();
         $this->userMenu = array(
-            array('label'=>'Выход ('.$userInfo->username.')', 'url'=>array('site/logout'), 'visible'=>$isRegistered),
             array('label'=>'Войти', 'url'=>array('site/login'), 'visible'=>!$isRegistered),
             array('label'=>'Регистрация', 'url'=>array('site/register'), 'visible'=>!$isRegistered),
             array('label' => 'Моя корзина','url'=>array('cart/view'),'visible' => (bool)Cart::getCurrent()),
@@ -55,11 +54,12 @@ class Controller extends CController {
             array('label' => 'Альбомы','visible' => $albums,'items'=>$albums),
             array('label' => 'Визитки','visible' => $cutaways,'items'=>$cutaways),
             array('label'=>'Очистить историю', 'url'=>array('site/logout'), 'visible'=>!$isGuest && !$isRegistered),
+            array('label'=>'Выход ('.$userInfo->username.')', 'url'=>array('site/logout'), 'visible'=>$isRegistered),
         );
         $this->menu = array(
             array('label'=>'Главная', 'url'=>array('site/index')),
-            array('label'=>'О нас', 'url'=>array('site/page', 'id'=>'about')),
-            array('label'=>'Доставка и оплата', 'url'=>array('site/index')),
+            array('label'=>'Доставка и оплата', 'url'=>array('site/page','view'=>'delivery')),
+            array('label'=>'О нас', 'url'=>array('site/page', 'view'=>'about')),
         );
     }
 

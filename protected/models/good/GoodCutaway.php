@@ -13,15 +13,25 @@ class GoodCutaway extends GoodModel {
 
 
     function getBuyButton(Controller $controller) {
-        return $controller->widget('bootstrap.widgets.TbButton', array(
-                 'url'=>array('cutaway/add','id' => $this->id),
-                 'type'=>'primary',
-                 'label'=> 'Заполнить поля',
-                 'htmlOptions' => array(
-                     'class' => 'btn btn-primary span2'
-                 )
-             ), true);
+        $links = array();
+        if (Yii::app()->user->getHasAccount()) {
+            foreach (Yii::app()->user->getUser()->cutaways as $cutaway) {
+                if ($cutaway->cutaway_template_id == $this->source_id) {
+                    $links[] = CHtml::link(
+                        'Востановить #' . $cutaway->id,
+                        array('cutaway/update', 'id' => $cutaway->id),
+                        array('class' => 'btn btn-default')
+                    );
+                }
+            }
+        }
 
+        $links[] = CHtml::link(
+            'Создать новую визитку',
+            array('cutaway/add','id' => $this->id),
+            array('class' => 'btn btn-primary')
+        );
+        return implode("\n",$links);
     }
 
     function createCartHasGood($scenario = null) {

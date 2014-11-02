@@ -51,7 +51,7 @@ $medias = $model->getMedias();
             <?php $total = $model->getCount(Good::COUNT_TOTAL);?>
             <?php $available = $model->getCount(Good::COUNT_AVAILABLE);?>
             <?php $locked = $model->getCount(Good::COUNT_LOCKED);?>
-            <?php if ($total):?>
+            <?php if ($total && $total != Good::UNLIMITED):?>
                 <hr>
                 Товаров на складе
                 <div class="progress">
@@ -71,7 +71,7 @@ $medias = $model->getMedias();
         <div class="clear"></div>
     </div>
 </div>
-<?php if ($medias):?>
+<?php if (sizeof($medias) > 1):?>
     <hr>
     <div id="links">
         <?php foreach ($medias as $media):?>

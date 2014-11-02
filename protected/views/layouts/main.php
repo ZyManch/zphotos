@@ -49,6 +49,15 @@
                 <?php $this->renderPartial('//layouts/_menuItem',array('menu' => $menu,'sub' => false));?>
             <?php endforeach;?>
         </div>
+        <form class="navbar-form navbar-right" role="search" action="<?php echo CHtml::normalizeUrl(array('site/search'));?>">
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" placeholder="Поиск" name="query">
+                 <span class="input-group-btn">
+                     <button type="submit" class="btn btn-default btn-sm">Найти</button>
+                 </span>
+            </div>
+
+        </form>
     </div>
     <?php foreach (array('success','info','warning','danger') as $alert):?>
         <?php if (Yii::app()->user->hasFlash($alert)):?>

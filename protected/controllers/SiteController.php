@@ -28,7 +28,8 @@ class SiteController extends Controller
 	public function actionIndex()
 	{
 		$model = new UploadForm();
-		$this->render('index',array('model' => $model));
+        $good = Good::model()->findByPk(Good::DEFAULT_UPLOAD_GOOD_ID);
+		$this->render('index',array('model' => $model,'good'=>$good));
 	}
 
 	/**
@@ -44,6 +45,30 @@ class SiteController extends Controller
 				$this->render('error', $error);
 		}
 	}
+
+    public function actionSearch($query){
+        $query = substr(preg_replace('/([^a-zа-я0-9 ]+)/iu','',$query),0,128);
+        $likeText = '%'.trim($query,'%').'%';
+        $categories = Category::model()->findAll(array(
+            'condition'=>'title like :query or description like :query',
+            'params'=>array(':query' => $likeText)
+        ));
+        if (sizeof($categories)==1) {
+            $this->redirect(array('category/view','id'=>$categories[0]->id));
+        }
+        $goods = Good::model()->findAll(array(
+            'condition'=>'title like :query or description like :query',
+            'params'=>array(':query' => $likeText)
+        ));
+        if (!$categories && sizeof($goods)==1) {
+            $this->redirect(array('good/view','id'=>$goods[0]->id));
+        }
+        $this->render('search',array(
+            'query' =>$query,
+            'categories' => $categories,
+            'goods' => $goods,
+        ));
+    }
 
 	/**
 	 * Displays the contact page

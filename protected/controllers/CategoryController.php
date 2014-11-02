@@ -7,10 +7,12 @@ class CategoryController extends Controller {
 
 	public function actionView($id = null)	{
         if ($id) {
+            $title = '';
             $model = $this->loadModel($id,array('goods','categories'));
             $goods = $model->goods;
             $categories = $model->categories;
         } else{
+            $title = 'Виды товаров и услуг';
             $model = null;
             $categories = Category::model()->findAll(array(
                 'order' => 'title ASC',
@@ -19,6 +21,7 @@ class CategoryController extends Controller {
             $goods = null;
         }
 		$this->render('view',array(
+            'title' => $title,
 			'model'=>$model,
 			'categories'=>$categories,
             'goods' => $goods

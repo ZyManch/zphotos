@@ -24,7 +24,7 @@ $provider = $search->search();
     <div class="col-xs-12">
         <?php $this->widget('zii.widgets.grid.CGridView',array(
             'dataProvider'=>$provider,
-            'htmlOptions' => array('class'=>'striped bordered condensed hover'),
+            'itemsCssClass' => 'table table-bordered table-striped table-condensed table-hover',
             'columns'=>array(
                 array(
                     'name' => 'good.title',
@@ -47,16 +47,16 @@ $provider = $search->search();
                         'inputclass' => 'span3',
                         'success'    => 'function() {location.reload();}',
                     ),
-                    'htmlOptions' => array('width' => '100px')
+                    'htmlOptions' => array('width' => '150px')
                 ),
 
                 array(
                     'name' => 'total_price',
                     'header' => 'Стоимость',
-                    'htmlOptions' => array('width' => '120px')
+                    'htmlOptions' => array('width' => '150px')
                 ),
                 array(
-                    'class'=>'bootstrap.widgets.TbButtonColumn',
+                    'class'=>'zii.widgets.grid.CButtonColumn',
                     'template' => '{view} {delete}',
                     'viewButtonUrl'=>'Yii::app()->controller->createUrl("good/view",array("id"=>$data->primaryKey))',
                     'viewButtonOptions'=>array('class'=>'view','target'=>'_blank'),

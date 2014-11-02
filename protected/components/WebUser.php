@@ -43,6 +43,10 @@ class WebUser extends CWebUser {
         return parent::getIsGuest();
     }
 
+    public function  getHasAccount() {
+        return $this->id;
+    }
+
     public function getIsRegistered() {
         return $this->id && $this->getUser()->type != User::TYPE_GUEST;
     }

@@ -12,8 +12,8 @@ class ImageController extends Controller {
         $image = self::loadModel($id);
         $gd = $image->getPreviewGd();
 
-        header("Content-type: image/png");
-        imagepng($gd);
+        header("Content-type: image/jpeg");
+        imagejpeg($gd,null,75);
     }
 
     public function actionView($id) {

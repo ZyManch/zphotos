@@ -31,7 +31,7 @@
                         return '';
                 }
             },
-            'htmlOptions' => array('class'=>'striped bordered condensed hover'),
+            'itemsCssClass' => 'table table-bordered table-striped table-condensed table-hover',
             'dataProvider'=>new CArrayDataProvider($items),
             'columns'=>array(
                 array(

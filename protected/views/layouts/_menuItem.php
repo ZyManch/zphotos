@@ -9,7 +9,7 @@
  * @var bool $sub
  */
 $url = isset($menu['url']) ? CHtml::normalizeUrl($menu['url']) : '#';
-$active = $url!='#' ? strpos(Yii::app()->request->requestUri, $url)===0 : false;
+$active = $url!='#' ? strpos(Yii::app()->request->requestUri.'/', $url.'/')===0 : false;
 ?>
 <?php if (isset($menu['visible']) && !$menu['visible']):?>
 <?php elseif(!isset($menu['items']) || !$menu['items']):?>

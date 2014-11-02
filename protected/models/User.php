@@ -7,8 +7,9 @@
  */
 class User extends CUser {
 
-    const YES = 'Yes';
-    const NO = 'No';
+    const TYPE_GUEST = 'Guest';
+    const TYPE_USER = 'User';
+    const TYPE_ADMIN = 'Admin';
 
 
     public function checkPassword($password) {

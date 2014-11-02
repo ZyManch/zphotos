@@ -15,28 +15,28 @@ $this->breadcrumbs=array(
 
         <?php $form=$this->beginWidget('CActiveForm', array(
             'id'=>'login-form',
-            'enableClientValidation'=>true,
+            //'enableClientValidation'=>true,
             'htmlOptions' => array('class' => 'form-horizontal'),
             'clientOptions'=>array(
                 'validateOnSubmit'=>true,
             ),
         )); ?>
 
-            <div class="form-group">
-                <?php echo $form->label($model,'username',array('class'=>'col-sm-3 control-label')); ?>
+            <div class="form-group<?php if($model->hasErrors('email')):?> has-error<?php endif;?>">
+                <?php echo $form->label($model,'email',array('class'=>'col-sm-3 control-label')); ?>
                 <div class="col-sm-9">
-                    <?php echo $form->textField($model,'username',array('class'=>'form-control')); ?>
+                    <?php echo $form->textField($model,'email',array('class'=>'form-control')); ?>
+                    <?php echo $form->error($model,'email',array('class'=>'')); ?>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group<?php if($model->hasErrors('password')):?> has-error<?php endif;?>">
                 <?php echo $form->label($model,'password',array('class'=>'col-sm-3 control-label'));?>
                 <div class="col-sm-9">
-                    <?php echo $form->passwordField($model,'password',array(
-                        'class'=>'form-control',
-                    )); ?>
+                    <?php echo $form->passwordField($model,'password',array('class'=>'form-control',)); ?>
+                    <?php echo $form->error($model,'password',array()); ?>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group<?php if($model->hasErrors('rememberMe')):?> has-error<?php endif;?>">
                 <div class="col-sm-offset-3 col-sm-9">
                     <div class="checkbox">
                         <label>

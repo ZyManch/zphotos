@@ -15,7 +15,7 @@ class TemporaryIdentity extends CUserIdentity {
 
 	public function authenticate() {
         $this->_user = new User();
-        $this->_user->temporary = User::YES;
+        $this->_user->type = User::TYPE_GUEST;
         if (!$this->_user->save()) {
             throw new Exception('Ошибка создания временого юзера');
         }

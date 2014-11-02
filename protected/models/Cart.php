@@ -25,7 +25,7 @@ class Cart extends CCart {
      * @return Cart
      */
     public static function getCurrent($createNew = false) {
-        if (Yii::app()->user->getIsGuest()) {
+        if (!Yii::app()->user->getIsRegistered()) {
             return null;
         }
         $attributes = array(
@@ -91,6 +91,9 @@ class Cart extends CCart {
     }
 
     public static function getCarts($excludeProgress = array(self::FILLING)) {
+        if (!Yii::app()->user->getIsRegistered()) {
+            return array();
+        }
         $criteria = new CDbCriteria();
         $criteria->compare('t.user_id', Yii::app()->user->id);
         if ($excludeProgress) {

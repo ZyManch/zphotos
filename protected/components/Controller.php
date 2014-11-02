@@ -24,6 +24,7 @@ class Controller extends CController {
         $client->registerScriptFile('/js/bootstrap.min.js', CClientScript::POS_END);
         $client->registerScript('tooltip', "$('[data-toggle=\"tooltip\"]').tooltip();$('[data-toggle=\"popover\"]').tooltip()", CClientScript::POS_READY);
         $user = Yii::app()->user;
+        //var_dump($user->id);die();
         $isGuest = $user->getIsGuest();
         $isRegistered = $user->getIsRegistered();
         $userInfo = $user->getUser();
@@ -46,10 +47,10 @@ class Controller extends CController {
         $carts = Cart::getCarts();
         $this->catalogs = $this->_getCatalogMenu();
         $this->userMenu = array(
-            array('label'=>'Выход ('.$user->name.')', 'url'=>array('site/logout'), 'visible'=>$isRegistered),
+            array('label'=>'Выход ('.$userInfo->username.')', 'url'=>array('site/logout'), 'visible'=>$isRegistered),
             array('label'=>'Войти', 'url'=>array('site/login'), 'visible'=>!$isRegistered),
             array('label'=>'Регистрация', 'url'=>array('site/register'), 'visible'=>!$isRegistered),
-            array('label' => 'Моя корзина','url'=>array('cart/view'),'visible' => Cart::getCurrent()),
+            array('label' => 'Моя корзина','url'=>array('cart/view'),'visible' => (bool)Cart::getCurrent()),
             array('label' => 'Статус заказов','url'=>array('cart/index'),'visible' => sizeof($carts) > 0),
             array('label' => 'Альбомы','visible' => $albums,'items'=>$albums),
             array('label' => 'Визитки','visible' => $cutaways,'items'=>$cutaways),

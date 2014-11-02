@@ -44,6 +44,6 @@ class WebUser extends CWebUser {
     }
 
     public function getIsRegistered() {
-        return $this->id && $this->getUser()->temporary == User::NO;
+        return $this->id && $this->getUser()->type != User::TYPE_GUEST;
     }
 }

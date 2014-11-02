@@ -43,7 +43,7 @@ class CCutawayTemplate extends ActiveRecord {
 		// class name for the relations automatically generated below.
 		return array(
 			'cutaways' => array(self::HAS_MANY, 'Cutaway', 'cutaway_template_id'),
-			'cutawayTemplateTexts' => array(self::HAS_MANY, 'CutawayTemplateText', 'cutaway_template_id','index' => 'id'),
+			'cutawayTemplateTexts' => array(self::HAS_MANY, 'CutawayTemplateText', 'cutaway_template_id'),
 		);
 	}
 

@@ -99,6 +99,12 @@ class SiteController extends Controller
 
     public function  actionRegister() {
         $model=new RegisterForm;
+        if(isset($_POST['RegisterForm']))
+        {
+            $model->attributes=$_POST['RegisterForm'];
+            if($model->validate() && $model->register())
+                $this->redirect(Yii::app()->user->returnUrl);
+        }
         $this->render('register',array('model'=>$model));
     }
 

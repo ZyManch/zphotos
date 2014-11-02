@@ -8,6 +8,7 @@
 class RegisterForm extends CFormModel
 {
 	public $username;
+	public $email;
 	public $password;
 	public $password_repeat;
 	public $accept;
@@ -20,7 +21,11 @@ class RegisterForm extends CFormModel
 	public function rules()
 	{
 		return array(
-			array('username, password, password_repeat', 'required'),
+			array('username, email, password, password_repeat,accept', 'required'),
+            array('email','email'),
+            array('email','unique','attributeName' => 'email','caseSensitive'=>true,'className'=>'User'),
+            array('username','length','min' => 5),
+            array('password', 'compare'),
             array('accept', 'boolean'),
 		);
 	}
@@ -31,10 +36,35 @@ class RegisterForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-            'username'=>'E-Mail',
+            'username'=>'Фамилия Имя',
+            'email'=>'E-Mail',
             'password'=>'Пароль',
             'password_repeat'=>'Повторите пароль',
 		);
 	}
+
+    public function register() {
+        $webUser = Yii::app()->user;
+        if (!$webUser->getIsGuest()) {
+            return false;
+        }
+        if ($webUser->getIsRegistered()) {
+            $user = $webUser->getUser();
+        } else {
+            $user = new User();
+        }
+        $user->type = User::TYPE_USER;
+        $user->username = $this->username;
+        $user->setPassword($this->password);
+        $user->email = $this->email;
+        if (!$user->save()) {
+            return false;
+        }
+        $login = new LoginForm();
+        $login->email = $this->email;
+        $login->password = $this->password;
+        $login->rememberMe = true;
+        return $login->login();
+    }
 
 }

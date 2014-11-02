@@ -5,9 +5,10 @@
  *
  * The followings are the available columns in table 'user':
  * @property string $id
+ * @property string $username
  * @property string $email
  * @property string $password
- * @property string $temporary
+ * @property string $type
  * @property string $status
  * @property string $changed
  *
@@ -26,14 +27,15 @@ class CUser extends ActiveRecord {
 
 	public function rules()	{
 		return array(
+			array('username', 'length', 'max'=>128),
 			array('email', 'length', 'max'=>64),
 			array('password', 'length', 'max'=>32),
-			array('temporary', 'length', 'max'=>3),
+			array('type', 'length', 'max'=>5),
 			array('status', 'length', 'max'=>7),
 			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, email, password, temporary, status, changed', 'safe', 'on'=>'search'),
+			array('id, username, email, password, type, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,9 +57,10 @@ class CUser extends ActiveRecord {
 	public function attributeLabels() {
 		return array(
 			'id' => 'ID',
+			'username' => 'Username',
 			'email' => 'Email',
 			'password' => 'Password',
-			'temporary' => 'Temporary',
+			'type' => 'Type',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
@@ -69,9 +72,10 @@ class CUser extends ActiveRecord {
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
+		$criteria->compare('username',$this->username,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('password',$this->password,true);
-		$criteria->compare('temporary',$this->temporary,true);
+		$criteria->compare('type',$this->type,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);
 

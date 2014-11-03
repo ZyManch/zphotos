@@ -6,18 +6,30 @@
  * Time: 18:10
  * @var Image $data
  */
-$marginLeft = $data->getMarginLeft(200);
-$marginRight = $data->getMarginRight(200);
-$marginTop = $data->getMarginTop(200);
-$marginBottom = $data->getMarginBottom(200);
+$height = 200;
+$marginLeft = $data->getMarginLeft($height);
+$marginRight = $data->getMarginRight($height);
+$marginTop = $data->getMarginTop($height);
+$marginBottom = $data->getMarginBottom($height);
+$imageUrl = 'image/preview/'.$data->id;
+$width = round($height * $data->width / $data->height);
 ?>
-<a href="<?php echo CHtml::normalizeUrl(array('image/update','id' => $data->id));?>" class="image-preview thumbnail">
-    <div class="image">
-        <div class="gray-block block-top" style="left: <?php echo $marginLeft;?>px; right: <?php echo $marginRight;?>px; height: <?php echo $marginTop;?>px"></div>
-        <div class="gray-block block-left" style="width: <?php echo $marginLeft;?>px"></div>
-        <div class="gray-block block-bottom" style="left: <?php echo $marginLeft;?>px;right: <?php echo $marginRight;?>px;height: <?php echo $marginBottom;?>px"></div>
-        <div class="gray-block block-right" style="width: <?php echo $marginRight;?>px"></div>
-        <img src="image/preview/<?php echo $data->id;?>" height="200px"/>
+<a href="<?php echo CHtml::normalizeUrl(array('image/update','id' => $data->id));?>" class="image-preview thumbnail" style="width: <?php echo $width;?>px">
+    <div class="slice s1" style="background-image: url(<?php echo $imageUrl;?>)">
+        <span class="overlay"></span>
+        <div class="slice s2" style="background-image: url(<?php echo $imageUrl;?>)">
+            <span class="overlay"></span>
+            <div class="slice s3" style="background-image: url(<?php echo $imageUrl;?>)">
+                <span class="overlay"></span>
+                <div class="slice s4" style="background-image: url(<?php echo $imageUrl;?>)">
+                    <span class="overlay"></span>
+                    <div class="slice s5" style="background-image: url(<?php echo $imageUrl;?>)">
+                        <span class="overlay"></span>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="filename"><?php echo $data->filename;?></div>
 </a>

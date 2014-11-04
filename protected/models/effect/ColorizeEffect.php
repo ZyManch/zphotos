@@ -25,4 +25,8 @@ class ColorizeEffect extends AbstractEffect {
         }
     }
 
+    public function getIcon() {
+        return CHtml::tag('span',array('class'=>'glyphicon glyphicon-camera'));
+    }
+
 }

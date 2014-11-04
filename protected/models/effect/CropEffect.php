@@ -39,4 +39,8 @@ class CropEffect extends AbstractEffect {
         imagecopyresampled($dist,$source,$x,$y,$x,$y,$width,$height,$width,$height);
     }
 
+    public function getIcon() {
+        return CHtml::tag('span',array('class'=>'glyphicon glyphicon-resize-small'));
+    }
+
 }

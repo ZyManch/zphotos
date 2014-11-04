@@ -12,4 +12,8 @@ class PictureEffect extends AbstractEffect {
         imagefilter($gd, IMG_FILTER_GAUSSIAN_BLUR);
     }
 
+    public function getIcon() {
+        return CHtml::tag('span',array('class'=>'glyphicon glyphicon-picture'));
+    }
+
 }

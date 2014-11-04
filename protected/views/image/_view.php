@@ -47,7 +47,7 @@ $effectClasses = array(
                 $class = $effectClasses[$effect->group % sizeof($effectClasses)];
                 ?>
                 <?php echo CHtml::link(
-                    CHtml::tag('span',array('class'=>'glyphicon glyphicon-music')),
+                    $effect->getIcon(),
                     array('image/effect','id'=>$data->id,'effect_id' => $effect->id),
                     array(
                         'data-remove-url' => CHtml::normalizeUrl(array('image/removeEffect','id'=>$data->id,'effect_id' => $effect->id)),

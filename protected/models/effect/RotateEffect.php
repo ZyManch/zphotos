@@ -21,4 +21,8 @@ class RotateEffect extends AbstractEffect {
         }
     }
 
+    public function getIcon() {
+        return CHtml::tag('span',array('class'=>'glyphicon glyphicon-repeat'));
+    }
+
 }

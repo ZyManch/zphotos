@@ -19,6 +19,8 @@ abstract class AbstractEffect extends Effect {
         }
     }
 
+    abstract public function getIcon();
+
     protected function _createForImage(Image $image) {
         $imageEffect = new ImageEffect();
         $imageEffect->image_id = $image->id;

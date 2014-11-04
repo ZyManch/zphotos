@@ -3,18 +3,12 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 01 2014 г., 10:40
+-- Время создания: Ноя 04 2014 г., 18:52
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
 
 --
 -- База данных: `zphotos`
@@ -99,9 +93,9 @@ INSERT INTO `album` (`id`, `user_id`, `good_id`, `name`, `status`, `changed`) VA
 (43, 3, 1, 'Фотографии 2014-08-03', 'Active', '2014-08-03 17:08:51'),
 (44, 3, 6, 'Фотографии 2014-08-03', 'Active', '2014-08-03 17:09:42'),
 (45, 4, 1, 'Фотографии 2014-09-08', 'Active', '2014-09-08 06:25:00'),
-(46, 6, 2, 'Фотографии 2014-09-08', 'Active', '2014-09-08 06:26:14'),
-(47, 6, 1, 'Фотографии 2014-09-08', 'Active', '2014-09-08 07:35:33'),
-(48, 6, 1, 'Фотографии 2014-09-17', 'Active', '2014-09-17 07:21:42');
+(46, 7, 2, 'Фотографии 2014-09-08', 'Active', '2014-11-03 06:31:11'),
+(47, 7, 1, 'Фотографии 2014-09-08', 'Active', '2014-11-03 06:31:11'),
+(48, 7, 1, 'Фотографии 2014-09-17', 'Active', '2014-11-03 06:31:11');
 
 -- --------------------------------------------------------
 
@@ -129,9 +123,9 @@ CREATE TABLE IF NOT EXISTS `cart` (
 INSERT INTO `cart` (`id`, `user_id`, `title`, `progress`, `address_id`, `status`, `changed`) VALUES
 (1, 3, 'Покупка от 2014-08-16', 'Purchased', NULL, 'Active', '2014-08-23 10:11:45'),
 (3, 3, 'Покупка от 2014-08-23', 'Filling', NULL, 'Active', '2014-08-23 10:43:57'),
-(4, 6, 'Покупка от 2014-09-08', 'Purchased', NULL, 'Active', '2014-09-08 08:11:23'),
-(5, 6, 'Покупка от 2014-09-08', 'Purchased', NULL, 'Active', '2014-09-08 08:11:56'),
-(6, 6, 'Покупка от 2014-09-13', 'Filling', NULL, 'Active', '2014-09-13 05:42:25');
+(4, 7, 'Покупка от 2014-09-08', 'Purchased', NULL, 'Active', '2014-11-03 06:31:20'),
+(5, 7, 'Покупка от 2014-09-08', 'Purchased', NULL, 'Active', '2014-11-03 06:31:20'),
+(6, 7, 'Покупка от 2014-09-13', 'Filling', NULL, 'Active', '2014-11-03 06:31:20');
 
 -- --------------------------------------------------------
 
@@ -164,7 +158,7 @@ INSERT INTO `cart_has_good` (`id`, `cart_id`, `good_id`, `resource_id`, `count`,
 (5, 3, 13, NULL, 2, '4.00', 'Active', '2014-08-23 14:56:04'),
 (6, 4, 1, 47, 1, '2.40', 'Active', '2014-09-08 08:11:23'),
 (8, 5, 2, 46, 2, '28.80', 'Active', '2014-09-13 05:42:02'),
-(9, 6, 1, 48, 1, '7.20', 'Active', '2014-09-17 07:21:48');
+(9, 6, 1, 48, 1, '9.60', 'Active', '2014-09-17 07:21:48');
 
 -- --------------------------------------------------------
 
@@ -375,18 +369,18 @@ CREATE TABLE IF NOT EXISTS `cutaway` (
 --
 
 INSERT INTO `cutaway` (`id`, `good_id`, `cutaway_template_id`, `user_id`, `status`, `changed`) VALUES
-(1, 14, 1, 6, 'Active', '2014-09-13 06:13:01'),
-(2, 22, 9, 6, 'Active', '2014-10-04 14:38:31'),
-(3, 15, 2, 6, 'Active', '2014-10-04 15:59:17'),
-(4, 16, 3, 6, 'Active', '2014-10-04 16:07:21'),
-(5, 17, 4, 6, 'Active', '2014-10-04 16:12:28'),
-(6, 18, 5, 6, 'Active', '2014-10-04 16:17:49'),
-(7, 19, 6, 6, 'Active', '2014-10-04 16:21:42'),
-(8, 20, 7, 6, 'Active', '2014-10-04 16:28:02'),
-(9, 21, 8, 6, 'Active', '2014-10-04 16:34:38'),
-(10, 23, 10, 6, 'Active', '2014-10-04 16:38:21'),
-(11, 24, 11, 6, 'Active', '2014-10-04 16:47:54'),
-(12, 25, 12, 6, 'Active', '2014-10-04 16:53:01');
+(1, 14, 1, 7, 'Active', '2014-11-03 06:30:53'),
+(2, 22, 9, 7, 'Active', '2014-11-03 06:30:53'),
+(3, 15, 2, 7, 'Active', '2014-11-03 06:30:53'),
+(4, 16, 3, 7, 'Active', '2014-11-03 06:30:53'),
+(5, 17, 4, 7, 'Active', '2014-11-03 06:30:53'),
+(6, 18, 5, 7, 'Active', '2014-11-03 06:30:53'),
+(7, 19, 6, 7, 'Active', '2014-11-03 06:30:53'),
+(8, 20, 7, 7, 'Active', '2014-11-03 06:30:53'),
+(9, 21, 8, 7, 'Active', '2014-11-03 06:30:53'),
+(10, 23, 10, 7, 'Active', '2014-11-03 06:30:53'),
+(11, 24, 11, 7, 'Active', '2014-11-03 06:30:53'),
+(12, 25, 12, 7, 'Active', '2014-11-03 06:30:53');
 
 -- --------------------------------------------------------
 
@@ -567,7 +561,7 @@ CREATE TABLE IF NOT EXISTS `cutaway_text` (
 --
 
 INSERT INTO `cutaway_text` (`id`, `side`, `cutaway_id`, `cutaway_template_text_id`, `label`, `fontsize`, `color`, `font_id`, `x`, `y`, `orientation`, `status`, `changed`) VALUES
-(1, 0, 1, 1, 'Моя Компания', 80, '07091c', 1, 357, 21, 'left', 'Active', '2014-09-13 06:47:04'),
+(1, 0, 1, 1, 'Моя Компания', 80, '07091c', 1, 331, 41, 'left', 'Active', '2014-09-13 06:47:04'),
 (2, 0, 1, 8, 'менеджер', 60, '35374a', 2, 715, 170, 'left', 'Active', '2014-09-27 09:22:38'),
 (3, 0, 1, 9, 'Иванов Иван Иванович', 60, '35374a', 2, 331, 244, 'left', 'Active', '2014-09-27 09:32:21'),
 (4, 0, 2, 2, 'КАФЕ', 100, '000000', 2, 113, 84, 'left', 'Active', '2014-10-04 15:31:09'),
@@ -630,6 +624,37 @@ INSERT INTO `cutaway_text` (`id`, `side`, `cutaway_id`, `cutaway_template_text_i
 (61, 0, 12, NULL, 'МОЯ КОМПАНИЯ', 60, 'ffffff', 1, 123, 86, 'left', 'Active', '2014-10-04 16:53:27'),
 (62, 0, 12, NULL, 'менеджер', 60, 'ffffff', 1, 270, 186, 'left', 'Active', '2014-10-04 16:57:06'),
 (63, 0, 12, NULL, 'менеджер', 60, 'ffffff', 1, 481, 536, 'left', 'Active', '2014-10-12 07:41:14');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `effect`
+--
+
+CREATE TABLE IF NOT EXISTS `effect` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(16) NOT NULL,
+  `title` varchar(32) NOT NULL,
+  `description` text NOT NULL,
+  `params` text,
+  `group` int(10) unsigned NOT NULL,
+  `can_delete` enum('Yes','No') NOT NULL DEFAULT 'Yes',
+  `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Дамп данных таблицы `effect`
+--
+
+INSERT INTO `effect` (`id`, `name`, `title`, `description`, `params`, `group`, `can_delete`, `status`, `changed`) VALUES
+(1, 'crop', 'Срез', 'Срез непечатываемых областей', NULL, 0, 'No', 'Active', '2014-11-04 05:49:29'),
+(2, 'rotate', 'Поворот', 'поворот против часовой стрелки', '{"angle":90}', 1, 'Yes', 'Active', '2014-11-03 12:53:15'),
+(3, 'rotate', 'Поворот', 'поворот по часовой стрелки', '{"angle":-90}', 1, 'Yes', 'Active', '2014-11-03 12:53:21'),
+(4, 'colorize', 'Градация серого', 'сделать фотографию черно-белой', '{"grayscale":true}', 2, 'Yes', 'Active', '2014-11-03 12:59:39'),
+(5, 'colorize', 'Легкая сепия', 'применить легкую сепию', '{"grayscale":true,"colorize":{"red":100, "greeb":70, "blue":50}}', 2, 'Yes', 'Active', '2014-11-04 06:28:44'),
+(6, 'picture', 'Эффект рисунка', 'применить эффект рисунка', NULL, 3, 'Yes', 'Active', '2014-11-03 12:53:58');
 
 -- --------------------------------------------------------
 
@@ -992,117 +1017,249 @@ CREATE TABLE IF NOT EXISTS `image` (
   `orientation` enum('Horizontal','Vertical') NOT NULL DEFAULT 'Horizontal',
   `width` mediumint(8) unsigned NOT NULL,
   `height` mediumint(8) unsigned NOT NULL,
-  `margin_left` mediumint(9) NOT NULL,
-  `margin_right` mediumint(9) NOT NULL,
-  `margin_top` mediumint(9) NOT NULL,
-  `margin_bottom` mediumint(9) NOT NULL,
   `progress` enum('Filling','Purchased','Printing','Printed','Finished') NOT NULL DEFAULT 'Filling',
   `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `album_id` (`album_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=98 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=99 ;
 
 --
 -- Дамп данных таблицы `image`
 --
 
-INSERT INTO `image` (`id`, `album_id`, `name`, `filename`, `orientation`, `width`, `height`, `margin_left`, `margin_right`, `margin_top`, `margin_bottom`, `progress`, `status`, `changed`) VALUES
-(1, 7, 'IMG_9687.jpg', '5393280013e5a.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 14:56:00'),
-(2, 7, 'IMG_9688.jpg', '539328001e4e2.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 14:56:00'),
-(3, 8, 'IMG_9687.jpg', '53932a528a211.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:05:54'),
-(4, 8, 'IMG_9688.jpg', '53932a52929d2.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:05:54'),
-(5, 9, 'IMG_9687.jpg', '5393315af1946.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:35:54'),
-(6, 9, 'IMG_9688.jpg', '5393315b07994.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:35:55'),
-(7, 10, 'IMG_9687.jpg', '539331d9aa31c.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:38:01'),
-(8, 10, 'IMG_9688.jpg', '539331d9cbc09.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:38:01'),
-(9, 11, 'IMG_9687.jpg', '5393328787c7a.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:40:55'),
-(10, 11, 'IMG_9688.jpg', '5393328790416.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:40:55'),
-(11, 12, 'IMG_9687.jpg', '539332a8bf036.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:41:28'),
-(12, 12, 'IMG_9688.jpg', '539332a8c7582.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:41:28'),
-(13, 13, 'IMG_9687.jpg', '5393335ad9851.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:44:26'),
-(14, 13, 'IMG_9688.jpg', '5393335ae1a58.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:44:26'),
-(15, 14, 'IMG_9687.jpg', '5393338aab49e.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:45:14'),
-(16, 14, 'IMG_9688.jpg', '5393338ab387d.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:45:14'),
-(17, 15, 'IMG_9687.jpg', '539333bb2fefe.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:46:03'),
-(18, 15, 'IMG_9688.jpg', '539333bb3a70e.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:46:03'),
-(19, 16, 'IMG_9687.jpg', '539333dc457d6.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:46:36'),
-(20, 16, 'IMG_9688.jpg', '539333dc51c0f.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-07 15:46:36'),
-(21, 19, 'IMG_9687.jpg', '539417092e6ec.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-08 07:55:53'),
-(22, 19, 'IMG_9688.jpg', '53941709383ca.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-08 07:55:53'),
-(23, 21, 'IMG_9687.jpg', '539479011ba07.jpg', 'Horizontal', 5184, 3456, 389, 1701, 142, 1262, 'Filling', 'Active', '2014-06-21 07:54:51'),
-(24, 21, 'IMG_9688.jpg', '5394790134a70.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-08 14:53:53'),
-(25, 22, 'IMG_9687.jpg', '5396dc4676cac.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-10 10:21:58'),
-(26, 22, 'IMG_9688.jpg', '5396dc469398c.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-10 10:21:58'),
-(27, 23, 'IMG_9687.jpg', '53987a214df67.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-11 15:47:46'),
-(28, 23, 'IMG_9688.jpg', '53987a2211c55.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-11 15:47:46'),
-(29, 24, 'IMG_9687.jpg', '539f80fc2bbd5.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:42:52'),
-(30, 24, 'IMG_9688.jpg', '539f80fc3c6d5.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:42:52'),
-(31, 25, 'IMG_9687.jpg', '539f812c54a7c.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:43:40'),
-(32, 25, 'IMG_9688.jpg', '539f812c5ed6c.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:43:40'),
-(33, 26, 'IMG_9687.jpg', '539f8174759dc.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:44:52'),
-(34, 26, 'IMG_9688.jpg', '539f81747f111.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:44:52'),
-(35, 27, 'IMG_9687.jpg', 'im539f8244abf3f.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:48:20'),
-(36, 27, 'IMG_9688.jpg', 'im539f8244b47e3.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:48:20'),
-(37, 29, 'IMG_9687.jpg', 'im539f8290532ba.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-16 23:49:36'),
-(38, 29, 'IMG_9688.jpg', 'im539f82905d664.jpg', 'Horizontal', 5184, 3456, 333, 444, 220, 555, 'Filling', 'Active', '2014-06-17 00:11:47'),
-(39, 30, 'IMG_9695.jpg', 'im539f945c67354.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-17 01:05:32'),
-(40, 30, 'IMG_9696.jpg', 'im539f945c71704.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-17 01:05:32'),
-(41, 31, 'IMG_9695.jpg', 'im539f94958b9f3.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-17 01:06:29'),
-(42, 29, 'IMG_9695.jpg', 'im539f94d105763.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-17 01:07:29'),
-(43, 29, 'SDC10453.JPG', 'im539f9562b4ab5.jpg', 'Horizontal', 3264, 2448, 0, 0, 136, 136, 'Filling', 'Active', '2014-06-17 01:09:54'),
-(46, 29, 'Фото0750.jpg', 'im539f974594e6c.jpg', 'Vertical', 1944, 2592, 108, 108, 0, 0, 'Filling', 'Active', '2014-06-17 01:17:57'),
-(47, 21, 'SDC14377.JPG', 'im53a6816b9a764.jpg', 'Horizontal', 3264, 2448, 0, 0, 0, 272, 'Filling', 'Active', '2014-06-22 07:10:35'),
-(48, 21, 'SDC14390.JPG', 'im53a6816bb02d0.jpg', 'Vertical', 2448, 3264, 301, 718, 327, 798, 'Filling', 'Active', '2014-06-22 07:10:35'),
-(49, 32, 'SDC14375.JPG', 'im53a68265172a9.jpg', 'Horizontal', 3264, 2448, 0, 0, 136, 136, 'Filling', 'Active', '2014-06-22 07:14:45'),
-(50, 32, 'SDC14376.JPG', 'im53a6826526855.jpg', 'Horizontal', 3264, 2448, 559, 1796, 1082, 768, 'Filling', 'Active', '2014-06-22 07:14:45'),
-(51, 33, 'IMG_9687.jpg', 'im53a68cfeb11b2.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-22 07:59:58'),
-(52, 33, 'IMG_9688.jpg', 'im53a68cfebf5e3.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-22 07:59:58'),
-(53, 33, 'IMG_9695.jpg', 'im53a68cfec78a7.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-06-22 07:59:58'),
-(54, 34, 'IMG_9687.jpg', 'im53b92b9eabb79.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-07-06 10:57:34'),
-(55, 34, 'IMG_9688.jpg', 'im53b92b9f19d45.jpg', 'Horizontal', 5184, 3456, 0, 0, 0, 0, 'Filling', 'Active', '2014-07-06 10:57:35'),
-(56, 34, 'IMG_9691.jpg', 'im53b92b9f2605b.jpg', 'Vertical', 3456, 5184, 0, 0, 0, 0, 'Filling', 'Active', '2014-07-06 10:57:35'),
-(57, 34, 'liliya.png', 'im53b92bf11e59b.png', 'Vertical', 538, 1207, 84, 233, 50, 827, 'Filling', 'Active', '2014-07-06 10:58:57'),
-(58, 35, 'chelny.jpg', 'im53c2c0af3447f.jpg', 'Horizontal', 1280, 960, 0, 0, 54, 54, 'Filling', 'Active', '2014-07-13 17:23:59'),
-(59, 35, 'default.jpeg', 'im53c2c0af52ccc.jpeg', 'Horizontal', 720, 631, 366, 26, 278, 135, 'Filling', 'Active', '2014-07-13 17:23:59'),
-(60, 35, 'ins01_(1).jpg', 'im53c2c0af5bfae.jpg', 'Horizontal', 380, 240, 10, 10, 0, 0, 'Filling', 'Active', '2014-07-13 17:23:59'),
-(61, 36, 'folder.png', 'im53dd019679244.png', 'Vertical', 128, 128, 51, 24, 0, 49, 'Filling', 'Active', '2014-08-02 15:19:50'),
-(62, 37, 'empty.png', 'im53dd0269b98b9.png', 'Vertical', 128, 128, 18, 18, 0, 0, 'Filling', 'Active', '2014-08-02 15:23:21'),
-(63, 37, 'folder.png', 'im53dd0269c300e.png', 'Vertical', 128, 128, 18, 18, 0, 0, 'Filling', 'Active', '2014-08-02 15:23:21'),
-(64, 37, 'photos.png', 'im53dd0269cb3eb.png', 'Vertical', 128, 128, 18, 18, 0, 0, 'Filling', 'Active', '2014-08-02 15:23:21'),
-(65, 37, 'photos-a4-black.png', 'im53dd0269db75e.png', 'Vertical', 128, 128, 18, 18, 0, 0, 'Filling', 'Active', '2014-08-02 15:23:21'),
-(66, 37, 'photos-a4-color.png', 'im53dd0269e44cb.png', 'Vertical', 128, 128, 18, 18, 0, 0, 'Filling', 'Active', '2014-08-02 15:23:21'),
-(67, 38, 'empty.png', 'im53de48999ae55.png', 'Vertical', 128, 128, 22, 22, 0, 0, 'Filling', 'Active', '2014-08-03 14:35:05'),
-(68, 40, 'photos-a4-color.png', 'im53de5a3b08c60.png', 'Vertical', 128, 128, 43, 53, 39, 41, 'Filling', 'Active', '2014-08-03 15:50:19'),
-(69, 41, 'photos.png', 'im53de5a95c1490.png', 'Vertical', 128, 128, 32, 62, 15, 62, 'Filling', 'Active', '2014-08-03 15:51:49'),
-(70, 42, 'photos-a4-black.png', 'im53de6c3930fed.png', 'Vertical', 128, 128, 22, 22, 0, 0, 'Filling', 'Active', '2014-08-03 17:07:05'),
-(71, 43, 'photos-a4-color.png', 'im53de6ca33e131.png', 'Vertical', 128, 128, 22, 22, 0, 0, 'Filling', 'Active', '2014-08-03 17:08:51'),
-(72, 44, 'photos-a4-color.png', 'im53de6cd623a31.png', 'Vertical', 128, 128, 22, 22, 0, 0, 'Filling', 'Active', '2014-08-03 17:09:42'),
-(73, 44, 'photos-a4-black.png', 'im53de844da54dc.png', 'Vertical', 128, 128, 22, 22, 0, 0, 'Filling', 'Active', '2014-08-03 18:49:49'),
-(74, 36, '53i2Av1ZVfg.jpg', 'im53e1cb0c57d47.jpg', 'Vertical', 605, 807, 34, 34, 0, 0, 'Filling', 'Active', '2014-08-06 06:28:28'),
-(75, 37, 'avatar.jpg', 'im53f886cbb9ec6.jpg', 'Vertical', 683, 1024, 0, 0, 40, 40, 'Filling', 'Active', '2014-08-23 12:19:23'),
-(76, 36, 'avatar.jpg', 'im53f8a33a42f8c.jpg', 'Vertical', 683, 1024, 1, 1, 0, 0, 'Filling', 'Active', '2014-08-23 14:20:42'),
-(77, 36, 'chelny.jpg', 'im53f8a4ae29c2b.jpg', 'Horizontal', 1280, 960, 0, 0, 54, 54, 'Filling', 'Active', '2014-08-23 14:26:54'),
-(78, 36, '2014-05-21-20-56-44.png', 'im53f8a59b9d823.png', 'Horizontal', 1350, 768, 99, 99, 0, 0, 'Filling', 'Active', '2014-08-23 14:30:51'),
-(79, 36, 'black_2.png', 'im53f8a84b935c0.png', 'Horizontal', 766, 670, 0, 0, 80, 80, 'Filling', 'Active', '2014-08-23 14:42:19'),
-(80, 38, 'clearing-assets.png', 'im53f8a879890d4.png', 'Horizontal', 1260, 642, 149, 149, 0, 0, 'Filling', 'Active', '2014-08-23 14:43:05'),
-(81, 36, 'config-manager.png', 'im53f8ac1c0c6eb.png', 'Horizontal', 806, 449, 67, 67, 0, 0, 'Filling', 'Active', '2014-08-23 14:58:36'),
-(82, 36, 'black_2.png', 'im53f8ac294a745.png', 'Horizontal', 766, 670, 0, 0, 80, 80, 'Filling', 'Active', '2014-08-23 14:58:49'),
-(83, 36, 'black_2.png', 'im53f8ac4fc88eb.png', 'Horizontal', 766, 670, 0, 0, 80, 80, 'Filling', 'Active', '2014-08-23 14:59:27'),
-(84, 36, 'black_2.png', 'im53f8ad08d47cd.png', 'Horizontal', 766, 670, 0, 0, 80, 80, 'Filling', 'Active', '2014-08-23 15:02:32'),
-(85, 36, '24669.png', 'im53f8ada81e999.png', 'Horizontal', 1012, 690, 0, 0, 8, 8, 'Filling', 'Active', '2014-08-23 15:05:12'),
-(86, 36, 'black_2.png', 'im53f8adaf35e83.png', 'Horizontal', 766, 670, 0, 0, 80, 80, 'Filling', 'Active', '2014-08-23 15:05:19'),
-(87, 45, '53i2Av1ZVfg.jpg', 'im540d4bbcc5579.jpg', 'Vertical', 605, 807, 34, 34, 0, 0, 'Filling', 'Active', '2014-09-08 06:25:00'),
-(88, 46, '53i2Av1ZVfg.jpg', 'im540d4c0650437.jpg', 'Vertical', 605, 807, 34, 34, 0, 0, 'Filling', 'Active', '2014-09-08 06:26:14'),
-(89, 46, '2014-05-21-20-56-44.png', 'im540d4d455dd0c.png', 'Horizontal', 1350, 768, 99, 99, 0, 0, 'Filling', 'Active', '2014-09-08 06:31:33'),
-(90, 46, 'example-tool.png', 'im540d4d536f3d4.png', 'Horizontal', 616, 420, 0, 0, 5, 5, 'Filling', 'Active', '2014-09-08 06:31:47'),
-(91, 46, 'deployed.png', 'im540d4d5f85bb5.png', 'Vertical', 360, 546, 0, 0, 3, 3, 'Filling', 'Active', '2014-09-08 06:31:59'),
-(92, 46, 'default.jpeg', 'im540d4d7f1751a.jpeg', 'Horizontal', 720, 631, 0, 0, 76, 76, 'Filling', 'Active', '2014-09-08 06:32:31'),
-(93, 46, 'default.jpeg', 'im540d4f295693e.jpeg', 'Horizontal', 720, 631, 0, 0, 76, 76, 'Filling', 'Active', '2014-09-08 06:39:37'),
-(94, 47, 'default.jpeg', 'im540d5c4588298.jpeg', 'Horizontal', 720, 631, 122, 103, 143, 158, 'Filling', 'Active', '2014-09-08 07:35:33'),
-(95, 48, '2014-05-21-20-56-44.png', 'im5419368630816.png', 'Horizontal', 1350, 768, 99, 99, 0, 0, 'Filling', 'Active', '2014-09-17 07:21:42'),
-(96, 48, 'att.png', 'im541936865a493.png', 'Horizontal', 1920, 912, 276, 276, 0, 0, 'Filling', 'Active', '2014-09-17 07:21:42'),
-(97, 48, 'avatar.jpg', 'im541936866801c.jpg', 'Vertical', 683, 1024, 1, 1, 0, 0, 'Filling', 'Active', '2014-09-17 07:21:42');
+INSERT INTO `image` (`id`, `album_id`, `name`, `filename`, `orientation`, `width`, `height`, `progress`, `status`, `changed`) VALUES
+(1, 7, 'IMG_9687.jpg', '5393280013e5a.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 14:56:00'),
+(2, 7, 'IMG_9688.jpg', '539328001e4e2.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 14:56:00'),
+(3, 8, 'IMG_9687.jpg', '53932a528a211.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:05:54'),
+(4, 8, 'IMG_9688.jpg', '53932a52929d2.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:05:54'),
+(5, 9, 'IMG_9687.jpg', '5393315af1946.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:35:54'),
+(6, 9, 'IMG_9688.jpg', '5393315b07994.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:35:55'),
+(7, 10, 'IMG_9687.jpg', '539331d9aa31c.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:38:01'),
+(8, 10, 'IMG_9688.jpg', '539331d9cbc09.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:38:01'),
+(9, 11, 'IMG_9687.jpg', '5393328787c7a.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:40:55'),
+(10, 11, 'IMG_9688.jpg', '5393328790416.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:40:55'),
+(11, 12, 'IMG_9687.jpg', '539332a8bf036.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:41:28'),
+(12, 12, 'IMG_9688.jpg', '539332a8c7582.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:41:28'),
+(13, 13, 'IMG_9687.jpg', '5393335ad9851.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:44:26'),
+(14, 13, 'IMG_9688.jpg', '5393335ae1a58.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:44:26'),
+(15, 14, 'IMG_9687.jpg', '5393338aab49e.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:45:14'),
+(16, 14, 'IMG_9688.jpg', '5393338ab387d.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:45:14'),
+(17, 15, 'IMG_9687.jpg', '539333bb2fefe.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:46:03'),
+(18, 15, 'IMG_9688.jpg', '539333bb3a70e.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:46:03'),
+(19, 16, 'IMG_9687.jpg', '539333dc457d6.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:46:36'),
+(20, 16, 'IMG_9688.jpg', '539333dc51c0f.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-07 15:46:36'),
+(21, 19, 'IMG_9687.jpg', '539417092e6ec.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-08 07:55:53'),
+(22, 19, 'IMG_9688.jpg', '53941709383ca.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-08 07:55:53'),
+(23, 21, 'IMG_9687.jpg', '539479011ba07.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-21 07:54:51'),
+(24, 21, 'IMG_9688.jpg', '5394790134a70.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-08 14:53:53'),
+(25, 22, 'IMG_9687.jpg', '5396dc4676cac.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-10 10:21:58'),
+(26, 22, 'IMG_9688.jpg', '5396dc469398c.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-10 10:21:58'),
+(27, 23, 'IMG_9687.jpg', '53987a214df67.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-11 15:47:46'),
+(28, 23, 'IMG_9688.jpg', '53987a2211c55.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-11 15:47:46'),
+(29, 24, 'IMG_9687.jpg', '539f80fc2bbd5.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:42:52'),
+(30, 24, 'IMG_9688.jpg', '539f80fc3c6d5.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:42:52'),
+(31, 25, 'IMG_9687.jpg', '539f812c54a7c.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:43:40'),
+(32, 25, 'IMG_9688.jpg', '539f812c5ed6c.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:43:40'),
+(33, 26, 'IMG_9687.jpg', '539f8174759dc.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:44:52'),
+(34, 26, 'IMG_9688.jpg', '539f81747f111.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:44:52'),
+(35, 27, 'IMG_9687.jpg', 'im539f8244abf3f.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:48:20'),
+(36, 27, 'IMG_9688.jpg', 'im539f8244b47e3.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:48:20'),
+(37, 29, 'IMG_9687.jpg', 'im539f8290532ba.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-16 23:49:36'),
+(38, 29, 'IMG_9688.jpg', 'im539f82905d664.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-17 00:11:47'),
+(39, 30, 'IMG_9695.jpg', 'im539f945c67354.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-17 01:05:32'),
+(40, 30, 'IMG_9696.jpg', 'im539f945c71704.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-17 01:05:32'),
+(41, 31, 'IMG_9695.jpg', 'im539f94958b9f3.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-17 01:06:29'),
+(42, 29, 'IMG_9695.jpg', 'im539f94d105763.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-17 01:07:29'),
+(43, 29, 'SDC10453.JPG', 'im539f9562b4ab5.jpg', 'Horizontal', 3264, 2448, 'Filling', 'Active', '2014-06-17 01:09:54'),
+(46, 29, 'Фото0750.jpg', 'im539f974594e6c.jpg', 'Vertical', 1944, 2592, 'Filling', 'Active', '2014-06-17 01:17:57'),
+(47, 21, 'SDC14377.JPG', 'im53a6816b9a764.jpg', 'Horizontal', 3264, 2448, 'Filling', 'Active', '2014-06-22 07:10:35'),
+(48, 21, 'SDC14390.JPG', 'im53a6816bb02d0.jpg', 'Vertical', 2448, 3264, 'Filling', 'Active', '2014-06-22 07:10:35'),
+(49, 32, 'SDC14375.JPG', 'im53a68265172a9.jpg', 'Horizontal', 3264, 2448, 'Filling', 'Active', '2014-06-22 07:14:45'),
+(50, 32, 'SDC14376.JPG', 'im53a6826526855.jpg', 'Horizontal', 3264, 2448, 'Filling', 'Active', '2014-06-22 07:14:45'),
+(51, 33, 'IMG_9687.jpg', 'im53a68cfeb11b2.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-22 07:59:58'),
+(52, 33, 'IMG_9688.jpg', 'im53a68cfebf5e3.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-22 07:59:58'),
+(53, 33, 'IMG_9695.jpg', 'im53a68cfec78a7.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-06-22 07:59:58'),
+(54, 34, 'IMG_9687.jpg', 'im53b92b9eabb79.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-07-06 10:57:34'),
+(55, 34, 'IMG_9688.jpg', 'im53b92b9f19d45.jpg', 'Horizontal', 5184, 3456, 'Filling', 'Active', '2014-07-06 10:57:35'),
+(56, 34, 'IMG_9691.jpg', 'im53b92b9f2605b.jpg', 'Vertical', 3456, 5184, 'Filling', 'Active', '2014-07-06 10:57:35'),
+(57, 34, 'liliya.png', 'im53b92bf11e59b.png', 'Vertical', 538, 1207, 'Filling', 'Active', '2014-07-06 10:58:57'),
+(58, 35, 'chelny.jpg', 'im53c2c0af3447f.jpg', 'Horizontal', 1280, 960, 'Filling', 'Active', '2014-07-13 17:23:59'),
+(59, 35, 'default.jpeg', 'im53c2c0af52ccc.jpeg', 'Horizontal', 720, 631, 'Filling', 'Active', '2014-07-13 17:23:59'),
+(60, 35, 'ins01_(1).jpg', 'im53c2c0af5bfae.jpg', 'Horizontal', 380, 240, 'Filling', 'Active', '2014-07-13 17:23:59'),
+(61, 36, 'folder.png', 'im53dd019679244.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-02 15:19:50'),
+(62, 37, 'empty.png', 'im53dd0269b98b9.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-02 15:23:21'),
+(63, 37, 'folder.png', 'im53dd0269c300e.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-02 15:23:21'),
+(64, 37, 'photos.png', 'im53dd0269cb3eb.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-02 15:23:21'),
+(65, 37, 'photos-a4-black.png', 'im53dd0269db75e.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-02 15:23:21'),
+(66, 37, 'photos-a4-color.png', 'im53dd0269e44cb.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-02 15:23:21'),
+(67, 38, 'empty.png', 'im53de48999ae55.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-03 14:35:05'),
+(68, 40, 'photos-a4-color.png', 'im53de5a3b08c60.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-03 15:50:19'),
+(69, 41, 'photos.png', 'im53de5a95c1490.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-03 15:51:49'),
+(70, 42, 'photos-a4-black.png', 'im53de6c3930fed.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-03 17:07:05'),
+(71, 43, 'photos-a4-color.png', 'im53de6ca33e131.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-03 17:08:51'),
+(72, 44, 'photos-a4-color.png', 'im53de6cd623a31.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-03 17:09:42'),
+(73, 44, 'photos-a4-black.png', 'im53de844da54dc.png', 'Vertical', 128, 128, 'Filling', 'Active', '2014-08-03 18:49:49'),
+(74, 36, '53i2Av1ZVfg.jpg', 'im53e1cb0c57d47.jpg', 'Vertical', 605, 807, 'Filling', 'Active', '2014-08-06 06:28:28'),
+(75, 37, 'avatar.jpg', 'im53f886cbb9ec6.jpg', 'Vertical', 683, 1024, 'Filling', 'Active', '2014-08-23 12:19:23'),
+(76, 36, 'avatar.jpg', 'im53f8a33a42f8c.jpg', 'Vertical', 683, 1024, 'Filling', 'Active', '2014-08-23 14:20:42'),
+(77, 36, 'chelny.jpg', 'im53f8a4ae29c2b.jpg', 'Horizontal', 1280, 960, 'Filling', 'Active', '2014-08-23 14:26:54'),
+(78, 36, '2014-05-21-20-56-44.png', 'im53f8a59b9d823.png', 'Horizontal', 1350, 768, 'Filling', 'Active', '2014-08-23 14:30:51'),
+(79, 36, 'black_2.png', 'im53f8a84b935c0.png', 'Horizontal', 766, 670, 'Filling', 'Active', '2014-08-23 14:42:19'),
+(80, 38, 'clearing-assets.png', 'im53f8a879890d4.png', 'Horizontal', 1260, 642, 'Filling', 'Active', '2014-08-23 14:43:05'),
+(81, 36, 'config-manager.png', 'im53f8ac1c0c6eb.png', 'Horizontal', 806, 449, 'Filling', 'Active', '2014-08-23 14:58:36'),
+(82, 36, 'black_2.png', 'im53f8ac294a745.png', 'Horizontal', 766, 670, 'Filling', 'Active', '2014-08-23 14:58:49'),
+(83, 36, 'black_2.png', 'im53f8ac4fc88eb.png', 'Horizontal', 766, 670, 'Filling', 'Active', '2014-08-23 14:59:27'),
+(84, 36, 'black_2.png', 'im53f8ad08d47cd.png', 'Horizontal', 766, 670, 'Filling', 'Active', '2014-08-23 15:02:32'),
+(85, 36, '24669.png', 'im53f8ada81e999.png', 'Horizontal', 1012, 690, 'Filling', 'Active', '2014-08-23 15:05:12'),
+(86, 36, 'black_2.png', 'im53f8adaf35e83.png', 'Horizontal', 766, 670, 'Filling', 'Active', '2014-08-23 15:05:19'),
+(87, 45, '53i2Av1ZVfg.jpg', 'im540d4bbcc5579.jpg', 'Vertical', 605, 807, 'Filling', 'Active', '2014-09-08 06:25:00'),
+(88, 46, '53i2Av1ZVfg.jpg', 'im540d4c0650437.jpg', 'Vertical', 605, 807, 'Filling', 'Active', '2014-09-08 06:26:14'),
+(89, 46, '2014-05-21-20-56-44.png', 'im540d4d455dd0c.png', 'Horizontal', 1350, 768, 'Filling', 'Active', '2014-09-08 06:31:33'),
+(90, 46, 'example-tool.png', 'im540d4d536f3d4.png', 'Horizontal', 616, 420, 'Filling', 'Active', '2014-09-08 06:31:47'),
+(91, 46, 'deployed.png', 'im540d4d5f85bb5.png', 'Vertical', 360, 546, 'Filling', 'Active', '2014-09-08 06:31:59'),
+(92, 46, 'default.jpeg', 'im540d4d7f1751a.jpeg', 'Horizontal', 720, 631, 'Filling', 'Active', '2014-09-08 06:32:31'),
+(93, 46, 'default.jpeg', 'im540d4f295693e.jpeg', 'Horizontal', 720, 631, 'Filling', 'Active', '2014-09-08 06:39:37'),
+(94, 47, 'default.jpeg', 'im540d5c4588298.jpeg', 'Horizontal', 720, 631, 'Filling', 'Active', '2014-09-08 07:35:33'),
+(95, 48, '2014-05-21-20-56-44.png', 'im5419368630816.png', 'Horizontal', 1350, 768, 'Filling', 'Active', '2014-09-17 07:21:42'),
+(96, 48, 'att.png', 'im541936865a493.png', 'Horizontal', 1920, 912, 'Filling', 'Active', '2014-09-17 07:21:42'),
+(97, 48, 'avatar.jpg', 'im541936866801c.jpg', 'Vertical', 683, 1024, 'Filling', 'Active', '2014-09-17 07:21:42'),
+(98, 48, 'big.jpg', 'im5458e2e5a14b9.jpg', 'Horizontal', 424, 400, 'Filling', 'Active', '2014-11-04 14:29:57');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `image_effect`
+--
+
+CREATE TABLE IF NOT EXISTS `image_effect` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `image_id` int(10) unsigned NOT NULL,
+  `effect_id` int(10) unsigned NOT NULL,
+  `params` text,
+  `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `image_id` (`image_id`),
+  KEY `effect_id` (`effect_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=144 ;
+
+--
+-- Дамп данных таблицы `image_effect`
+--
+
+INSERT INTO `image_effect` (`id`, `image_id`, `effect_id`, `params`, `status`, `changed`) VALUES
+(1, 95, 5, NULL, 'Deleted', '2014-11-04 06:35:09'),
+(2, 95, 5, NULL, 'Deleted', '2014-11-04 06:51:31'),
+(3, 95, 4, NULL, 'Deleted', '2014-11-04 06:51:32'),
+(4, 95, 6, NULL, 'Deleted', '2014-11-04 06:51:52'),
+(5, 95, 4, NULL, 'Deleted', '2014-11-04 06:51:55'),
+(6, 95, 4, NULL, 'Deleted', '2014-11-04 06:57:26'),
+(7, 95, 5, NULL, 'Deleted', '2014-11-04 06:57:28'),
+(8, 95, 4, NULL, 'Deleted', '2014-11-04 06:57:29'),
+(9, 95, 5, NULL, 'Deleted', '2014-11-04 07:01:04'),
+(10, 96, 5, NULL, 'Deleted', '2014-11-04 13:32:13'),
+(11, 96, 4, NULL, 'Deleted', '2014-11-04 13:32:16'),
+(12, 96, 5, NULL, 'Deleted', '2014-11-04 13:32:18'),
+(13, 97, 5, NULL, 'Deleted', '2014-11-04 13:32:24'),
+(14, 97, 5, NULL, 'Deleted', '2014-11-04 13:32:27'),
+(15, 97, 6, NULL, 'Deleted', '2014-11-04 13:32:35'),
+(16, 1, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(17, 2, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(18, 3, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(19, 4, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(20, 5, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(21, 6, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(22, 7, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(23, 8, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(24, 9, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(25, 10, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(26, 11, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(27, 12, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(28, 13, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(29, 14, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(30, 15, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(31, 16, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(32, 17, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(33, 18, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(34, 19, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(35, 20, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(36, 21, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(37, 22, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(38, 23, 1, '{"left":389,"right":1701,"top":142,"bottom":1262}', 'Active', '2014-11-04 13:36:13'),
+(39, 24, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(40, 25, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(41, 26, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(42, 27, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(43, 28, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(44, 29, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(45, 30, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(46, 31, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(47, 32, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(48, 33, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(49, 34, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(50, 35, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(51, 36, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(52, 37, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(53, 38, 1, '{"left":333,"right":444,"top":220,"bottom":555}', 'Active', '2014-11-04 13:36:13'),
+(54, 39, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(55, 40, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(56, 41, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(57, 42, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(58, 43, 1, '{"left":0,"right":0,"top":136,"bottom":136}', 'Active', '2014-11-04 13:36:13'),
+(59, 46, 1, '{"left":108,"right":108,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(60, 47, 1, '{"left":0,"right":0,"top":0,"bottom":272}', 'Active', '2014-11-04 13:36:13'),
+(61, 48, 1, '{"left":301,"right":718,"top":327,"bottom":798}', 'Active', '2014-11-04 13:36:13'),
+(62, 49, 1, '{"left":0,"right":0,"top":136,"bottom":136}', 'Active', '2014-11-04 13:36:13'),
+(63, 50, 1, '{"left":559,"right":1796,"top":1082,"bottom":768}', 'Active', '2014-11-04 13:36:13'),
+(64, 51, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(65, 52, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(66, 53, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(67, 54, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(68, 55, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(69, 56, 1, '{"left":0,"right":0,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(70, 57, 1, '{"left":84,"right":233,"top":50,"bottom":827}', 'Active', '2014-11-04 13:36:13'),
+(71, 58, 1, '{"left":0,"right":0,"top":54,"bottom":54}', 'Active', '2014-11-04 13:36:13'),
+(72, 59, 1, '{"left":366,"right":26,"top":278,"bottom":135}', 'Active', '2014-11-04 13:36:13'),
+(73, 60, 1, '{"left":10,"right":10,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(74, 61, 1, '{"left":51,"right":24,"top":0,"bottom":49}', 'Active', '2014-11-04 13:36:13'),
+(75, 62, 1, '{"left":18,"right":18,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(76, 63, 1, '{"left":18,"right":18,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(77, 64, 1, '{"left":18,"right":18,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(78, 65, 1, '{"left":18,"right":18,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(79, 66, 1, '{"left":18,"right":18,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(80, 67, 1, '{"left":22,"right":22,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(81, 68, 1, '{"left":43,"right":53,"top":39,"bottom":41}', 'Active', '2014-11-04 13:36:13'),
+(82, 69, 1, '{"left":32,"right":62,"top":15,"bottom":62}', 'Active', '2014-11-04 13:36:13'),
+(83, 70, 1, '{"left":22,"right":22,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(84, 71, 1, '{"left":22,"right":22,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(85, 72, 1, '{"left":22,"right":22,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(86, 73, 1, '{"left":22,"right":22,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(87, 74, 1, '{"left":34,"right":34,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(88, 75, 1, '{"left":0,"right":0,"top":40,"bottom":40}', 'Active', '2014-11-04 13:36:13'),
+(89, 76, 1, '{"left":1,"right":1,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(90, 77, 1, '{"left":0,"right":0,"top":54,"bottom":54}', 'Active', '2014-11-04 13:36:13'),
+(91, 78, 1, '{"left":99,"right":99,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(92, 79, 1, '{"left":0,"right":0,"top":80,"bottom":80}', 'Active', '2014-11-04 13:36:13'),
+(93, 80, 1, '{"left":149,"right":149,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(94, 81, 1, '{"left":67,"right":67,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(95, 82, 1, '{"left":0,"right":0,"top":80,"bottom":80}', 'Active', '2014-11-04 13:36:13'),
+(96, 83, 1, '{"left":0,"right":0,"top":80,"bottom":80}', 'Active', '2014-11-04 13:36:13'),
+(97, 84, 1, '{"left":0,"right":0,"top":80,"bottom":80}', 'Active', '2014-11-04 13:36:13'),
+(98, 85, 1, '{"left":0,"right":0,"top":8,"bottom":8}', 'Active', '2014-11-04 13:36:13'),
+(99, 86, 1, '{"left":0,"right":0,"top":80,"bottom":80}', 'Active', '2014-11-04 13:36:13'),
+(100, 87, 1, '{"left":34,"right":34,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(101, 88, 1, '{"left":34,"right":34,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(102, 89, 1, '{"left":330,"right":453,"top":120,"bottom":271}', 'Active', '2014-11-04 13:36:13'),
+(103, 90, 1, '{"left":0,"right":0,"top":5,"bottom":5}', 'Active', '2014-11-04 13:36:13'),
+(104, 91, 1, '{"left":0,"right":0,"top":3,"bottom":3}', 'Active', '2014-11-04 13:36:13'),
+(105, 92, 1, '{"left":0,"right":0,"top":76,"bottom":76}', 'Active', '2014-11-04 13:36:13'),
+(106, 93, 1, '{"left":0,"right":0,"top":76,"bottom":76}', 'Active', '2014-11-04 13:36:13'),
+(107, 94, 1, '{"left":122,"right":103,"top":143,"bottom":158}', 'Active', '2014-11-04 13:36:13'),
+(108, 95, 1, '{"top":"38","bottom":"275","right":"581","left":"86"}', 'Active', '2014-11-04 13:36:13'),
+(109, 96, 1, '{"left":276,"right":276,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
+(110, 97, 1, '{"top":"117","bottom":"239","right":"82","left":"156"}', 'Active', '2014-11-04 13:36:13'),
+(143, 98, 1, '{"top":"59","bottom":"90","right":"48","left":"0"}', 'Active', '2014-11-04 14:29:57');
 
 -- --------------------------------------------------------
 
@@ -1182,25 +1339,27 @@ INSERT INTO `print_format` (`id`, `title`, `type`, `width`, `height`, `weight`, 
 
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(128) DEFAULT NULL,
   `email` varchar(64) DEFAULT NULL,
   `password` varchar(32) DEFAULT NULL,
-  `temporary` enum('Yes','No') NOT NULL DEFAULT 'Yes',
+  `type` enum('Guest','User','Admin') NOT NULL DEFAULT 'Guest',
   `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `temporary`, `status`, `changed`) VALUES
-(1, NULL, NULL, 'Yes', 'Active', '2014-06-07 14:11:19'),
-(2, NULL, NULL, 'Yes', 'Active', '2014-06-22 07:59:15'),
-(3, NULL, NULL, 'Yes', 'Active', '2014-08-01 15:00:11'),
-(4, NULL, NULL, 'Yes', 'Active', '2014-09-08 06:24:10'),
-(5, NULL, NULL, 'Yes', 'Active', '2014-09-08 06:25:14'),
-(6, NULL, NULL, 'Yes', 'Active', '2014-09-08 06:26:14');
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `type`, `status`, `changed`) VALUES
+(1, NULL, NULL, NULL, 'Guest', 'Active', '2014-06-07 14:11:19'),
+(2, NULL, NULL, NULL, 'Guest', 'Active', '2014-06-22 07:59:15'),
+(3, NULL, NULL, NULL, 'Guest', 'Active', '2014-08-01 15:00:11'),
+(4, NULL, NULL, NULL, 'Guest', 'Active', '2014-09-08 06:24:10'),
+(5, NULL, NULL, NULL, 'Guest', 'Active', '2014-09-08 06:25:14'),
+(6, NULL, NULL, NULL, 'Guest', 'Active', '2014-09-08 06:26:14'),
+(7, 'Юсупов Ренат', 'zymanch@gmail.com', '2816703bc50f5ac3bccd1c8e20f6e95f', 'User', 'Active', '2014-11-03 06:29:57');
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
@@ -1313,12 +1472,15 @@ ALTER TABLE `image`
   ADD CONSTRAINT `image_ibfk_1` FOREIGN KEY (`album_id`) REFERENCES `album` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Ограничения внешнего ключа таблицы `image_effect`
+--
+ALTER TABLE `image_effect`
+  ADD CONSTRAINT `image_effect_ibfk_1` FOREIGN KEY (`image_id`) REFERENCES `image` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `image_effect_ibfk_2` FOREIGN KEY (`effect_id`) REFERENCES `effect` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Ограничения внешнего ключа таблицы `invoice`
 --
 ALTER TABLE `invoice`
   ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

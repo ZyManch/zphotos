@@ -53,11 +53,11 @@ class UploadForm extends CFormModel {
                 $size = getimagesize($filePath);
                 $image->width = $size[0];
                 $image->height = $size[1];
-                $image->fillAutoMargin();
                 $image->progress = 'Filling';
                 if (!$image->save()) {
                     $this->addError('images','Ошибка сохранения изображения:'.$image->getErrorsAsText());
                 }
+                $image->getCropEffect()->fillAutoMargin();
             }
         }
         return $this->validate();

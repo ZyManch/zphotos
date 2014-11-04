@@ -9,6 +9,7 @@
  */
 Yii::app()->clientScript->registerScriptFile('/js/resizer.js');
 $format = $image->album->good->printFormat;
+$margin = $image->getCropEffect();
 ?>
 <div class="row">
     <div class="col-xs-12 tools">
@@ -16,11 +17,6 @@ $format = $image->album->good->printFormat;
             'Сбросить отступы',
             array('album/reset','id' => $image->album_id,'image_id'=>$image->id),
             array('class' => 'btn btn-warning')
-        );?>
-        <?php echo CHtml::link(
-            'Назад',
-            array('album/view','id' => $image->album_id),
-            array('class' => 'btn btn-primary')
         );?>
 
         <?php echo CHtml::link(
@@ -49,7 +45,7 @@ $format = $image->album->good->printFormat;
         ));
         ?>
         <?php echo $form->label($image,'name'); ?>
-        <?php echo $form->textField($image,'name',array('class'=>'form-control','maxlength'=>11)); ?>
+        <?php echo $form->textField($image,'name',array('class'=>'form-control','maxlength'=>11,'readonly'=>1)); ?>
 
         <div>
             <?php echo $format->title;?> (
@@ -64,22 +60,26 @@ $format = $image->album->good->printFormat;
 
         <hr>
         <b>Отступы</b><br>
-        <?php echo $form->numberField($image,'margin_top',array('class'=>'form-control','id' => 'image-top','readonly' => 1)); ?> <i class="icon-arrow-up"></i>
-        <?php echo $form->numberField($image,'margin_bottom',array('class'=>'form-control','id' => 'image-bottom','readonly' => 1)); ?> <i class="icon-arrow-down"></i><br>
+        <?php echo $form->numberField($margin,'top',array('class'=>'form-control','id' => 'image-top','readonly' => 1)); ?> <i class="icon-arrow-up"></i>
+        <?php echo $form->numberField($margin,'bottom',array('class'=>'form-control','id' => 'image-bottom','readonly' => 1)); ?> <i class="icon-arrow-down"></i><br>
 
-        <?php echo $form->numberField($image,'margin_right',array('class'=>'form-control','id' => 'image-right','readonly' => 1)); ?> <i class="icon-arrow-right"></i>
-        <?php echo $form->numberField($image,'margin_left',array('class'=>'form-control','id' => 'image-left','readonly' => 1)); ?> <i class="icon-arrow-left"></i>
+        <?php echo $form->numberField($margin,'right',array('class'=>'form-control','id' => 'image-right','readonly' => 1)); ?> <i class="icon-arrow-right"></i>
+        <?php echo $form->numberField($margin,'left',array('class'=>'form-control','id' => 'image-left','readonly' => 1)); ?> <i class="icon-arrow-left"></i>
 
         <hr>
-        <?php echo CHtml::tag(
-            'input',
-            array('class' => 'btn btn-default','type'=>'reset','value' => 'Отмена')
+
+        <?php echo CHtml::link(
+            'Назад',
+            array('album/view','id' => $image->album_id),
+            array('class' => 'btn btn-default')
         ); ?>
+
         <?php echo CHtml::tag(
             'input',
             array('class' => 'btn btn-primary','type'=>'submit', 'value' => 'Сохранить')
 
         ); ?>
+
 
         <?php $this->endWidget();?>
 

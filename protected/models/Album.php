@@ -54,7 +54,7 @@ class Album extends CAlbum {
         }
         if ($newFormat->weight / $newFormat->height != $previousFormat->width / $previousFormat->height) {
             foreach ($this->images as $image) {
-                $image->fillAutoMargin();
+                $image->getCropEffect()->fillAutoMargin();
                 if (!$image->save()) {
                     throw new Exception('Ошибка изменения отступов изображения');
                 }

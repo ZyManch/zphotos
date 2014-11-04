@@ -1,4 +1,6 @@
-<?php /* @var $this Controller */ ?>
+<?php
+/* @var $this Controller */
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
 <head>
@@ -70,7 +72,7 @@
         <?php echo $content; ?>
     </div>
     <div id="footer">
-        <a href="/">zPhotos</a> - печать для вашего дома и для вашего бизнеса
+        2014 <?php if (date('Y') > 2014):?>- <?php echo date('Y');?><?php endif;?> <a href="/">zPhotos</a> - печать для вашего дома и для вашего бизнеса
     </div>
 </div>
 

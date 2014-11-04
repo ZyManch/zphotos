@@ -11,16 +11,13 @@
  * @property string $orientation
  * @property integer $width
  * @property integer $height
- * @property integer $margin_left
- * @property integer $margin_right
- * @property integer $margin_top
- * @property integer $margin_bottom
  * @property string $progress
  * @property string $status
  * @property string $changed
  *
  * The followings are the available model relations:
  * @property Album $album
+ * @property ImageEffect[] $imageEffects
  */
 class CImage extends ActiveRecord {
 
@@ -30,8 +27,8 @@ class CImage extends ActiveRecord {
 
 	public function rules()	{
 		return array(
-			array('album_id, name, filename, width, height, margin_left, margin_right, margin_top, margin_bottom', 'required'),
-			array('width, height, margin_left, margin_right, margin_top, margin_bottom', 'numerical', 'integerOnly'=>true),
+			array('album_id, name, filename, width, height', 'required'),
+			array('width, height', 'numerical', 'integerOnly'=>true),
 			array('album_id, orientation', 'length', 'max'=>10),
 			array('name', 'length', 'max'=>64),
 			array('filename', 'length', 'max'=>128),
@@ -40,7 +37,7 @@ class CImage extends ActiveRecord {
 			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, album_id, name, filename, orientation, width, height, margin_left, margin_right, margin_top, margin_bottom, progress, status, changed', 'safe', 'on'=>'search'),
+			array('id, album_id, name, filename, orientation, width, height, progress, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +49,7 @@ class CImage extends ActiveRecord {
 		// class name for the relations automatically generated below.
 		return array(
 			'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
+			'imageEffects' => array(self::HAS_MANY, 'ImageEffect', 'image_id'),
 		);
 	}
 
@@ -64,10 +62,6 @@ class CImage extends ActiveRecord {
 			'orientation' => 'Orientation',
 			'width' => 'Width',
 			'height' => 'Height',
-			'margin_left' => 'Margin Left',
-			'margin_right' => 'Margin Right',
-			'margin_top' => 'Margin Top',
-			'margin_bottom' => 'Margin Bottom',
 			'progress' => 'Progress',
 			'status' => 'Status',
 			'changed' => 'Changed',
@@ -86,10 +80,6 @@ class CImage extends ActiveRecord {
 		$criteria->compare('orientation',$this->orientation,true);
 		$criteria->compare('width',$this->width);
 		$criteria->compare('height',$this->height);
-		$criteria->compare('margin_left',$this->margin_left);
-		$criteria->compare('margin_right',$this->margin_right);
-		$criteria->compare('margin_top',$this->margin_top);
-		$criteria->compare('margin_bottom',$this->margin_bottom);
 		$criteria->compare('progress',$this->progress,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);

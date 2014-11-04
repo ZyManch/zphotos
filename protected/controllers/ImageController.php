@@ -26,14 +26,15 @@ class ImageController extends Controller {
 
     public function actionUpdate($id) {
         $image = self::loadModel($id);
-        if (isset($_POST['Image'])) {
-            $image->attributes = $_POST['Image'];
-            if (!$image->save()) {
-                Yii::app()->user->setFlash('error','Ошибка сохранения фотографии: '.$image->getErrorsAsText());
+        if (isset($_POST['CropImageEffect'])) {
+            $margin = $image->getCropEffect();
+            $margin->setParams($_POST['CropImageEffect']);
+            if (!$margin->save()) {
+                Yii::app()->user->setFlash('error','Ошибка сохранения фотографии: '.$margin->getErrorsAsText());
             } else {
                 Yii::app()->user->setFlash('success','Параметры фотографий сохранены');
             }
-            $this->redirect(array('update','id' => $id));
+            $this->redirect(array('album/view','id' => $image->album_id));
         }
         $this->render('update',array('image' => $image));
     }
@@ -42,6 +43,29 @@ class ImageController extends Controller {
         $image = self::loadModel($id);
         $image->delete();
         $this->redirect(array('album/view','id' => $image->album_id));
+    }
+
+    public function actionEffect($id, $effect_id) {
+        $image = self::loadModel($id);
+        /** @var AbstractEffect $effect */
+        $effect = Effect::model()->findByPk($effect_id);
+        if (!$effect) {
+            throw new Exception('Фильтр не найден');
+        }
+        $effect->applyForImage($image);
+    }
+
+    public function actionRemoveEffect($id, $effect_id) {
+        $image = self::loadModel($id);
+        /** @var AbstractEffect $effect */
+        $effect = Effect::model()->findByPk($effect_id);
+        if (!$effect) {
+            throw new Exception('Фильтр не найден');
+        }
+        $imageEffect = $image->getImageEffect($effect->id);
+        if ($imageEffect) {
+            $imageEffect->delete();
+        }
     }
 
     public static function loadModel($imageId) {

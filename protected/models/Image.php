@@ -13,9 +13,14 @@ class Image extends CImage {
     const PREVIEW_HEIGHT = 200;
     const VIEW_WIDTH = 720;
 
+    protected $_crop;
+
 
     public function save($runValidation=true,$attributes=null) {
         $isNew = $this->isNewRecord;
+        $this->orientation = ($this->width > $this->height ?
+            Image::ORIENTATION_HORIZONTAL :
+            Image::ORIENTATION_VERTICAL);
         if (!parent::save($runValidation, $attributes)) {
             return false;
         }
@@ -66,7 +71,8 @@ class Image extends CImage {
 
     public function getPreviewGd() {
         $previewFilename = $this->getPreviewPath();
-        if (file_exists($previewFilename)) {
+        $canUseCache = Yii::app()->params['can_use_image_cache'];
+        if ($canUseCache && file_exists($previewFilename)) {
             return $this->_getGdFromFilename($previewFilename);
         }
         $gd = $this->getGd();
@@ -75,14 +81,18 @@ class Image extends CImage {
         $newWidth = $resize * $this->width;
         $newGd = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($newGd, $gd, 0,0,0,0,$newWidth, $newHeight, $this->width, $this->height);
-        imagepng($newGd, $previewFilename);
+        $this->_applyEffects($newGd, Effect::MODE_PREVIEW);
+        if ($canUseCache) {
+            imagepng($newGd, $previewFilename);
+        }
         return $newGd;
     }
 
 
     public function getViewGd() {
         $viewFilename = $this->getViewPath();
-        if (file_exists($viewFilename)) {
+        $canUseCache = Yii::app()->params['can_use_image_cache'];
+        if ($canUseCache && file_exists($viewFilename)) {
             return $this->_getGdFromFilename($viewFilename);
         }
         $gd = $this->getGd();
@@ -91,8 +101,17 @@ class Image extends CImage {
         $newHeight = $resize * $this->height;
         $newGd = imagecreatetruecolor($newWidth, $newHeight);
         imagecopyresampled($newGd, $gd, 0,0,0,0,$newWidth, $newHeight, $this->width, $this->height);
-        imagepng($newGd, $viewFilename);
+        $this->_applyEffects($newGd, Effect::MODE_UPDATE);
+        if ($canUseCache) {
+            imagepng($newGd, $viewFilename);
+        }
         return $newGd;
+    }
+
+    protected function _applyEffects($gd, $mode = Effect::MODE_PREVIEW) {
+        foreach ($this->imageEffects as $imageEffect) {
+            $imageEffect->applyForGd($gd, $mode);
+        }
     }
 
     public function getFilePath() {
@@ -111,64 +130,63 @@ class Image extends CImage {
         return Yii::getPathOfAlias('photos').'/'.$this->album->user->id.'/'.$this->album_id.'/';
     }
 
-    public function fillAutoMargin() {
-        if ($this->width > $this->height) {
-            $this->orientation = self::ORIENTATION_HORIZONTAL;
-            $margin = $this->_getMargin($this->width, $this->height);
-            $this->margin_top = $margin[1];
-            $this->margin_bottom = $margin[1];
-            $this->margin_left = $margin[0];
-            $this->margin_right = $margin[0];
-        } else {
-            $this->orientation = self::ORIENTATION_VERTICAL;
-            $margin = $this->_getMargin($this->height, $this->width);
-            $this->margin_top = $margin[0];
-            $this->margin_bottom = $margin[0];
-            $this->margin_left = $margin[1];
-            $this->margin_right = $margin[1];
+
+
+    public function hasEffect($effectId) {
+        foreach ($this->imageEffects as $imageEffect) {
+            if ($imageEffect->effect_id == $effectId) {
+                return true;
+            }
         }
+        return false;
     }
 
-    public function getMarginLeft($height) {
-        return round($this->margin_left * $height / $this->height);
+    public function hasEffectGroup($group) {
+        foreach ($this->imageEffects as $imageEffect) {
+            if ($imageEffect->effect->group == $group) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public function getMarginRight($height) {
-        return round($this->margin_right * $height / $this->height);
+    public function getImageEffect($effectId) {
+        foreach ($this->imageEffects as $imageEffect) {
+            if ($imageEffect->effect_id == $effectId) {
+                return $imageEffect;
+            }
+        }
+        return null;
     }
 
-    public function getMarginTop($height) {
-        return round($this->margin_top * $height / $this->height);
-    }
-
-    public function getMarginBottom($height) {
-        return round($this->margin_bottom * $height / $this->height);
+    public function getImageEffectByGroup($group) {
+        foreach ($this->imageEffects as $imageEffect) {
+            if ($imageEffect->effect->group == $group) {
+                return $imageEffect;
+            }
+        }
+        return null;
     }
 
     /**
-     * @param $wide
-     * @param $narrow
-     * @return array [margin for wide, margin for narrow]
+     * @return CropImageEffect
      */
-    protected function _getMargin($wide, $narrow) {
-        $format = $this->album->good->printFormat;
-        if (!$format) {
-            throw new Exception('Формат изображения не найден');
+    public function getCropEffect() {
+        if (!is_null($this->_crop)) {
+            return $this->_crop;
         }
-        $wideOriginal =  $format->getWideSide();
-        $narrowOriginal =  $format->getNarrowSide();
-
-        if ($wide / $wideOriginal < $narrow / $narrowOriginal) {
-            return array(
-                0, // margin_for_wide
-                ceil(($narrow - $wide * $narrowOriginal / $wideOriginal)/2)
-            );
-        } else {
-            return array(
-                ceil(($wide - $narrow * $wideOriginal / $narrowOriginal)/2),
-                0
-            );
+        $this->_crop = $this->getImageEffect(Effect::CROP_EFFECT_ID);
+        if ($this->_crop) {
+            return $this->_crop;
         }
+        $this->_crop = new CropImageEffect();
+        $this->_crop->effect_id = Effect::CROP_EFFECT_ID;
+        $this->_crop->image_id = $this->id;
+        if (!$this->_crop->save()) {
+            throw new Exception('Ошибка создания среза:' . $this->_crop->getErrorsAsText());
+        }
+        $this->getRelated('imageEffects',true);
+        return $this->_crop;
     }
 
 }

@@ -1,7 +1,17 @@
 /* demo here http://tympanus.net/Tutorials/3DHoverEffects/index3.html */
+.image-preview {
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -o-perspective: 1000px;
+    -ms-perspective: 1000px;
+    perspective: 1000px;
+    position: relative;
+    background-color: #000000;
+}
 .image-preview .slice{
-    width: 60px;
+    width: 20%;
     height: 100%;
+    position: relative;
     z-index: 100;
 
     -webkit-transform-style: preserve-3d;
@@ -35,30 +45,31 @@
 .image-preview .s3,
 .image-preview .s4,
 .image-preview .s5 {
-    -webkit-transform: translate3d(60px,0,0);
-    -moz-transform: translate3d(60px,0,0);
-    -o-transform: translate3d(60px,0,0);
-    -ms-transform: translate3d(60px,0,0);
-    transform: translate3d(60px,0,0);
+    width: 100%;
+    -webkit-transform: translate3d(100%,0,0);
+    -moz-transform: translate3d(100%,0,0);
+    -o-transform: translate3d(100%,0,0);
+    -ms-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0);
 }
 .image-preview .s1 {
     background-position: 0px 0px;
 }
 .image-preview .s2 {
-    background-position: -60px 0px;
+    background-position: -100% 0px;
 }
 .image-preview .s3 {
-    background-position: -120px 0px;
+    background-position: -200% 0px;
 }
 .image-preview .s4 {
-    background-position: -180px 0px;
+    background-position: -300% 0px;
 }
 .image-preview .s5 {
-    background-position: -240px 0px;
+    background-position: -400% 0px;
 }
 
 .image-preview .overlay {
-    width: 60px;
+    width: 100%;
     height: 100%;
     opacity: 0;
     position: absolute;
@@ -72,14 +83,7 @@
 .image-preview:hover .overlay {
     opacity: 1;
 }
-.image-preview {
-    -webkit-perspective: 1000px;
-    -moz-perspective: 1000px;
-    -o-perspective: 1000px;
-    -ms-perspective: 1000px;
-    perspective: 1000px;
-    position: relative;
-}
+
 
 .image-preview:hover .s1{
     -webkit-transform: rotate3d(0,1,0,-55deg);
@@ -91,27 +95,27 @@
 
 .image-preview:hover .s2,
 .image-preview:hover .s5{
-    -webkit-transform: translate3d(59px,0,0) rotate3d(0,1,0,20deg);
-    -moz-transform: translate3d(59px,0,0) rotate3d(0,1,0,20deg);
-    -o-transform: translate3d(59px,0,0) rotate3d(0,1,0,20deg);
-    -ms-transform: translate3d(59px,0,0) rotate3d(0,1,0,20deg);
-    transform: translate3d(59px,0,0) rotate3d(0,1,0,20deg);
+    -webkit-transform: translate3d(98%,0,0) rotate3d(0,1,0,20deg);
+    -moz-transform: translate3d(98%,0,0) rotate3d(0,1,0,20deg);
+    -o-transform: translate3d(98%,0,0) rotate3d(0,1,0,20deg);
+    -ms-transform: translate3d(98%,0,0) rotate3d(0,1,0,20deg);
+    transform: translate3d(98%,0,0) rotate3d(0,1,0,20deg);
 }
 
 .image-preview:hover .s3{
-    -webkit-transform: translate3d(59px,0,0) rotate3d(0,1,0,30deg);
-    -moz-transform: translate3d(59px,0,0) rotate3d(0,1,0,30deg);
-    -o-transform: translate3d(59px,0,0) rotate3d(0,1,0,30deg);
-    -ms-transform: translate3d(59px,0,0) rotate3d(0,1,0,30deg);
-    transform: translate3d(59px,0,0) rotate3d(0,1,0,30deg);
+    -webkit-transform: translate3d(98%,0,0) rotate3d(0,1,0,30deg);
+    -moz-transform: translate3d(98%,0,0) rotate3d(0,1,0,30deg);
+    -o-transform: translate3d(98%,0,0) rotate3d(0,1,0,30deg);
+    -ms-transform: translate3d(98%,0,0) rotate3d(0,1,0,30deg);
+    transform: translate3d(98%,0,0) rotate3d(0,1,0,30deg);
 }
 
 .image-preview:hover .s4{
-    -webkit-transform: translate3d(59px,0,0) rotate3d(0,1,0,40deg);
-    -moz-transform: translate3d(59px,0,0) rotate3d(0,1,0,40deg);
-    -o-transform: translate3d(59px,0,0) rotate3d(0,1,0,40deg);
-    -ms-transform: translate3d(59px,0,0) rotate3d(0,1,0,40deg);
-    transform: translate3d(59px,0,0) rotate3d(0,1,0,40deg);
+    -webkit-transform: translate3d(98%,0,0) rotate3d(0,1,0,40deg);
+    -moz-transform: translate3d(98%,0,0) rotate3d(0,1,0,40deg);
+    -o-transform: translate3d(98%,0,0) rotate3d(0,1,0,40deg);
+    -ms-transform: translate3d(98%,0,0) rotate3d(0,1,0,40deg);
+    transform: translate3d(98%,0,0) rotate3d(0,1,0,40deg);
 }
 
 .image-preview .s1 > .overlay {
@@ -131,10 +135,10 @@
 }
 
 
-.thumbnail.image-preview {
+.image-preview {
     float: left;
-    height: 224px;
-    border-radius: 5px;
+    height: 200px;
+    border-radius: 0px;
     margin: 5px;
     display: block;
     -webkit-transition: all 2s ease;
@@ -148,19 +152,16 @@
 
 
 .image-preview .filename {
-    -webkit-transform: rotate(90deg); /* не забываем префиксные свойства */
-    -moz-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    transform: rotate(90deg);
+
 
     position: absolute;
     top: 0px;
+    bottom: 0px;
     right: 0px;
-    width: 100px;
+    width: 25%;
     background-color: #d6d4dd;
     color: #000000;
     text-decoration: none;
-
-
+    z-index: 90;
+    padding: 4px;
 }

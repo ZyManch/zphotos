@@ -7,6 +7,8 @@
  * @var Album $model
  * @var Controller $this
  */
+Yii::app()->clientScript->registerCssFile('css/album.css');
+Yii::app()->clientScript->registerScriptFile('js/album.js');
 ?>
 <div class="row">
     <div class="col-xs-12 tools">

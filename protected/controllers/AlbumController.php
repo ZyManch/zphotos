@@ -58,7 +58,7 @@ class AlbumController extends Controller {
         $album = $this->loadModel($id);
         foreach ($album->images as $image) {
             if (!$image_id || $image_id == $image->id) {
-                $image->fillAutoMargin();
+                $image->getCropEffect()->fillAutoMargin();
                 if (!$image->save()) {
                     throw new Exception('Ошибка сброса отступов');
                 }

@@ -14,7 +14,9 @@ return array(
     'import'=>array(
         'application.models.original.*',
         'application.models.good.*',
+        'application.models.effect.*',
         'application.models.cart_has_good.*',
+        'application.models.image_effect.*',
         'application.models.*',
         'application.forms.*',
         'application.components.*',
@@ -36,7 +38,7 @@ return array(
         'cache'=>array(
             'class'=>'system.caching.CFileCache',
             'directoryLevel' =>1,
-            'cachePath' => '../cache'
+            'cachePath' => '../cache/core'
         ),
     ),
 
@@ -46,6 +48,7 @@ return array(
         // this is used in contact page
         'adminEmail'=>'webmaster@example.com',
         'salt' => 'salt',
+        'can_use_image_cache' => false,
         'price' => 2.00,
         'min_count' => 50
     ),

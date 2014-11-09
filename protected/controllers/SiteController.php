@@ -46,6 +46,16 @@ class SiteController extends Controller
 		}
 	}
 
+    public function actionDeliveryAndPayment() {
+        $deliveries = Delivery::model()->findAll();
+        $payments = Payment::model()->findAll();
+        $this->render('deliveryAndPayment',array(
+            'deliveries' => $deliveries,
+            'payments' => $payments,
+        ));
+    }
+
+
     public function actionSearch($query){
         $query = substr(preg_replace('/([^a-zа-я0-9 ]+)/iu','',$query),0,128);
         $likeText = '%'.trim($query,'%').'%';

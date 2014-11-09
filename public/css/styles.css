@@ -559,3 +559,6 @@ body
     margin: 0px auto;
     width: 400px;
 }
+#map_content {
+    height: 400px;
+}

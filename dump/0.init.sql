@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Ноя 04 2014 г., 18:52
+-- Время создания: Ноя 09 2014 г., 18:58
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -125,7 +125,7 @@ INSERT INTO `cart` (`id`, `user_id`, `title`, `progress`, `address_id`, `status`
 (3, 3, 'Покупка от 2014-08-23', 'Filling', NULL, 'Active', '2014-08-23 10:43:57'),
 (4, 7, 'Покупка от 2014-09-08', 'Purchased', NULL, 'Active', '2014-11-03 06:31:20'),
 (5, 7, 'Покупка от 2014-09-08', 'Purchased', NULL, 'Active', '2014-11-03 06:31:20'),
-(6, 7, 'Покупка от 2014-09-13', 'Filling', NULL, 'Active', '2014-11-03 06:31:20');
+(6, 7, 'Покупка от 2014-09-13', 'Purchased', NULL, 'Active', '2014-11-03 06:31:20');
 
 -- --------------------------------------------------------
 
@@ -320,6 +320,27 @@ INSERT INTO `category_has_good` (`id`, `category_id`, `good_id`, `status`, `chan
 (47, 21, 47, 'Active', '2014-10-04 13:24:30'),
 (48, 21, 48, 'Active', '2014-10-04 13:24:30'),
 (49, 21, 49, 'Active', '2014-10-04 14:20:58');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `city`
+--
+
+CREATE TABLE IF NOT EXISTS `city` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `city`
+--
+
+INSERT INTO `city` (`id`, `name`, `status`, `changed`) VALUES
+(1, 'Набережные Челны', 'Active', '2014-11-09 12:39:00');
 
 -- --------------------------------------------------------
 
@@ -561,7 +582,7 @@ CREATE TABLE IF NOT EXISTS `cutaway_text` (
 --
 
 INSERT INTO `cutaway_text` (`id`, `side`, `cutaway_id`, `cutaway_template_text_id`, `label`, `fontsize`, `color`, `font_id`, `x`, `y`, `orientation`, `status`, `changed`) VALUES
-(1, 0, 1, 1, 'Моя Компания', 80, '07091c', 1, 331, 41, 'left', 'Active', '2014-09-13 06:47:04'),
+(1, 0, 1, 1, 'Моя Компания', 80, '07091c', 2, 420, 36, 'left', 'Active', '2014-09-13 06:47:04'),
 (2, 0, 1, 8, 'менеджер', 60, '35374a', 2, 715, 170, 'left', 'Active', '2014-09-27 09:22:38'),
 (3, 0, 1, 9, 'Иванов Иван Иванович', 60, '35374a', 2, 331, 244, 'left', 'Active', '2014-09-27 09:32:21'),
 (4, 0, 2, 2, 'КАФЕ', 100, '000000', 2, 113, 84, 'left', 'Active', '2014-10-04 15:31:09'),
@@ -628,6 +649,30 @@ INSERT INTO `cutaway_text` (`id`, `side`, `cutaway_id`, `cutaway_template_text_i
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `delivery`
+--
+
+CREATE TABLE IF NOT EXISTS `delivery` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL,
+  `description` text NOT NULL,
+  `price` decimal(6,2) NOT NULL DEFAULT '0.00',
+  `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `delivery`
+--
+
+INSERT INTO `delivery` (`id`, `title`, `description`, `price`, `status`, `changed`) VALUES
+(1, 'Доставка на дом', 'Курьер доставит товар прямо вам домой', '100.00', 'Active', '2014-11-09 14:47:00'),
+(2, 'Самовызов', 'Получение товара в наших <a href="/office/index" target="_blank">пунктах</a> выдачи товара.', '0.00', 'Active', '2014-11-09 14:47:00');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `effect`
 --
 
@@ -669,7 +714,7 @@ CREATE TABLE IF NOT EXISTS `font` (
   `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
   `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Дамп данных таблицы `font`
@@ -677,7 +722,12 @@ CREATE TABLE IF NOT EXISTS `font` (
 
 INSERT INTO `font` (`id`, `title`, `filename`, `status`, `changed`) VALUES
 (1, 'Times New Roman', 'times.ttf', 'Active', '2014-09-13 06:37:00'),
-(2, 'Cuprum', 'cuprum.ttf', 'Active', '2014-09-27 07:50:30');
+(2, 'Cuprum', 'cuprum.ttf', 'Active', '2014-09-27 07:50:30'),
+(3, 'Lobster', 'lobster.ttf', 'Active', '2014-11-09 06:40:15'),
+(4, 'Ubuntu', 'ubuntu.ttf', 'Active', '2014-11-09 06:40:15'),
+(5, 'Future', 'future.ttf', 'Active', '2014-11-09 06:42:52'),
+(6, 'Veselka', 'veselka.ttf', 'Active', '2014-11-09 06:42:52'),
+(9, 'Banana Brick', 'banana_brick.ttf', 'Active', '2014-11-09 06:49:11');
 
 -- --------------------------------------------------------
 
@@ -1142,7 +1192,7 @@ CREATE TABLE IF NOT EXISTS `image_effect` (
   PRIMARY KEY (`id`),
   KEY `image_id` (`image_id`),
   KEY `effect_id` (`effect_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=144 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=160 ;
 
 --
 -- Дамп данных таблицы `image_effect`
@@ -1259,7 +1309,23 @@ INSERT INTO `image_effect` (`id`, `image_id`, `effect_id`, `params`, `status`, `
 (108, 95, 1, '{"top":"38","bottom":"275","right":"581","left":"86"}', 'Active', '2014-11-04 13:36:13'),
 (109, 96, 1, '{"left":276,"right":276,"top":0,"bottom":0}', 'Active', '2014-11-04 13:36:13'),
 (110, 97, 1, '{"top":"117","bottom":"239","right":"82","left":"156"}', 'Active', '2014-11-04 13:36:13'),
-(143, 98, 1, '{"top":"59","bottom":"90","right":"48","left":"0"}', 'Active', '2014-11-04 14:29:57');
+(143, 98, 1, '{"top":"59","bottom":"90","right":"48","left":"0"}', 'Active', '2014-11-04 14:29:57'),
+(144, 95, 6, NULL, 'Deleted', '2014-11-04 15:00:17'),
+(145, 95, 5, NULL, 'Deleted', '2014-11-04 15:02:33'),
+(146, 95, 4, NULL, 'Deleted', '2014-11-04 15:02:51'),
+(147, 95, 5, NULL, 'Deleted', '2014-11-04 15:02:52'),
+(148, 95, 6, NULL, 'Deleted', '2014-11-04 15:02:54'),
+(149, 98, 4, NULL, 'Deleted', '2014-11-05 08:55:12'),
+(150, 98, 5, NULL, 'Deleted', '2014-11-05 08:55:15'),
+(151, 98, 6, NULL, 'Deleted', '2014-11-05 08:55:21'),
+(152, 98, 5, NULL, 'Deleted', '2014-11-05 08:55:25'),
+(153, 98, 5, NULL, 'Active', '2014-11-05 08:55:27'),
+(154, 95, 6, NULL, 'Deleted', '2014-11-05 08:55:30'),
+(155, 95, 6, NULL, 'Deleted', '2014-11-05 08:55:35'),
+(156, 95, 4, NULL, 'Deleted', '2014-11-05 08:57:05'),
+(157, 95, 6, NULL, 'Deleted', '2014-11-05 08:57:30'),
+(158, 95, 5, NULL, 'Deleted', '2014-11-05 08:57:31'),
+(159, 95, 4, NULL, 'Deleted', '2014-11-05 08:57:32');
 
 -- --------------------------------------------------------
 
@@ -1280,7 +1346,7 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `cart_id` (`cart_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- Дамп данных таблицы `invoice`
@@ -1289,7 +1355,111 @@ CREATE TABLE IF NOT EXISTS `invoice` (
 INSERT INTO `invoice` (`id`, `user_id`, `cart_id`, `amount`, `description`, `paid`, `progress`, `status`, `changed`) VALUES
 (7, 3, 1, '30.00', NULL, '2014-08-23 10:12:08', 'paid', 'Active', '2014-08-23 10:12:02'),
 (8, 6, 4, '2.40', NULL, '2014-09-08 08:11:43', 'paid', 'Active', '2014-09-08 08:11:35'),
-(9, 6, 5, '28.80', NULL, '2014-09-13 05:42:19', 'paid', 'Active', '2014-09-13 05:42:18');
+(9, 6, 5, '28.80', NULL, '2014-09-13 05:42:19', 'paid', 'Active', '2014-09-13 05:42:18'),
+(10, 7, 6, '9.60', NULL, '2014-11-05 08:58:47', 'paid', 'Active', '2014-11-05 08:58:39');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `office`
+--
+
+CREATE TABLE IF NOT EXISTS `office` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `city_id` int(10) unsigned NOT NULL,
+  `address` varchar(128) NOT NULL,
+  `phone` varchar(64) NOT NULL,
+  `work_day_start` tinyint(3) unsigned NOT NULL,
+  `work_day_end` tinyint(3) unsigned NOT NULL,
+  `work_time_start` time NOT NULL,
+  `work_time_end` time NOT NULL,
+  `lunch` time DEFAULT NULL,
+  `x` decimal(9,6) NOT NULL,
+  `y` decimal(9,6) NOT NULL,
+  `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `city_id` (`city_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `office`
+--
+
+INSERT INTO `office` (`id`, `city_id`, `address`, `phone`, `work_day_start`, `work_day_end`, `work_time_start`, `work_time_end`, `lunch`, `x`, `y`, `status`, `changed`) VALUES
+(1, 1, 'Ул. Ак.Рубаненко,4 (1/06)', '+7(987)277-66-26', 0, 4, '09:00:00', '17:00:00', '13:00:00', '55.742280', '52.423798', 'Active', '2014-11-09 14:12:08');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `office_delivery`
+--
+
+CREATE TABLE IF NOT EXISTS `office_delivery` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `office_id` int(10) unsigned NOT NULL,
+  `delivery_id` int(10) unsigned NOT NULL,
+  `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `office_id` (`office_id`),
+  KEY `delivery_id` (`delivery_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Дамп данных таблицы `office_delivery`
+--
+
+INSERT INTO `office_delivery` (`id`, `office_id`, `delivery_id`, `status`, `changed`) VALUES
+(1, 1, 2, 'Active', '2014-11-09 14:50:37');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `office_payment`
+--
+
+CREATE TABLE IF NOT EXISTS `office_payment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `office_id` int(10) unsigned NOT NULL,
+  `payment_id` int(10) unsigned NOT NULL,
+  `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `office_id` (`office_id`),
+  KEY `payment_id` (`payment_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `office_payment`
+--
+
+INSERT INTO `office_payment` (`id`, `office_id`, `payment_id`, `status`, `changed`) VALUES
+(1, 1, 1, 'Active', '2014-11-09 14:50:49'),
+(2, 1, 2, 'Active', '2014-11-09 14:50:49');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `payment`
+--
+
+CREATE TABLE IF NOT EXISTS `payment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL,
+  `description` text NOT NULL,
+  `status` enum('Active','Blocked','Deleted') NOT NULL DEFAULT 'Active',
+  `changed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Дамп данных таблицы `payment`
+--
+
+INSERT INTO `payment` (`id`, `title`, `description`, `status`, `changed`) VALUES
+(1, 'Online-платежи', 'Банковская карта позволяет оплатить заказ из любой точки страны при доступе в Интернет. Безопасность обеспечивает система электронных плaтежей RoboKassa.', 'Active', '2014-11-09 14:43:35'),
+(2, 'Наличными', 'Оплачивайте свои заказы наличными на пунктах выдачи либо курьеру\r\n', 'Active', '2014-11-09 14:43:35');
 
 -- --------------------------------------------------------
 
@@ -1484,3 +1654,23 @@ ALTER TABLE `image_effect`
 ALTER TABLE `invoice`
   ADD CONSTRAINT `invoice_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `invoice_ibfk_2` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `office`
+--
+ALTER TABLE `office`
+  ADD CONSTRAINT `office_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `office_delivery`
+--
+ALTER TABLE `office_delivery`
+  ADD CONSTRAINT `office_delivery_ibfk_2` FOREIGN KEY (`delivery_id`) REFERENCES `delivery` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `office_delivery_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `office_payment`
+--
+ALTER TABLE `office_payment`
+  ADD CONSTRAINT `office_payment_ibfk_2` FOREIGN KEY (`payment_id`) REFERENCES `payment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `office_payment_ibfk_1` FOREIGN KEY (`office_id`) REFERENCES `office` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

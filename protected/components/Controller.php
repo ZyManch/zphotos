@@ -58,7 +58,8 @@ class Controller extends CController {
         );
         $this->menu = array(
             array('label'=>'Главная', 'url'=>array('site/index')),
-            array('label'=>'Доставка и оплата', 'url'=>array('site/page','view'=>'delivery')),
+            array('label'=>'Доставка и оплата', 'url'=>array('site/deliveryAndPayment')),
+            array('label'=>'Контакты', 'url'=>array('office/index')),
             array('label'=>'О нас', 'url'=>array('site/page', 'view'=>'about')),
         );
     }

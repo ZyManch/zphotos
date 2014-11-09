@@ -507,23 +507,39 @@ body
 }
 
 .cutaway-block {
-
+    position: relative;
 }
 
 .cutaway-block .block-color {
     float: left;
-    width: 100px;
+    width: 70px;
 }
 
 .cutaway-block .block-fontsize {
     float: left;
     width: 50px;
 }
-
+.cutaway-block .block-font .fonts{
+    background-color: white;
+    border-radius: 4px;
+}
 .cutaway-block .block-font {
     float: left;
-    width: 150px;
+    width: 180px;
     position: relative;
+    border:1px solid #cccccc;
+    border-radius: 4px;
+    height: 30px;
+    overflow: hidden;
+    line-height: 30px;
+}
+.cutaway-block .block-font:hover {
+    overflow: inherit;
+    border: 0;
+    z-index: 999;
+}
+.cutaway-block .block-font:hover .fonts {
+    border:1px solid #cccccc;
 }
 .cutaway-block .block-font div{
     white-space: nowrap;
@@ -535,7 +551,9 @@ body
 }
 
 .cutaway-block .block-button {
-
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
 }
 .center-dialog {
     margin: 0px auto;

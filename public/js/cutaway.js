@@ -112,8 +112,15 @@ $(document).ready(function() {
 
     }
     $('.font-index').change(function() {
-        var cutawayTextId = $(this).data('cutaway-text');
-        cutawayData[cutawayTextId].font_id.val($(this).val());
+        var $this = $(this),
+            cutawayTextId = $(this).data('cutaway-text'),
+            $option = $this.parent(),
+            $select = $option.parent();
+        cutawayData[cutawayTextId].font_id.val($this.val());
         cutawayData[cutawayTextId].font_id.trigger('change');
+        $select.prepend($option);
+    });
+    $(".colorpicker").colorpicker({"format":"hex"}).on("hide", function(ev){
+        $(this).trigger("change");
     });
 });

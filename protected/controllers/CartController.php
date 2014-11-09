@@ -77,9 +77,14 @@ class CartController extends Controller {
 
 
     public static function loadModel($id, $with = array()) {
+        /** @var Cart $model */
         $model = Cart::model()->with($with)->findByPk($id);
-        if($model===null)
-            throw new CHttpException(404,'The requested page does not exist.');
+        if($model===null) {
+            throw new CHttpException(404, 'Корзина не найден.');
+        }
+        if ($model->user_id != Yii::app()->user->id) {
+            throw new CHttpException(404,'У вас нет доступа просматривать данную страницу');
+        }
         return $model;
     }
 }

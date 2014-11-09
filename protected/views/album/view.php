@@ -42,7 +42,7 @@ Yii::app()->clientScript->registerScriptFile('js/album.js');
                 array('cart/view'),
                 array('class' => 'btn btn-primary')
             );?>
-        <?php elseif(!$model->inAnyCart()):?>
+        <?php else:?>
             <?php echo CHtml::link(
                 'Распечатать',
                 array('cart/add','id' => $model->good_id,'resource_id' => $model->id),

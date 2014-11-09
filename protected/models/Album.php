@@ -11,6 +11,7 @@ class Album extends CAlbum {
 
     protected function _extendedRelations() {
         return array(
+            'cartHasGood' => array(self::HAS_ONE,'CartHasGood','resource_id','with'=>array('good'=>array('on'=>'good.type="print"'))),
             'imageCount' => array(self::STAT,'Image','album_id'),
         );
     }

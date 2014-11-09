@@ -7,6 +7,15 @@
  */
 class PaymentController extends Controller {
 
+
+    public function actionIndex() {
+        $deliveries = Delivery::model()->getByCity(1);
+        $this->render('index',array('deliveries'=>$deliveries));
+    }
+
+    public function actionDelivery($id) {
+
+    }
     /*
         Всё начинается здесь. Заводим в базе запись с новым выставленным счетом,
         и передаем компоненту его ID, сумму, краткое описание и опционально
@@ -14,7 +23,7 @@ class PaymentController extends Controller {
         а использовать атрибуты оформленного пользователем заказа
         (для интернет-магазинов).
     */
-    public function actionIndex() {
+    public function actionCreditcard() {
         // Выставляем счет
         $cart = Cart::getCurrent(true);
         if (!$cart) {

@@ -8,10 +8,12 @@
  * @property string $title
  * @property string $description
  * @property string $price
+ * @property string $options
  * @property string $status
  * @property string $changed
  *
  * The followings are the available model relations:
+ * @property Cart[] $carts
  * @property OfficeDelivery[] $officeDeliveries
  */
 class CDelivery extends ActiveRecord {
@@ -22,14 +24,14 @@ class CDelivery extends ActiveRecord {
 
 	public function rules()	{
 		return array(
-			array('title, description', 'required'),
+			array('title, description, options', 'required'),
 			array('title', 'length', 'max'=>128),
 			array('price', 'length', 'max'=>6),
 			array('status', 'length', 'max'=>7),
 			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, price, status, changed', 'safe', 'on'=>'search'),
+			array('id, title, description, price, options, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -40,6 +42,7 @@ class CDelivery extends ActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'carts' => array(self::HAS_MANY, 'Cart', 'delivery_id'),
 			'officeDeliveries' => array(self::HAS_MANY, 'OfficeDelivery', 'delivery_id'),
 		);
 	}
@@ -50,6 +53,7 @@ class CDelivery extends ActiveRecord {
 			'title' => 'Title',
 			'description' => 'Description',
 			'price' => 'Price',
+			'options' => 'Options',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
@@ -64,6 +68,7 @@ class CDelivery extends ActiveRecord {
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('price',$this->price,true);
+		$criteria->compare('options',$this->options,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);
 

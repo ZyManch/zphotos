@@ -11,6 +11,7 @@
  * @property string $changed
  *
  * The followings are the available model relations:
+ * @property Cart[] $carts
  * @property OfficePayment[] $officePayments
  */
 class CPayment extends ActiveRecord {
@@ -38,6 +39,7 @@ class CPayment extends ActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'carts' => array(self::HAS_MANY, 'Cart', 'payment_id'),
 			'officePayments' => array(self::HAS_MANY, 'OfficePayment', 'payment_id'),
 		);
 	}

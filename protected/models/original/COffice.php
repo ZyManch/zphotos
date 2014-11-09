@@ -19,6 +19,7 @@
  * @property string $changed
  *
  * The followings are the available model relations:
+ * @property Cart[] $carts
  * @property City $city
  * @property OfficeDelivery[] $officeDeliveries
  * @property OfficePayment[] $officePayments
@@ -52,6 +53,7 @@ class COffice extends ActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'carts' => array(self::HAS_MANY, 'Cart', 'office_id'),
 			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
 			'officeDeliveries' => array(self::HAS_MANY, 'OfficeDelivery', 'office_id'),
 			'officePayments' => array(self::HAS_MANY, 'OfficePayment', 'office_id'),

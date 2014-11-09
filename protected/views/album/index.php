@@ -9,7 +9,6 @@
 ?>
 <div class="row">
     <div class="col-xs-12 tools">
-        <?php echo CHtml::link('Распечатать',array('cart/create'),array('class' => 'btn btn-primary'));?>
         <?php
         $this->renderPartial('//upload/form',array(
             'htmlOptions' => array(

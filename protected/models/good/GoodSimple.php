@@ -22,7 +22,7 @@ class GoodSimple extends GoodModel {
                  'div',
                  array('class'=>'span3'),
                 $controller->widget('bootstrap.widgets.TbButton', array(
-                    'url'=>array('cart/create','id' => $this->id),
+                    'url'=>array('cart/add','id' => $this->id),
                     'type'=>'primary',
                     'buttonType' => 'button',
                     'label'=> 'Добавить в корзину',

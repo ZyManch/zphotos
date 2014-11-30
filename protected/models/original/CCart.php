@@ -16,10 +16,10 @@
  * @property string $changed
  *
  * The followings are the available model relations:
- * @property Office $office
  * @property Address $address
  * @property User $user
- * @property Payment $payment
+ * @property Office $office
+ * @property PaymentAbstract $payment
  * @property Delivery $delivery
  * @property CartHasGood[] $cartHasGoods
  * @property Invoice[] $invoices
@@ -32,7 +32,7 @@ class CCart extends ActiveRecord {
 
 	public function rules()	{
 		return array(
-			array('user_id, title, payment_id, delivery_id', 'required'),
+			array('user_id, title', 'required'),
 			array('user_id, payment_id, delivery_id, office_id, address_id', 'length', 'max'=>10),
 			array('title', 'length', 'max'=>128),
 			array('progress', 'length', 'max'=>9),
@@ -51,9 +51,9 @@ class CCart extends ActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'office' => array(self::BELONGS_TO, 'Office', 'office_id'),
 			'address' => array(self::BELONGS_TO, 'Address', 'address_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'office' => array(self::BELONGS_TO, 'Office', 'office_id'),
 			'payment' => array(self::BELONGS_TO, 'Payment', 'payment_id'),
 			'delivery' => array(self::BELONGS_TO, 'Delivery', 'delivery_id'),
 			'cartHasGoods' => array(self::HAS_MANY, 'CartHasGood', 'cart_id'),

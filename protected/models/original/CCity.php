@@ -11,6 +11,7 @@
  *
  * The followings are the available model relations:
  * @property Office[] $offices
+ * @property User[] $users
  */
 class CCity extends ActiveRecord {
 
@@ -38,6 +39,7 @@ class CCity extends ActiveRecord {
 		// class name for the relations automatically generated below.
 		return array(
 			'offices' => array(self::HAS_MANY, 'Office', 'city_id'),
+			'users' => array(self::HAS_MANY, 'User', 'city_id'),
 		);
 	}
 

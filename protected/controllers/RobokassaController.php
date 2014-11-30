@@ -22,7 +22,7 @@ class RobokassaController extends Controller {
     public function actionSuccess($MrchLogin,$OutSum, $InvId, $Desc, $SignatureValue, $IncCurrLabel, $Email, $Culture) {
         $params = $_GET;
         $params['SignatureValue'] = Yii::app()->robokassa->getResultSignature($OutSum,$InvId);
-        $url = 'http://'.Yii::app()->request->serverName.'/payment/result?'.http_build_query($params,'','&');
+        $url = 'http://'.Yii::app()->request->serverName.'/creditcard/result?'.http_build_query($params,'','&');
         $result = file_get_contents($url);
         if ($result !="OK".$InvId."\n") {
             //print $result;die();

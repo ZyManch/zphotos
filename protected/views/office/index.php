@@ -28,7 +28,7 @@ $lastCityId = null;
                 <tr>
                     <td><?php echo $office->city->name;?></td>
                     <td><?php echo CHtml::link(
-                        'Пункт выдачи #'.$office->id,
+                        $office->title,
                         array('office/view','id'=>$office->id)
                     );?></td>
                     <td><?php echo $office->address;?></td>

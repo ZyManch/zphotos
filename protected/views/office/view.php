@@ -42,7 +42,7 @@ $script->registerScript(
 ?>
 <div class="row">
     <div class="col-xs-4">
-        <h2>Пункт выдачи #<?php echo $office->id;?></h2>
+        <h2>Пункт выдачи "<?php echo $office->title;?>"</h2>
         <?php echo $office->city->name;?>
         <br>
         <?php echo $office->address;?>

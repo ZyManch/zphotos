@@ -17,6 +17,7 @@ return array(
         'application.models.effect.*',
         'application.models.cart_has_good.*',
         'application.models.image_effect.*',
+        'application.models.payment.*',
         'application.models.*',
         'application.forms.*',
         'application.components.*',
@@ -46,10 +47,9 @@ return array(
     // using Yii::app()->params['paramName']
     'params'=>array(
         // this is used in contact page
-        'adminEmail'=>'webmaster@example.com',
+        'adminEmail'=>'zymanch@gmail.com',
         'salt' => 'salt',
         'can_use_image_cache' => false,
-        'price' => 2.00,
-        'min_count' => 50
+        'auto_select_payment' => false
     ),
 );

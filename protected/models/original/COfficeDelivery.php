@@ -11,8 +11,8 @@
  * @property string $changed
  *
  * The followings are the available model relations:
- * @property Delivery $delivery
  * @property Office $office
+ * @property Delivery $delivery
  */
 class COfficeDelivery extends ActiveRecord {
 
@@ -39,8 +39,8 @@ class COfficeDelivery extends ActiveRecord {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'delivery' => array(self::BELONGS_TO, 'Delivery', 'delivery_id'),
 			'office' => array(self::BELONGS_TO, 'Office', 'office_id'),
+			'delivery' => array(self::BELONGS_TO, 'Delivery', 'delivery_id'),
 		);
 	}
 

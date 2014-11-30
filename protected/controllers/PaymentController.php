@@ -7,14 +7,90 @@
  */
 class PaymentController extends Controller {
 
+    /** @var  Cart */
+    protected $_cart;
 
-    public function actionIndex() {
-        $deliveries = Delivery::model()->getByCity(1);
-        $this->render('index',array('deliveries'=>$deliveries));
+    public function init() {
+        parent::init();
+        $this->_cart = Cart::getCurrent();
+        if (!$this->_cart) {
+            $this->redirect(array('cart/index'));
+        }
     }
 
-    public function actionDelivery($id) {
+    public function actionIndex() {
+        if (!$this->_cart->delivery_id) {
+            $this->redirect(array('payment/delivery'));
+        }
+        $delivery = $this->_cart->delivery;
+        if ($delivery->isNeedAddress() && !$this->_cart->address_id) {
+            $this->redirect(array('payment/address'));
+        }
+        if ($delivery->isNeedOffice() && !$this->_cart->office_id) {
+            $this->redirect(array('payment/office'));
+        }
+        if (!$this->_cart->payment_id) {
+            $this->redirect(array('payment/payment'));
+        }
+        if ($this->_cart->progress == Cart::FILLING) {
+            $this->_cart->payment->process($this->_cart);
+        }
+        $this->redirect(array('cart/index'));
+    }
 
+    public function actionDelivery($id = null) {
+        $deliveries = Yii::app()->user->getUser()->city->getDeliveries();
+        if (Yii::app()->params['auto_select_payment'] && sizeof($deliveries) == 1) {
+            $id = array_shift($deliveries)->id;
+        }
+        if ($id) {
+            if (!isset($deliveries[$id])) {
+                throw new Exception('Не найден данный способ доставки');
+            }
+            $this->_cart->delivery_id = $id;
+            $this->_cart->save();
+            $this->redirect(array('payment/index'));
+        } else {
+            $this->render('index',array('deliveries'=>$deliveries));
+        }
+    }
+
+    public function actionOffice($id = null) {
+        $offices = $this->_cart->delivery->getOffices(Yii::app()->user->getUser()->city_id);
+        if (Yii::app()->params['auto_select_payment'] && sizeof($offices) == 1) {
+            $id = array_shift($offices)->id;
+        }
+        if ($id) {
+            if (!isset($offices[$id])) {
+                throw new Exception('Не найден офис');
+            }
+            $this->_cart->office_id = $id;
+            $this->_cart->save();
+            $this->redirect(array('payment/index'));
+        } else {
+            $this->render('office', array('offices' => $offices));
+        }
+    }
+
+    public function actionAddress() {
+
+    }
+
+    public function actionPayment($id = null) {
+        $payments = Yii::app()->user->getUser()->city->getPayments();
+        if (Yii::app()->params['auto_select_payment'] && sizeof($payments) == 1) {
+            $id = array_shift($payments)->id;
+        }
+        if ($id) {
+            if (!isset($payments[$id])) {
+                throw new Exception('Не найден способ оплаты');
+            }
+            $this->_cart->payment_id = $id;
+            $this->_cart->save();
+            $this->redirect(array('payment/index'));
+        } else {
+            $this->render('payment', array('payments' => $payments));
+        }
     }
     /*
         Всё начинается здесь. Заводим в базе запись с новым выставленным счетом,
@@ -44,48 +120,6 @@ class PaymentController extends Controller {
         } else {
             throw new Exception($invoice->getErrorsAsText());
         }
-    }
-
-    /*
-        К этому методу обращается робокасса после завершения интерактива
-        с пользователем. Это может произойти мгновенно либо в течение нескольких
-        минут. Здесь следует отметить счет как оплаченный либо обработать
-        отказ от оплаты.
-    */
-    public function actionResult() {
-        $robokassa = Yii::app()->robokassa;
-        // Коллбэк для события "оплата произведена"
-        $robokassa->onSuccess = function($event){
-            $transaction = Yii::app()->db->beginTransaction();
-            // Отмечаем время оплаты счета
-            $InvId = Yii::app()->request->getParam('InvId');
-            $invoice = Invoice::model()->findByPk($InvId);
-            $invoice->paid = new CDbExpression('NOW()');
-            $invoice->progress = Invoice::PROGRESS_PAID;
-            $invoice->cart->progress = Cart::PURCHASED;
-            if (!$invoice->save() || !$invoice->cart->save()) {
-                $transaction->rollback();
-                throw new CException("Unable to mark Invoice #$InvId as paid.\n"
-                    . $invoice->getErrorsAsText().';'.$invoice->cart->getErrorsAsText());
-            }
-            $transaction->commit();
-        };
-
-        // Коллбэк для события "отказ от оплаты"
-        $robokassa->onFail = function($event) use ($robokassa) {
-            // Например, удаляем счет из базы
-            $InvId = Yii::app()->request->getParam('InvId');
-            $invoice = Invoice::model()->findByPk($InvId);
-            if ($invoice) {
-                $invoice->description = $robokassa->params['reason'];
-                //$invoice->delete();
-                $invoice->save();
-            }
-        };
-
-        // Обработка ответа робокассы
-        $robokassa->result();
-        die();
     }
 
     /*

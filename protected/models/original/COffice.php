@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'office':
  * @property string $id
  * @property string $city_id
+ * @property string $title
  * @property string $address
  * @property string $phone
  * @property integer $work_day_start
@@ -32,17 +33,17 @@ class COffice extends ActiveRecord {
 
 	public function rules()	{
 		return array(
-			array('city_id, address, phone, work_day_start, work_day_end, work_time_start, work_time_end, x, y', 'required'),
+			array('city_id, title, address, phone, work_day_start, work_day_end, work_time_start, work_time_end, x, y', 'required'),
 			array('work_day_start, work_day_end', 'numerical', 'integerOnly'=>true),
 			array('city_id', 'length', 'max'=>10),
+			array('title, phone', 'length', 'max'=>64),
 			array('address', 'length', 'max'=>128),
-			array('phone', 'length', 'max'=>64),
 			array('x, y', 'length', 'max'=>9),
 			array('status', 'length', 'max'=>7),
 			array('lunch, changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, city_id, address, phone, work_day_start, work_day_end, work_time_start, work_time_end, lunch, x, y, status, changed', 'safe', 'on'=>'search'),
+			array('id, city_id, title, address, phone, work_day_start, work_day_end, work_time_start, work_time_end, lunch, x, y, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,6 +65,7 @@ class COffice extends ActiveRecord {
 		return array(
 			'id' => 'ID',
 			'city_id' => 'City',
+			'title' => 'Title',
 			'address' => 'Address',
 			'phone' => 'Phone',
 			'work_day_start' => 'Work Day Start',
@@ -85,6 +87,7 @@ class COffice extends ActiveRecord {
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('city_id',$this->city_id,true);
+		$criteria->compare('title',$this->title,true);
 		$criteria->compare('address',$this->address,true);
 		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('work_day_start',$this->work_day_start);

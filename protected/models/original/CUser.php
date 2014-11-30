@@ -9,6 +9,7 @@
  * @property string $email
  * @property string $password
  * @property string $type
+ * @property string $city_id
  * @property string $status
  * @property string $changed
  *
@@ -18,6 +19,7 @@
  * @property Cart[] $carts
  * @property Cutaway[] $cutaways
  * @property Invoice[] $invoices
+ * @property City $city
  */
 class CUser extends ActiveRecord {
 
@@ -31,11 +33,12 @@ class CUser extends ActiveRecord {
 			array('email', 'length', 'max'=>64),
 			array('password', 'length', 'max'=>32),
 			array('type', 'length', 'max'=>5),
+			array('city_id', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
 			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, username, email, password, type, status, changed', 'safe', 'on'=>'search'),
+			array('id, username, email, password, type, city_id, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +54,7 @@ class CUser extends ActiveRecord {
 			'carts' => array(self::HAS_MANY, 'Cart', 'user_id'),
 			'cutaways' => array(self::HAS_MANY, 'Cutaway', 'user_id'),
 			'invoices' => array(self::HAS_MANY, 'Invoice', 'user_id'),
+			'city' => array(self::BELONGS_TO, 'City', 'city_id'),
 		);
 	}
 
@@ -61,6 +65,7 @@ class CUser extends ActiveRecord {
 			'email' => 'Email',
 			'password' => 'Password',
 			'type' => 'Type',
+			'city_id' => 'City',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
@@ -76,6 +81,7 @@ class CUser extends ActiveRecord {
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('type',$this->type,true);
+		$criteria->compare('city_id',$this->city_id,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);
 

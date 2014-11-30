@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $title
  * @property string $description
+ * @property string $payment_type
  * @property string $status
  * @property string $changed
  *
@@ -22,13 +23,14 @@ class CPayment extends ActiveRecord {
 
 	public function rules()	{
 		return array(
-			array('title, description', 'required'),
+			array('title, description, payment_type', 'required'),
 			array('title', 'length', 'max'=>128),
+			array('payment_type', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
 			array('changed', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, status, changed', 'safe', 'on'=>'search'),
+			array('id, title, description, payment_type, status, changed', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,6 +51,7 @@ class CPayment extends ActiveRecord {
 			'id' => 'ID',
 			'title' => 'Title',
 			'description' => 'Description',
+			'payment_type' => 'Payment Type',
 			'status' => 'Status',
 			'changed' => 'Changed',
 		);
@@ -62,6 +65,7 @@ class CPayment extends ActiveRecord {
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('payment_type',$this->payment_type,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);
 

@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'address':
  * @property string $id
  * @property string $user_id
- * @property integer $address
+ * @property string $address
  * @property string $comment
  * @property string $status
  * @property string $changed
@@ -24,7 +24,6 @@ class CAddress extends ActiveRecord {
 	public function rules()	{
 		return array(
 			array('user_id, address, comment', 'required'),
-			array('address', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>10),
 			array('status', 'length', 'max'=>7),
 			array('changed', 'safe'),
@@ -64,7 +63,7 @@ class CAddress extends ActiveRecord {
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('address',$this->address);
+		$criteria->compare('address',$this->address,true);
 		$criteria->compare('comment',$this->comment,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('changed',$this->changed,true);

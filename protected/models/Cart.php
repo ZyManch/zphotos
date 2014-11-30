@@ -4,6 +4,7 @@
  * User: ZyManch
  * Date: 06.08.14
  * Time: 9:32
+ * @property Invoice $invoice
  */
 class Cart extends CCart {
 
@@ -17,7 +18,7 @@ class Cart extends CCart {
 
     protected function _extendedRelations() {
         return array(
-
+            'invoice' => array(self::HAS_ONE,'Invoice','cart_id')
         );
     }
     /**
